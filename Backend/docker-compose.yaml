@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/var
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_DATABASE=s16_05_m_php_react_db
+      - MYSQL_ROOT_PASSWORD=123
+    volumes:
+      - s16_05_m_php_react_db_vol:/var/lib/mysql
+    ports:
+      - 3306
+volumes:
+  s16_05_m_php_react_db_vol:
