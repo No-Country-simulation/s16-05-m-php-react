@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
@@ -42,6 +44,21 @@ class Reservation
 
     #[ORM\Column]
     private ?\DateTimeImmutable $update_at = null;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'reservation', orphanRemoval: true)]
+    private Collection $orders;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Table $_table = null;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -164,6 +181,48 @@ class Reservation
     public function setUpdateAt(\DateTimeImmutable $update_at): static
     {
         $this->update_at = $update_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setReservation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getReservation() === $this) {
+                $order->setReservation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTable(): ?Table
+    {
+        return $this->_table;
+    }
+
+    public function setTable(?Table $_table): static
+    {
+        $this->_table = $_table;
 
         return $this;
     }
