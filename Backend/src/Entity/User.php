@@ -14,7 +14,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Post(
     processor: PostUserProcessor::class,
-    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['register']],
+    normalizationContext: ['groups' => ['register:read']],
 )]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -23,24 +24,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read'])]
+    #[Groups(['register:read'])]
     private ?int $id = null;
     
     #[ORM\Column(length: 180)]
-    #[Groups(['read'])]
+    #[Groups(['register', 'register:read'])]
     private ?string $email = null;
     
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
-    #[Groups(['read'])]
+    #[Groups(['register:read'])]
     private array $roles = [];
-
+    
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['register'])]
     private ?string $password = null;
 
     /**
