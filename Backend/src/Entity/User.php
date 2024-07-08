@@ -3,7 +3,13 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\Response;
+use App\Dto\ResetPasswordDto;
+use App\Dto\UserEmailDto;
 use App\Repository\UserRepository;
+use App\State\ResetPasswordRequestProcessor;
+use App\State\ResetPasswordProcessor;
 use App\State\PostUserProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,6 +26,46 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['register']],
     normalizationContext: ['groups' => ['register:read']],
     validationContext: ['groups' => ['register']]
+)]
+#[Post(
+    name: 'reset_password_request',
+    uriTemplate: '/user/reset-password-request',
+    processor: ResetPasswordRequestProcessor::class,
+    input: UserEmailDto::class,
+    status: 200,
+    openapi: new Operation(
+        operationId: 'reset_password_request',
+        summary: 'Create a reset password request',
+        description: 'Create a reset password request, an email will be sent to the specified email address with a code to reset the password.',
+        responses: [
+            '200' => new Response(
+                description: 'An Email will be sent to the specified email address with a code to reset the password.',
+            ),            
+            '404' => new Response(
+                description: 'The address specified does not exist in the system.',
+            ),
+        ]
+    )
+)]
+#[Post(
+    name: 'reset_password',
+    uriTemplate: '/user/reset-password',
+    processor: ResetPasswordProcessor::class,
+    input: ResetPasswordDto::class,
+    status: 200,
+    openapi: new Operation(
+        operationId: 'reset_password',
+        summary: 'Reset user password',
+        description: 'Reset user password, a code is required to reset the password (this code should be sent previously to the user email).',
+        responses: [
+            '200' => new Response(
+                description: 'The password has been successfully reset.',
+            ),
+            '403' => new Response(
+                description: 'The code specified is invalid or expired.',
+            ),
+        ]
+    )
 )]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
