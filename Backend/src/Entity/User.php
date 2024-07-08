@@ -31,6 +31,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
     status: 200,
     openapi: new Operation(
         operationId: 'reset_password_request',
+        summary: 'Create a reset password request',
+        description: 'Create a reset password request, an email will be sent to the specified email address with a code to reset the password.',
         responses: [
             '200' => new Response(
                 description: 'An Email will be sent to the specified email address with a code to reset the password.',
@@ -49,6 +51,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
     status: 200,
     openapi: new Operation(
         operationId: 'reset_password',
+        summary: 'Reset user password',
+        description: 'Reset user password, a code is required to reset the password (this code should be sent previously to the user email).',
         responses: [
             '200' => new Response(
                 description: 'The password has been successfully reset.',
