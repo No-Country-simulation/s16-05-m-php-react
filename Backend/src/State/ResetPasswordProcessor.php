@@ -10,6 +10,7 @@ use App\Repository\ResetPasswordRequestRepository;
 use App\Repository\UserRepository;
 use App\Service\ResetPasswordRequestService;
 use App\Service\UserService;
+use App\Util\SuccessMessageResponse;
 use Psr\Log\LoggerInterface;
 
 class ResetPasswordProcessor implements ProcessorInterface
@@ -24,11 +25,13 @@ class ResetPasswordProcessor implements ProcessorInterface
     /**
      * @param ChangePasswordDto $data
      */
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): SuccessMessageResponse
     {
         $user = $this->resetPasswordRequestService->findByCodeAndGetUser($data->getCode());
         $hashedPassword = $this->userService->hashPassword($user, $data->getNewPassword());
         $this->userRepository->upgradePassword($user, $hashedPassword);
         $this->resetPasswordRequestService->deleteResetPasswordRequest($data->getCode());
+
+        return new SuccessMessageResponse(description: 'Password changed successfully');
     }
 }
