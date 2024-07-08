@@ -14,14 +14,18 @@ use App\State\PostUserProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(fields: ['email'], groups: ['register'])]
 #[Post(
     processor: PostUserProcessor::class,
     denormalizationContext: ['groups' => ['register']],
     normalizationContext: ['groups' => ['register:read']],
+    validationContext: ['groups' => ['register']]
 )]
 #[Post(
     name: 'reset_password_request',
@@ -74,7 +78,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
     
     #[ORM\Column(length: 180)]
-    #[Groups(['register', 'register:read'])]
+    #[Groups(['register', 'register:read'])]    
+    #[Assert\NotBlank(groups: ['register'])]
+    #[Assert\Email(groups: ['register'])]
     private ?string $email = null;
     
     /**
@@ -89,6 +95,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Groups(['register'])]
+    #[Assert\NotBlank(groups: ['register'])]
+    #[Assert\Length(min: 6, groups: ['register'])]
     private ?string $password = null;
 
     /**
