@@ -10,7 +10,9 @@ function App() {
     <>  
 
       <Navbar/>
-      
+        <div>
+          <p className="text-color-primary font-title">Hola</p>
+        </div>
       <Footer/>
         
     </>

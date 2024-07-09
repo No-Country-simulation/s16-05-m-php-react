@@ -18,6 +18,13 @@ module.exports = {
     },
     extend: {
       colors: {
+        color:{
+          primary: "#7F2A44",
+          secondary: "#DCBC4B",
+          text: "#222222",
+          textbutton: "#f5f5f5"
+
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -66,6 +73,9 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+      },
+      fontFamily: {
+        title: ["Open Sans"]
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
