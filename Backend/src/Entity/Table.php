@@ -2,11 +2,35 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Dto\TableDto;
 use App\Repository\TableRepository;
+use App\State\TableProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
+#[GetCollection(
+    normalizationContext: ['groups' => ['table:read']],
+)]
+#[Post(
+    denormalizationContext: ['groups' => ['table:write']],
+    normalizationContext: ['groups' => ['table:read']],
+    validationContext: ['groups' => ['table:write:validation']],
+    input: TableDto::class,
+    processor: TableProcessor::class
+)]
+#[Delete()]
+#[Put(
+    denormalizationContext: ['groups' => ['table:write']],
+    normalizationContext: ['groups' => ['table:read']],
+    input: TableDto::class,
+    processor: TableProcessor::class
+)]
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: '`table`')]
 class Table
@@ -14,12 +38,15 @@ class Table
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['table:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['table:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['table:read'])]
     private ?int $available_sits = null;
 
     /**
