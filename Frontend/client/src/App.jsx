@@ -2,6 +2,7 @@ import Footer from "./components/Footer/Footer"
 import Navbar from "./components/Navbar/Navbar"
 import { Button } from "./components/ui/button"
 import { Input } from "./components/ui/input"
+import Login from "./pages/Login"
 
 function App() {
  
@@ -10,9 +11,7 @@ function App() {
     <>  
 
       <Navbar/>
-        <div>
-          <p className="text-color-primary font-title">Hola</p>
-        </div>
+        <Login/>
       <Footer/>
         
     </>
