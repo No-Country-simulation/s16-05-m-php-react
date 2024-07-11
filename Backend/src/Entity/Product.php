@@ -6,22 +6,52 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Dto\ProductDto;
+use App\State\ProductProcessor;
 
+
+#[GetCollection(
+    normalizationContext: ['groups' => ['product:read']],
+)]
+#[Post(
+    denormalizationContext: ['groups' => ['product:write']],
+    normalizationContext: ['groups' => ['product:read']],
+    validationContext: ['groups' => ['table:write:validation']],
+    input: ProductDto::class,
+    processor: ProductProcessor::class
+)]
+#[Delete()]
+#[Put(
+    denormalizationContext: ['groups' => ['product:write']],
+    normalizationContext: ['groups' => ['product:read']],
+    input: ProductDto::class,
+    processor: ProductProcessor::class
+)]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Table(name: 'product')]
 class Product
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?float $price = null;
 
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?bool $is_available = null;
 
     /**
@@ -64,12 +94,12 @@ class Product
         return $this;
     }
 
-    public function isAvailable(): ?bool
+    public function getIsAvailable(): ?bool
     {
         return $this->is_available;
     }
 
-    public function setAvailable(bool $is_available): static
+    public function setIsAvailable(bool $is_available): static
     {
         $this->is_available = $is_available;
 
