@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Dto\ProductDto;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,28 +17,31 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function saveFromDto(ProductDto $productDto): Product
+    {
+        $product = new Product();
+        
+        $product->setName($productDto->getName());
+        $product->setPrice($productDto->getPrice());
+        $product->setIsAvailable($productDto->getIsAvailable());
 
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush();
+
+        return $product;
+    }
+
+    public function updateFromDto(ProductDto $productDto, int $id): Product
+    {
+        $product = $this->find($id);
+
+        $product->setName($productDto->getName());
+        $product->setPrice($productDto->getPrice());
+        $product->setIsAvailable($productDto->getIsAvailable());
+
+        $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush();
+
+        return $product;
+    }
 }
