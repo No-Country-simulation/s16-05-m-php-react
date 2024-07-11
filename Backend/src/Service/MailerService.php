@@ -14,7 +14,7 @@ class MailerService
   public function sendEmail(string $to, string $subject, string $content)
   {
     $email = (new Email())
-      ->from('postmaster@sandbox00432607f37847d89d11dfe6a3128b99.mailgun.org')
+      ->from($_ENV['CUSTOM_EMAIL'])
       ->to($to)
       ->subject($subject)
       ->text($content);
