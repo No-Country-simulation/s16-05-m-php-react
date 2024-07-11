@@ -20,14 +20,13 @@ class ProductDto
     private $name;
 
     #[NotBlank(groups: ['product:write:validation'])]
-    #[Type(type: 'integer', groups: ['product:write:validation'])]
+    #[Type(type: ['integer', 'float'], groups: ['product:write:validation'])]
     #[GreaterThan(0, groups: ['product:write:validation'])]
     #[Groups(['product:write'])]
     private $price;
-
+    
     #[NotBlank(groups: ['product:write:validation'])]
-    #[Type(type: 'bool', groups: ['product:write:validation'])]
-    #[GreaterThan(0, groups: ['product:write:validation'])]
+    #[Type(type: 'boolean', groups: ['product:write:validation'])]
     #[Groups(['product:write'])]
     private $is_available;
 

@@ -21,7 +21,7 @@ use App\State\ProductProcessor;
 #[Post(
     denormalizationContext: ['groups' => ['product:write']],
     normalizationContext: ['groups' => ['product:read']],
-    validationContext: ['groups' => ['table:write:validation']],
+    validationContext: ['groups' => ['product:write:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
 )]
@@ -29,6 +29,7 @@ use App\State\ProductProcessor;
 #[Put(
     denormalizationContext: ['groups' => ['product:write']],
     normalizationContext: ['groups' => ['product:read']],
+    validationContext: ['groups' => ['product:write:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
 )]
