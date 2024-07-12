@@ -6,6 +6,7 @@ use App\Entity\Table;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
@@ -23,13 +24,22 @@ class TableDto
   #[NotBlank(groups: ['table:write:validation'])]
   #[Type(type: 'integer', groups: ['table:write:validation'])]
   #[GreaterThan(0, groups: ['table:write:validation'])]
+  #[GreaterThanOrEqual(
+    propertyPath: 'min_required_capacity',
+    groups: ['table:write:validation'],
+    message: 'table.capacity.greater_than_or_equal'
+  )]
   #[Groups(['table:write'])]
   private $capacity;
-  
+
   #[NotBlank(groups: ['table:write:validation'])]
   #[Type(type: 'integer', groups: ['table:write:validation'])]
   #[GreaterThan(0, groups: ['table:write:validation'])]
-  #[LessThanOrEqual(propertyPath: 'capacity', groups: ['table:write:validation'])]
+  #[LessThanOrEqual(
+    propertyPath: 'capacity', 
+    groups: ['table:write:validation'], 
+    message: 'table.min_required_capacity.less_than_or_equal'
+  )]
   #[Groups(['table:write'])]
   private $min_required_capacity;
 
