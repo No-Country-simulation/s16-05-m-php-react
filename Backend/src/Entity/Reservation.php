@@ -37,7 +37,7 @@ class Reservation
     private ?string $owner_phone_number = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $owner_phone_email = null;
+    private ?string $owner_email = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
@@ -149,14 +149,14 @@ class Reservation
         return $this;
     }
 
-    public function getOwnerPhoneEmail(): ?string
+    public function getOwnerEmail(): ?string
     {
-        return $this->owner_phone_email;
+        return $this->owner_email;
     }
 
-    public function setOwnerPhoneEmail(string $owner_phone_email): static
+    public function setOwnerEmail(string $owner_email): static
     {
-        $this->owner_phone_email = $owner_phone_email;
+        $this->owner_email = $owner_email;
 
         return $this;
     }
