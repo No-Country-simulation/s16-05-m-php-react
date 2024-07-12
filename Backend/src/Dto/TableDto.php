@@ -6,6 +6,8 @@ use App\Entity\Table;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
 
@@ -22,8 +24,24 @@ class TableDto
   #[NotBlank(groups: ['table:write:validation'])]
   #[Type(type: 'integer', groups: ['table:write:validation'])]
   #[GreaterThan(0, groups: ['table:write:validation'])]
+  #[GreaterThanOrEqual(
+    propertyPath: 'min_required_capacity',
+    groups: ['table:write:validation'],
+    message: 'table.capacity.greater_than_or_equal'
+  )]
   #[Groups(['table:write'])]
-  private $available_sits;
+  private $capacity;
+
+  #[NotBlank(groups: ['table:write:validation'])]
+  #[Type(type: 'integer', groups: ['table:write:validation'])]
+  #[GreaterThan(0, groups: ['table:write:validation'])]
+  #[LessThanOrEqual(
+    propertyPath: 'capacity', 
+    groups: ['table:write:validation'], 
+    message: 'table.min_required_capacity.less_than_or_equal'
+  )]
+  #[Groups(['table:write'])]
+  private $min_required_capacity;
 
   public function getId()
   {
@@ -49,14 +67,26 @@ class TableDto
     return $this;
   }
 
-  public function getAvailableSits()
+  public function getCapacity()
   {
-    return $this->available_sits;
+    return $this->capacity;
   }
 
-  public function setAvailableSits($available_sits)
+  public function setCapacity($capacity)
   {
-    $this->available_sits = $available_sits;
+    $this->capacity = $capacity;
+
+    return $this;
+  }
+
+  public function getMinRequiredCapacity()
+  {
+    return $this->min_required_capacity;
+  }
+
+  public function setMinRequiredCapacity($min_required_capacity)
+  {
+    $this->min_required_capacity = $min_required_capacity;
 
     return $this;
   }
