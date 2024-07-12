@@ -75,7 +75,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        title: ["Open Sans"]
+        title: ["Montserrat"]
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
