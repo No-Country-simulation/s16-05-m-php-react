@@ -47,7 +47,11 @@ class Table
 
     #[ORM\Column]
     #[Groups(['table:read'])]
-    private ?int $available_sits = null;
+    private ?int $capacity = null;
+        
+    #[ORM\Column]
+    #[Groups(['table:read'])]
+    private ?int $min_required_capacity = null;
 
     /**
      * @var Collection<int, Reservation>
@@ -77,14 +81,26 @@ class Table
         return $this;
     }
 
-    public function getAvailableSits(): ?int
+    public function getCapacity(): ?int
     {
-        return $this->available_sits;
+        return $this->capacity;
     }
 
-    public function setAvailableSits(int $available_sits): static
+    public function setCapacity(int $capacity): static
     {
-        $this->available_sits = $available_sits;
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getMinRequiredCapacity(): ?int
+    {
+        return $this->min_required_capacity;
+    }
+
+    public function setMinRequiredCapacity(int $min_required_capacity): static
+    {
+        $this->min_required_capacity = $min_required_capacity;
 
         return $this;
     }
