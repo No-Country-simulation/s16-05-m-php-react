@@ -2,47 +2,87 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Dto\ReservationDto;
+use App\State\ReservationProcessor;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Table;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+#[GetCollection(
+    normalizationContext: ['groups' => ['reservation:read']],
+)]
+#[Post(
+    denormalizationContext: ['groups' => ['reservation:write']],
+    normalizationContext: ['groups' => ['reservation:read']],
+    validationContext: ['groups' => ['reservation:write:validation']],
+    input: ReservationDto::class,
+    processor: ReservationProcessor::class
+)]
+#[Delete()]
+#[Put(
+    denormalizationContext: ['groups' => ['reservation:write']],
+    normalizationContext: ['groups' => ['reservation:read']],
+    validationContext: ['groups' => ['reservation:write:validation']],
+    input: ReservationDto::class,
+    processor: ReservationProcessor::class
+)]
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
     private ?\DateTimeImmutable $date_from = null;
 
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
     private ?\DateTimeImmutable $date_to = null;
 
     #[ORM\Column(length: 7)]
-    private ?string $code = null;
+    #[Groups(['reservation:read'])]
+    private ?string $code;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $status = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_first_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_last_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_phone_number = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_email = null;
 
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
     private ?\DateTimeImmutable $update_at = null;
 
     /**
@@ -53,6 +93,7 @@ class Reservation
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['reservation:read'])]
     private ?Table $_table = null;
 
     public function __construct()
@@ -206,7 +247,6 @@ class Reservation
     public function removeOrder(Order $order): static
     {
         if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
             if ($order->getReservation() === $this) {
                 $order->setReservation(null);
             }
