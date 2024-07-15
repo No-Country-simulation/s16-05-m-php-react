@@ -2,21 +2,19 @@
 
 namespace App\Dto;
 
-use App\Entity\Reservation;
 use App\Entity\Table;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Util\DateDifferenceUtil;
+use App\Validator\ReservationDate;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-#[UniqueEntity(fields: ['code'], entityClass: Reservation::class, groups: ['reservation:write:validation'])]
+#[ReservationDate(groups: ['reservation:write:validation'])]
 class ReservationDto
 {
-    #[Groups(['reservation:read'])]
-    private $id;
-
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[DateTime(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
@@ -30,8 +28,7 @@ class ReservationDto
     #[Groups(['reservation:read'])]
     private $code;
 
-    #[NotBlank(groups: ['reservation:write:validation'])]
-    #[Groups(['reservation:write'])]
+    #[Groups(['reservation:read'])]
     private $status;
 
     #[NotBlank(groups: ['reservation:write:validation'])]
@@ -51,36 +48,45 @@ class ReservationDto
     #[Groups(['reservation:write'])]
     private $owner_email;
 
-    #[Groups(['reservation:write'])]
-    private $created_at;
-
-    #[Groups(['reservation:write'])]
-    private $update_at;
-
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
-    private ?Table $_table;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    private ?Table $table;
 
     public function getDateFrom()
     {
         return new \DateTimeImmutable($this->date_from);
     }
-
+    
     public function setDateFrom($date_from)
     {
         $this->date_from = $date_from;
-
+        
         return $this;
     }
 
     public function getDateTo()
     {
         return new \DateTimeImmutable($this->date_to);
+    }
+
+    #[GreaterThanOrEqual(value: 1, groups: ['reservation:write:validation'])]
+    private function getDateHourDifference(): int
+    {
+        return DateDifferenceUtil::getDifferenceInHours(
+            $this->getDateFrom(),
+            $this->getDateTo()
+        );
+    }
+
+    #[EqualTo(value: 0, groups: ['reservation:write:validation'])]
+    private function getDateMinutesIntervalRemainder(): int
+    {
+        $diffInMinutes = DateDifferenceUtil::getDifferenceInMinutes(
+            $this->getDateFrom(),
+            $this->getDateTo()
+        );
+        
+        return $diffInMinutes % 30;
     }
 
     public function setDateTo($date_to)
@@ -162,38 +168,14 @@ class ReservationDto
         return $this;
     }
 
-    public function getCreatedAt()
-    {
-        return new \DateTimeImmutable();
-    }
-
-    public function setCreatedAt($created_at)
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdateAt()
-    {
-        return new \DateTimeImmutable();
-    }
-
-    public function setUpdateAt($update_at)
-    {
-        $this->update_at = $update_at;
-
-        return $this;
-    }
-
     public function getTable(): ?Table
     {
-        return $this->_table;
+        return $this->table;
     }
 
-    public function setTable(?Table $_table)
+    public function setTable(?Table $table)
     {
-        $this->_table = $_table;
+        $this->table = $table;
 
         return $this;
     }

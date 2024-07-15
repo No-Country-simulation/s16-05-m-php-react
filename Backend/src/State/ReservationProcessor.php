@@ -7,11 +7,13 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Reservation;
 use App\Repository\ReservationRepository;
+use App\Service\ReservationService;
 
 class ReservationProcessor implements ProcessorInterface
 {
     public function __construct(
-        private ReservationRepository $reservationRepository
+        private ReservationRepository $reservationRepository,
+        private ReservationService $reservationService
     ) {
     }
 
@@ -21,8 +23,9 @@ class ReservationProcessor implements ProcessorInterface
             $reservation = $this->reservationRepository->updateFromDto($data, $uriVariables['id']);
             return $reservation;
         }
+        $code = $this->reservationService->validateAndGenerateCode();
+        $reservation = $this->reservationRepository->saveFromDto($data, $code);
 
-        $reservation = $this->reservationRepository->saveFromDto($data);
         return $reservation;
     }
 }

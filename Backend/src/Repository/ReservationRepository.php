@@ -6,7 +6,7 @@ use App\Dto\ReservationDto;
 use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use ReservationService;
+use App\Service\ReservationService;
 
 /**
  * @extends ServiceEntityRepository<Reservation>
@@ -18,21 +18,16 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    public function saveFromDto(ReservationDto $reservationDto): Reservation
+    public function saveFromDto(ReservationDto $reservationDto, string $code): Reservation
     {
-        $reservationService = new ReservationService($this);
-        $code = $reservationService->code();
         $reservation = new Reservation();
         $reservation->setDateFrom($reservationDto->getDateFrom());
         $reservation->setDateTo($reservationDto->getDateTo());
         $reservation->setCode($code);
-        $reservation->setStatus($reservationDto->getStatus());
         $reservation->setOwnerFirstName($reservationDto->getOwnerFirstName());
         $reservation->setOwnerLastName($reservationDto->getOwnerLastName());
         $reservation->setOwnerPhoneNumber($reservationDto->getOwnerPhoneNumber());
         $reservation->setOwnerEmail($reservationDto->getOwnerEmail());
-        $reservation->setCreatedAt($reservationDto->getCreatedAt());
-        $reservation->setUpdateAt($reservationDto->getUpdateAt());
         $reservation->setTable($reservationDto->getTable());
 
         $this->getEntityManager()->persist($reservation);
@@ -47,17 +42,35 @@ class ReservationRepository extends ServiceEntityRepository
 
         $reservation->setDateFrom($reservationDto->getDateFrom());
         $reservation->setDateTo($reservationDto->getDateTo());
-        $reservation->setStatus($reservationDto->getStatus());
         $reservation->setOwnerFirstName($reservationDto->getOwnerFirstName());
         $reservation->setOwnerLastName($reservationDto->getOwnerLastName());
         $reservation->setOwnerPhoneNumber($reservationDto->getOwnerPhoneNumber());
         $reservation->setOwnerEmail($reservationDto->getOwnerEmail());
-        $reservation->setUpdateAt($reservationDto->getUpdateAt());
+        $reservation->setUpdateAt(new \DateTimeImmutable);
         $reservation->setTable($reservationDto->getTable());
 
         $this->getEntityManager()->persist($reservation);
         $this->getEntityManager()->flush();
 
         return $reservation;
+    }
+
+    public function existsCode(string $code): bool
+    {
+        return null !== $this->findOneBy(['code' => $code]);
+    }
+
+    public function existReservationByDateRange(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo): bool
+    {
+        return null !== $this->createQueryBuilder('r')
+            ->where('r.date_from BETWEEN :dateFrom AND :dateTo')
+            ->orWhere('r.date_to BETWEEN :dateFrom AND :dateTo')
+            ->orWhere(':dateFrom BETWEEN r.date_from AND r.date_to')
+            ->orWhere(':dateTo BETWEEN r.date_from AND r.date_to')
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
     }
 }

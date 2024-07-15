@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Service;
+
 use App\Repository\ReservationRepository;
 
 class ReservationService{
@@ -23,13 +25,12 @@ class ReservationService{
         return $code;
     }
 
-    public function code()
+    public function validateAndGenerateCode(): string
     {
         do{
             $code = static::generateCode();
-            $codeVerification = $this->reservationRepository->findOneBy(['code' => $code]);
-        } while ($codeVerification);
+        } while ($this->reservationRepository->existsCode($code));
         
         return $code;
-    } 
+    }
 }

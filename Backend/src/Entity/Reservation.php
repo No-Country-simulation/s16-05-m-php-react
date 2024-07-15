@@ -14,7 +14,6 @@ use App\Dto\ReservationDto;
 use App\State\ReservationProcessor;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Table;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 #[GetCollection(
     normalizationContext: ['groups' => ['reservation:read']],
@@ -24,7 +23,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
     normalizationContext: ['groups' => ['reservation:read']],
     validationContext: ['groups' => ['reservation:write:validation']],
     input: ReservationDto::class,
-    processor: ReservationProcessor::class
+    processor: ReservationProcessor::class,
 )]
 #[Delete()]
 #[Put(
@@ -34,7 +33,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
     input: ReservationDto::class,
     processor: ReservationProcessor::class
 )]
-
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
@@ -92,13 +90,16 @@ class Reservation
     private Collection $orders;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, name: '_table_id')]
     #[Groups(['reservation:read'])]
-    private ?Table $_table = null;
+    private ?Table $table = null;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->status = 'waiting';
+        $this->created_at = new \DateTimeImmutable();
+        $this->update_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -257,12 +258,12 @@ class Reservation
 
     public function getTable(): ?Table
     {
-        return $this->_table;
+        return $this->table;
     }
 
-    public function setTable(?Table $_table): static
+    public function setTable(?Table $table): static
     {
-        $this->_table = $_table;
+        $this->table = $table;
 
         return $this;
     }
