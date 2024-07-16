@@ -16,14 +16,19 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ReservationDto
 {
     #[NotBlank(groups: ['reservation:write:validation'])]
-    #[DateTime(groups: ['reservation:write:validation'])]
+    #[DateTime(groups: ['reservation:write:validation'], format: 'Y-m-d')]
     #[Groups(['reservation:write'])]
-    private $date_from;
+    private $date;
 
     #[NotBlank(groups: ['reservation:write:validation'])]
-    #[DateTime(groups: ['reservation:write:validation'])]
+    #[DateTime(groups: ['reservation:write:validation'], format: 'H:i')]
     #[Groups(['reservation:write'])]
-    private $date_to;
+    private $time_from;
+
+    #[NotBlank(groups: ['reservation:write:validation'])]
+    #[DateTime(groups: ['reservation:write:validation'], format: 'H:i')]
+    #[Groups(['reservation:write'])]
+    private $time_to;
 
     #[Groups(['reservation:read'])]
     private $code;
@@ -52,29 +57,48 @@ class ReservationDto
     #[Groups(['reservation:write'])]
     private ?Table $table;
 
-    public function getDateFrom()
+    public function getDate()
     {
-        return new \DateTimeImmutable($this->date_from);
+        return \DateTimeImmutable::createFromFormat('Y-m-d', $this->date);
     }
-    
-    public function setDateFrom($date_from)
+
+    public function setDate($date)
     {
-        $this->date_from = $date_from;
-        
+        $this->date = $date;
+
         return $this;
     }
 
-    public function getDateTo()
+    public function getTimeFrom()
     {
-        return new \DateTimeImmutable($this->date_to);
+        return  \DateTimeImmutable::createFromFormat('H:i', $this->time_from);
+    }
+
+    public function setTimeFrom($time_from)
+    {
+        $this->time_from = $time_from;
+
+        return $this;
+    }
+
+    public function getTimeTo()
+    {
+        return \DateTimeImmutable::createFromFormat('H:i', $this->time_to);
+    }
+
+    public function setTimeTo($time_to)
+    {
+        $this->time_to = $time_to;
+
+        return $this;
     }
 
     #[GreaterThanOrEqual(value: 1, groups: ['reservation:write:validation'])]
     private function getDateHourDifference(): int
     {
         return DateDifferenceUtil::getDifferenceInHours(
-            $this->getDateFrom(),
-            $this->getDateTo()
+            $this->getTimeFrom(),
+            $this->getTimeTo()
         );
     }
 
@@ -82,18 +106,11 @@ class ReservationDto
     private function getDateMinutesIntervalRemainder(): int
     {
         $diffInMinutes = DateDifferenceUtil::getDifferenceInMinutes(
-            $this->getDateFrom(),
-            $this->getDateTo()
+            $this->getTimeFrom(),
+            $this->getTimeTo()
         );
         
         return $diffInMinutes % 30;
-    }
-
-    public function setDateTo($date_to)
-    {
-        $this->date_to = $date_to;
-
-        return $this;
     }
 
     public function getCode()

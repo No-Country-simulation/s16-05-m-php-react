@@ -21,8 +21,10 @@ class ReservationRepository extends ServiceEntityRepository
     public function saveFromDto(ReservationDto $reservationDto, string $code): Reservation
     {
         $reservation = new Reservation();
-        $reservation->setDateFrom($reservationDto->getDateFrom());
-        $reservation->setDateTo($reservationDto->getDateTo());
+
+        $reservation->setDate($reservationDto->getDate());
+        $reservation->setTimeFrom($reservationDto->getTimeFrom());
+        $reservation->setTimeTo($reservationDto->getTimeTo());
         $reservation->setCode($code);
         $reservation->setOwnerFirstName($reservationDto->getOwnerFirstName());
         $reservation->setOwnerLastName($reservationDto->getOwnerLastName());
@@ -36,12 +38,16 @@ class ReservationRepository extends ServiceEntityRepository
         return $reservation;
     }
 
-    public function updateFromDto(ReservationDto $reservationDto, int $id): Reservation
+    public function uptimeFromDto(ReservationDto $reservationDto, int $id): Reservation
     {
+        /**
+         * @var Reservation $reservation
+         */
         $reservation = $this->find($id);
 
-        $reservation->setDateFrom($reservationDto->getDateFrom());
-        $reservation->setDateTo($reservationDto->getDateTo());
+        $reservation->setDate($reservationDto->getDate());
+        $reservation->setTimeFrom($reservationDto->getTimeFrom());
+        $reservation->setTimeTo($reservationDto->getTimeTo());
         $reservation->setOwnerFirstName($reservationDto->getOwnerFirstName());
         $reservation->setOwnerLastName($reservationDto->getOwnerLastName());
         $reservation->setOwnerPhoneNumber($reservationDto->getOwnerPhoneNumber());
@@ -60,15 +66,17 @@ class ReservationRepository extends ServiceEntityRepository
         return null !== $this->findOneBy(['code' => $code]);
     }
 
-    public function existReservationByDateRange(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo): bool
+    public function existReservationByDateAndTimeRange(\DateTimeImmutable $date, \DateTimeImmutable $timeFrom, \DateTimeImmutable $timeTo): bool
     {
         return null !== $this->createQueryBuilder('r')
-            ->where('r.date_from BETWEEN :dateFrom AND :dateTo')
-            ->orWhere('r.date_to BETWEEN :dateFrom AND :dateTo')
-            ->orWhere(':dateFrom BETWEEN r.date_from AND r.date_to')
-            ->orWhere(':dateTo BETWEEN r.date_from AND r.date_to')
-            ->setParameter('dateFrom', $dateFrom)
-            ->setParameter('dateTo', $dateTo)
+            ->where('r.time_from BETWEEN :timeFrom AND :timeTo')
+            ->orWhere('r.time_to BETWEEN :timeFrom AND :timeTo')
+            ->orWhere(':timeFrom BETWEEN r.time_from AND r.time_to')
+            ->orWhere(':timeTo BETWEEN r.time_from AND r.time_to')
+            ->andWhere('r.date = :date')
+            ->setParameter('timeFrom', $timeFrom->add(\DateInterval::createFromDateString('1 minute'))->format('H:i'))
+            ->setParameter('timeTo', $timeTo->sub(\DateInterval::createFromDateString('1 minute'))->format('H:i'))
+            ->setParameter('date', $date->format('Y-m-d'))
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();

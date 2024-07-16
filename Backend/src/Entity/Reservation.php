@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Put;
 use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Dto\ReservationDto;
 use App\State\ReservationProcessor;
@@ -42,14 +43,6 @@ class Reservation
     #[ORM\Column]
     #[Groups(['reservation:read'])]
     private ?int $id = null;
-
-    #[ORM\Column]
-    #[Groups(['reservation:read'])]
-    private ?\DateTimeImmutable $date_from = null;
-
-    #[ORM\Column]
-    #[Groups(['reservation:read'])]
-    private ?\DateTimeImmutable $date_to = null;
 
     #[ORM\Column(length: 7)]
     #[Groups(['reservation:read'])]
@@ -93,6 +86,18 @@ class Reservation
     #[ORM\JoinColumn(nullable: false, name: '_table_id')]
     #[Groups(['reservation:read'])]
     private ?Table $table = null;
+    
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[Groups(['reservation:read'])]
+    private ?\DateTimeImmutable $date = null;
+    
+    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
+    #[Groups(['reservation:read'])]
+    private ?\DateTimeImmutable $time_from = null;
+    
+    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
+    #[Groups(['reservation:read'])]
+    private ?\DateTimeImmutable $time_to = null;
 
     public function __construct()
     {
@@ -105,30 +110,6 @@ class Reservation
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDateFrom(): ?\DateTimeImmutable
-    {
-        return $this->date_from;
-    }
-
-    public function setDateFrom(\DateTimeImmutable $date_from): static
-    {
-        $this->date_from = $date_from;
-
-        return $this;
-    }
-
-    public function getDateTo(): ?\DateTimeImmutable
-    {
-        return $this->date_to;
-    }
-
-    public function setDateTo(\DateTimeImmutable $date_to): static
-    {
-        $this->date_to = $date_to;
-
-        return $this;
     }
 
     public function getCode(): ?string
@@ -264,6 +245,42 @@ class Reservation
     public function setTable(?Table $table): static
     {
         $this->table = $table;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeImmutable $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getTimeFrom(): ?\DateTimeImmutable
+    {
+        return $this->time_from;
+    }
+
+    public function setTimeFrom(\DateTimeImmutable $time_from): static
+    {
+        $this->time_from = $time_from;
+
+        return $this;
+    }
+
+    public function getTimeTo(): ?\DateTimeImmutable
+    {
+        return $this->time_to;
+    }
+
+    public function setTimeTo(\DateTimeImmutable $time_to): static
+    {
+        $this->time_to = $time_to;
 
         return $this;
     }
