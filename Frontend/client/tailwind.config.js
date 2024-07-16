@@ -22,8 +22,8 @@ module.exports = {
           primary: "#7F2A44",
           secondary: "#DCBC4B",
           text: "#222222",
-          textbutton: "#f5f5f5"
-
+          textbutton: "#f5f5f5",
+          bg: "#bfbfbf"
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
