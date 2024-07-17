@@ -4,13 +4,10 @@ namespace App\Dto;
 
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Table;
-use App\Util\DateDifferenceUtil;
 use App\Validator\ReservationDate;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\EqualTo;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ReservationDate(groups: ['reservation:write:validation'])]
@@ -36,14 +33,9 @@ class ReservationDto
         ]
     )]
     #[NotBlank(groups: ['reservation:write:validation'])]
-    #[DateTime(groups: ['reservation:write:validation'], format: 'H:i')]
+    #[DateTime(groups: ['reservation:write:validation'], format: 'H:00')]
     #[Groups(['reservation:write'])]
-    private $time_from;
-
-    #[NotBlank(groups: ['reservation:write:validation'])]
-    #[DateTime(groups: ['reservation:write:validation'], format: 'H:i')]
-    #[Groups(['reservation:write'])]
-    private $time_to;
+    private $time;
 
     #[Groups(['reservation:read'])]
     private $code;
@@ -118,48 +110,16 @@ class ReservationDto
         return $this;
     }
 
-    public function getTimeFrom()
+    public function getTime()
     {
-        return  \DateTimeImmutable::createFromFormat('H:i', $this->time_from);
+        return  \DateTimeImmutable::createFromFormat('H:i', $this->time);
     }
 
-    public function setTimeFrom($time_from)
+    public function setTime($time)
     {
-        $this->time_from = $time_from;
+        $this->time = $time;
 
         return $this;
-    }
-
-    public function getTimeTo()
-    {
-        return \DateTimeImmutable::createFromFormat('H:i', $this->time_to);
-    }
-
-    public function setTimeTo($time_to)
-    {
-        $this->time_to = $time_to;
-
-        return $this;
-    }
-
-    #[GreaterThanOrEqual(value: 1, groups: ['reservation:write:validation'])]
-    private function getDateHourDifference(): int
-    {
-        return DateDifferenceUtil::getDifferenceInHours(
-            $this->getTimeFrom(),
-            $this->getTimeTo()
-        );
-    }
-
-    #[EqualTo(value: 0, groups: ['reservation:write:validation'])]
-    private function getDateMinutesIntervalRemainder(): int
-    {
-        $diffInMinutes = DateDifferenceUtil::getDifferenceInMinutes(
-            $this->getTimeFrom(),
-            $this->getTimeTo()
-        );
-        
-        return $diffInMinutes % 30;
     }
 
     public function getCode()

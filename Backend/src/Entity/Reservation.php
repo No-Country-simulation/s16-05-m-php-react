@@ -15,6 +15,8 @@ use App\Dto\ReservationDto;
 use App\State\ReservationProcessor;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Table;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 #[GetCollection(
     normalizationContext: ['groups' => ['reservation:read']],
@@ -70,10 +72,12 @@ class Reservation
 
     #[ORM\Column]
     #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
     #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     private ?\DateTimeImmutable $update_at = null;
 
     /**
@@ -89,15 +93,13 @@ class Reservation
     
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     private ?\DateTimeImmutable $date = null;
     
     #[ORM\Column(type: Types::TIME_IMMUTABLE)]
     #[Groups(['reservation:read'])]
-    private ?\DateTimeImmutable $time_from = null;
-    
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    #[Groups(['reservation:read'])]
-    private ?\DateTimeImmutable $time_to = null;
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'H:i'])]
+    private ?\DateTimeImmutable $time = null;
 
     public function __construct()
     {
@@ -261,26 +263,14 @@ class Reservation
         return $this;
     }
 
-    public function getTimeFrom(): ?\DateTimeImmutable
+    public function getTime(): ?\DateTimeImmutable
     {
-        return $this->time_from;
+        return $this->time;
     }
 
-    public function setTimeFrom(\DateTimeImmutable $time_from): static
+    public function setTime(\DateTimeImmutable $time): static
     {
-        $this->time_from = $time_from;
-
-        return $this;
-    }
-
-    public function getTimeTo(): ?\DateTimeImmutable
-    {
-        return $this->time_to;
-    }
-
-    public function setTimeTo(\DateTimeImmutable $time_to): static
-    {
-        $this->time_to = $time_to;
+        $this->time = $time;
 
         return $this;
     }

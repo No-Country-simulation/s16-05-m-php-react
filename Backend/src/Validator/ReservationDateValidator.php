@@ -29,13 +29,12 @@ class ReservationDateValidator extends ConstraintValidator
         }
 
         $date = $receipt->getDate();
-        $timeFrom = $receipt->getTimeFrom();
-        $timeTo = $receipt->getTimeTo();
+        $time = $receipt->getTime();
 
-        if ($this->reservationRepository->existReservationByDateAndTimeRange($date, $timeFrom, $timeTo)) {
+        if ($this->reservationRepository->existReservationByDateAndTime($date, $time)) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ timeFrom }}', $timeFrom->format('H:i'))
-                ->setParameter('{{ timeTo }}', $timeTo->format('H:i'))
+                ->setParameter('{{ date }}', $date->format('Y-m-d'))
+                ->setParameter('{{ time }}', $time->format('H:i'))
                 ->addViolation();
         }
     }
