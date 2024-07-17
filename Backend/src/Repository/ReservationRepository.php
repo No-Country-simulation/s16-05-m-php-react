@@ -23,8 +23,7 @@ class ReservationRepository extends ServiceEntityRepository
         $reservation = new Reservation();
 
         $reservation->setDate($reservationDto->getDate());
-        $reservation->setTimeFrom($reservationDto->getTimeFrom());
-        $reservation->setTimeTo($reservationDto->getTimeTo());
+        $reservation->setTime($reservationDto->getTime());
         $reservation->setCode($code);
         $reservation->setOwnerFirstName($reservationDto->getOwnerFirstName());
         $reservation->setOwnerLastName($reservationDto->getOwnerLastName());
@@ -46,8 +45,7 @@ class ReservationRepository extends ServiceEntityRepository
         $reservation = $this->find($id);
 
         $reservation->setDate($reservationDto->getDate());
-        $reservation->setTimeFrom($reservationDto->getTimeFrom());
-        $reservation->setTimeTo($reservationDto->getTimeTo());
+        $reservation->setTime($reservationDto->getTime());
         $reservation->setOwnerFirstName($reservationDto->getOwnerFirstName());
         $reservation->setOwnerLastName($reservationDto->getOwnerLastName());
         $reservation->setOwnerPhoneNumber($reservationDto->getOwnerPhoneNumber());
@@ -66,17 +64,13 @@ class ReservationRepository extends ServiceEntityRepository
         return null !== $this->findOneBy(['code' => $code]);
     }
 
-    public function existReservationByDateAndTimeRange(\DateTimeImmutable $date, \DateTimeImmutable $timeFrom, \DateTimeImmutable $timeTo): bool
+    public function existReservationByDateAndTime(\DateTimeImmutable $date, \DateTimeImmutable $time): bool
     {
         return null !== $this->createQueryBuilder('r')
-            ->where('r.time_from BETWEEN :timeFrom AND :timeTo')
-            ->orWhere('r.time_to BETWEEN :timeFrom AND :timeTo')
-            ->orWhere(':timeFrom BETWEEN r.time_from AND r.time_to')
-            ->orWhere(':timeTo BETWEEN r.time_from AND r.time_to')
-            ->andWhere('r.date = :date')
-            ->setParameter('timeFrom', $timeFrom->add(\DateInterval::createFromDateString('1 minute'))->format('H:i'))
-            ->setParameter('timeTo', $timeTo->sub(\DateInterval::createFromDateString('1 minute'))->format('H:i'))
+            ->where('r.date = :date')
+            ->andWhere('r.time = :time')
             ->setParameter('date', $date->format('Y-m-d'))
+            ->setParameter('time', $time->format('H:i'))
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
