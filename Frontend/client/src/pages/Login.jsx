@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useAuthStore from "@/stores/useAuthStore";
 import logo from "../assets/logog.svg";
+import backgroundImage from "../assets/backgroundImage.png";
 
 const Login = () => {
   const { email, password, setEmail, setPassword, setToken, setRole } =
@@ -30,7 +31,15 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[80vh] ">
+    <div
+      className="flex flex-col items-center justify-center h-[80vh] 
+    "
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <img src={logo} alt="logo" className="w-80 h-72" />
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">

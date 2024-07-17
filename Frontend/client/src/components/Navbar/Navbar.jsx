@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg";
 
 const Navbar = () => {
   return (
-    <div className="flex flex-row justify-between items-center p-5 h-28 font-title border-b-[1px] text-color-text">
+    <div className="flex flex-row justify-between items-center p-5 h-28 font-title border-b-[1px] border-color-secondary text-color-secondary">
       <img src={logo} alt="logo" className="w-20 h-14" />
 
       <ul className="flex gap-5">
