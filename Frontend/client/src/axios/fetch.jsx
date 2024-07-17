@@ -42,3 +42,13 @@ export const recoverPassword = async ( code, newPassword) =>{
          return
     }
 }
+
+export const getTables = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/tables`);
+        return response.data
+    } catch (error) {
+        console.log({ getTablesError: error });
+        return
+    }
+}
