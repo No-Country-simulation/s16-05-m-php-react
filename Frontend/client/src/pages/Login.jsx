@@ -34,9 +34,9 @@ const Login = () => {
       <img src={logo} alt="logo" className="w-80 h-72" />
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
-          <label className="relative w-[250px]">
+          <label className="relative w-[350px]">
             <Input
-              className="w-[250px] border-[1px] border-[solid]  border-[black] p-[10px] outline-[none] focus:border-color-text transition duration-200"
+              className="w-[350px] border-[1px] border-[solid] text-color-text bg-color-bg border-color-text items-end outline-[none] focus:border-color-text transition duration-200"
               type="email"
               id="email"
               value={email}
@@ -49,9 +49,9 @@ const Login = () => {
             </span>
           </label>
 
-          <div className="relative w-[250px]">
+          <div className="relative w-[350px]">
             <Input
-              className="w-[250px] border-[1px] border-[solid] border-[black] p-[10px] outline-[none] focus:border-color-text transition duration-200"
+              className="w-[350px] border-[1px] border-[solid] text-color-text bg-color-bg  border-color-text outline-[none] focus:border-color-text transition duration-200"
               type="password"
               id="password"
               value={password}
@@ -66,7 +66,7 @@ const Login = () => {
 
           <div className="flex items-center justify-end">
             <a href="#">
-              <u className="text-[blue]"> Olvidé mi contraseña</u>
+              <u className="text-color-text"> Olvidé mi contraseña</u>
             </a>
           </div>
         </div>

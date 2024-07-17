@@ -1,16 +1,18 @@
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
+import TableFourChairs from "./components/table/4Chairs";
 import Login from "./pages/Login";
+import Tables from "./pages/Tables";
 
 function App() {
   return (
-    <>
+    <div className="bg-color-bg text-color-text">
       <Navbar />
-      <Login className="bg-color-bg" />
+      <Login />
+      <Tables />
+
       <Footer />
-    </>
+    </div>
   );
 }
 

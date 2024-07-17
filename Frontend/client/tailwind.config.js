@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -18,12 +18,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        color:{
+        color: {
           primary: "#7F2A44",
           secondary: "#DCBC4B",
-          text: "#222222",
+          text: "#bfbfbf",
           textbutton: "#f5f5f5",
-          bg: "#bfbfbf"
+          bg: "#272727",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -75,7 +75,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        title: ["Montserrat"]
+        title: ["Montserrat"],
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -84,4 +84,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

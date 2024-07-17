@@ -1,54 +1,53 @@
 import { BASE_URL } from "@/utils/constants";
-import axios from 'axios'
+import axios from "axios";
 
 export const createUser = async (email, password) => {
-    try {
-        const { data } = await axios.post(`${BASE_URL}/users`, {
-            email,
-            password
-        })
-        return data
-    } catch (error) {
-        console.log({ createUserError: error })
-        return alert(error.response.data.errors[0].msg)
-    }
-}
-
+  try {
+    const { data } = await axios.post(`${BASE_URL}/users`, {
+      email,
+      password,
+    });
+    return data;
+  } catch (error) {
+    console.log({ createUserError: error });
+    return alert(error.response.data.errors[0].msg);
+  }
+};
 
 export const loginUser = async (email, password) => {
-    try {
-      const response = await axios.post(`${BASE_URL}/login`, {
-        email,
-        password,
-      });
-      console.log(response.data);
-      return response;
-    } catch (error) {
-      console.log({ loginUserError: error });
-      alert('Usuario y/o contraseña incorrecta');
-      throw error;
-    }
-  };
+  try {
+    const response = await axios.post(`${BASE_URL}/login`, {
+      email,
+      password,
+    });
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    console.log({ loginUserError: error });
+    alert("Usuario y/o contraseña incorrecta");
+    throw error;
+  }
+};
 
-export const recoverPassword = async ( code, newPassword) =>{
-    try {
-        const response = await axios.post(`${BASE_URL}/user/reset-password`, {
-            code,
-            newPassword
-          });
-          return response.data;
-    } catch (error) {
-         alert(error.response.data.msg);
-         return
-    }
-}
+export const recoverPassword = async (code, newPassword) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/user/reset-password`, {
+      code,
+      newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    alert(error.response.data.msg);
+    return;
+  }
+};
 
 export const getTables = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL}/tables`);
-        return response.data
-    } catch (error) {
-        console.log({ getTablesError: error });
-        return
-    }
-}
+  try {
+    const response = await axios.get(`${BASE_URL}/tables`);
+    return response.data;
+  } catch (error) {
+    console.error({ getTablesError: error });
+    throw error;
+  }
+};
