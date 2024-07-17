@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Table;
 use App\Util\DateDifferenceUtil;
 use App\Validator\ReservationDate;
@@ -15,11 +16,25 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 #[ReservationDate(groups: ['reservation:write:validation'])]
 class ReservationDto
 {
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => '2024-12-31',
+            'description' => 'Fecha en la que se hará la reserva',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[DateTime(groups: ['reservation:write:validation'], format: 'Y-m-d')]
     #[Groups(['reservation:write'])]
     private $date;
 
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => '00:00',
+            'description' => 'Hora de la reserva',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[DateTime(groups: ['reservation:write:validation'], format: 'H:i')]
     #[Groups(['reservation:write'])]
@@ -36,23 +51,57 @@ class ReservationDto
     #[Groups(['reservation:read'])]
     private $status;
 
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => 'Juan',
+            'description' => 'El nombre del cliente que hará la reserva',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
     private $owner_first_name;
 
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => 'Joe',
+            'description' => 'El apellido del cliente que hará la reserva',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
     private $owner_last_name;
 
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => '+57-123456789',
+            'description' => 'Numero de quien reserva la mesa',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
     private $owner_phone_number;
 
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => 'example@ex.com',
+            'description' => 'correo electrónico del cliente que hará la reserva',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Email(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
     private $owner_email;
 
+    #[ApiProperty(
+        openapiContext: [
+            'example' => '/api/tables/1',
+            'description' => 'URI de la mesa en la que se hará la reserva',
+        ]
+    )]
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
     private ?Table $table;
