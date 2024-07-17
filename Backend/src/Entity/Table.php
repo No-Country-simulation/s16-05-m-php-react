@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Dto\TableDto;
 use App\Repository\TableRepository;
 use App\State\TableProcessor;
@@ -22,7 +23,11 @@ use Symfony\Component\Serializer\Attribute\Groups;
     normalizationContext: ['groups' => ['table:read']],
     validationContext: ['groups' => ['table:write:validation']],
     input: TableDto::class,
-    processor: TableProcessor::class
+    processor: TableProcessor::class,
+    // openapi: new Operation(
+    //     summary: 'Ejemplo de sumario',
+    //     description: 'Ejemplo de descripción!!!'
+    // )
 )]
 #[Delete()]
 #[Put(
@@ -56,7 +61,7 @@ class Table
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: '_table')]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'table')]
     private Collection $reservations;
 
     public function __construct()

@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Table;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -17,10 +18,25 @@ class TableDto
   #[Groups(['table:read'])]
   private $id;
 
+  #[ApiProperty(
+    openapiContext: [
+      'type' => 'string',
+      'example' => 'Mesa 1',
+      'description' => 'Nombre de la mesa. Debe ser único',
+    ]
+  )]
   #[NotBlank(groups: ['table:write:validation'])]
   #[Groups(['table:write'])]
   private $name;
 
+  #[ApiProperty(
+    openapiContext: [
+      'type' => 'integer',
+      'minimum' => 1,
+      'example' => 4,
+      'description' => 'Capacidad máxima de la mesa. Menor o igual que la capacidad minima requerida',
+    ]
+  )]
   #[NotBlank(groups: ['table:write:validation'])]
   #[Type(type: 'integer', groups: ['table:write:validation'])]
   #[GreaterThan(0, groups: ['table:write:validation'])]
@@ -32,12 +48,20 @@ class TableDto
   #[Groups(['table:write'])]
   private $capacity;
 
+  #[ApiProperty(
+    openapiContext: [
+      'type' => 'integer',
+      'minimum' => 1,
+      'example' => 1,
+      'description' => 'Cantidad minima requerida de personas para poder ser reservada esta mesa. Debe ser menor o igual que la capacidad de la mesa',
+    ]
+  )]
   #[NotBlank(groups: ['table:write:validation'])]
   #[Type(type: 'integer', groups: ['table:write:validation'])]
   #[GreaterThan(0, groups: ['table:write:validation'])]
   #[LessThanOrEqual(
-    propertyPath: 'capacity', 
-    groups: ['table:write:validation'], 
+    propertyPath: 'capacity',
+    groups: ['table:write:validation'],
     message: 'table.min_required_capacity.less_than_or_equal'
   )]
   #[Groups(['table:write'])]
