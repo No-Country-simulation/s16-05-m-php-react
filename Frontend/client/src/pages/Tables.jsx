@@ -35,15 +35,21 @@ const Tables = () => {
     );
   }
 
-  const tablesResponse = tables['hydra:member'].map((table) => {
+  const tablesResponse = tables["hydra:member"].map((table) => {
     if (table["capacity"] === 2) {
-      return <TableTwoChairs name={table.name} id={table.id} reservedChairs={1} />;
+      return (
+        <TableTwoChairs name={table.name} id={table.id} reservedChairs={1} />
+      );
     }
     if (table["capacity"] === 4) {
-      return <TableFourChairs name={table.name} id={table.id} reservedChairs={3}/>;
+      return (
+        <TableFourChairs name={table.name} id={table.id} reservedChairs={3} />
+      );
     }
     if (table["capacity"] === 6) {
-      return <TableSixChairs name={table.name} id={table.id} reservedChairs={5}/>;
+      return (
+        <TableSixChairs name={table.name} id={table.id} reservedChairs={5} />
+      );
     }
   });
 

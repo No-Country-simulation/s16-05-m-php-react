@@ -3,16 +3,20 @@ import Navbar from "./components/Navbar/Navbar";
 import TableFourChairs from "./components/table/4Chairs";
 import Login from "./pages/Login";
 import Tables from "./pages/Tables";
+import Router from "./router/Router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="bg-color-bg text-color-text">
-      <Navbar />
-      <Login />
-      <Tables />
-
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="flex flex-col min-h-screen bg-color-bg text-color-text">
+        <Navbar />
+        <div className="flex-grow">
+          <Router />
+        </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

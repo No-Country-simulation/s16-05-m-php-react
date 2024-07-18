@@ -5,21 +5,25 @@ import { Input } from "@/components/ui/input";
 import useAuthStore from "@/stores/useAuthStore";
 import logo from "../assets/logog.svg";
 import backgroundImage from "../assets/backgroundImage.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { email, password, setEmail, setPassword, setToken, setRole } =
     useAuthStore();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await loginUser(email, password);
+
       if (response.status === 200) {
         const { token, role } = response.data;
         setToken(token);
         setRole(role);
         console.log("Inicio de sesión exitoso");
+        navigate("/tables");
       } else {
         console.error(`Error en el inicio de sesión: ${response.status}`);
         setError("Error al iniciar sesión, verifica tus credenciales");
