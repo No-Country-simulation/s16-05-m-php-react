@@ -12,6 +12,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Dto\ProductDto;
+use App\Dto\ProductImageDto;
+use App\State\ProductImageProcessor;
 use App\State\ProductProcessor;
 
 
@@ -24,6 +26,15 @@ use App\State\ProductProcessor;
     validationContext: ['groups' => ['product:write:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
+    )]
+    #[Post(
+    uriTemplate: '/products/{id}/image',
+    inputFormats: ['multipart' => ['multipart/form-data']],
+    validationContext: ['groups' => ['product-image:validation']],
+    denormalizationContext: ['groups' => ['product-image:write']],
+    normalizationContext: ['groups' => ['product:read']],
+    input: ProductImageDto::class,
+    processor: ProductImageProcessor::class
 )]
 #[Delete()]
 #[Put(
@@ -60,6 +71,12 @@ class Product
      */
     #[ORM\OneToMany(targetEntity: OrderProduct::class, mappedBy: 'product')]
     private Collection $orderProducts;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image_path = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image_name = null;
 
     public function __construct()
     {
@@ -133,6 +150,30 @@ class Product
                 $orderProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->image_path;
+    }
+
+    public function setImagePath(string $image_path): static
+    {
+        $this->image_path = $image_path;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->image_name;
+    }
+
+    public function setImageName(?string $image_name): static
+    {
+        $this->image_name = $image_name;
 
         return $this;
     }
