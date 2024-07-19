@@ -51,3 +51,46 @@ export const getTables = async () => {
     throw error;
   }
 };
+
+export const createTable = async (name, capacity, min_required_capacity) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/tables`, {
+      name,
+      capacity,
+      min_required_capacity,
+    }, {
+      headers: {
+        "Content-Type": "application/ld+json"
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateTable = async (id, name, capacity, min_required_capacity) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/tables/${id}`, {
+      name,
+      capacity,
+      min_required_capacity,
+    }, {
+      headers: {
+        "Content-Type": "application/ld+json"
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTable = async (id,) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/tables/${id}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
