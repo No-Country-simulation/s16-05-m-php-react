@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 const useAuthStore = create(
-  devtools(
+  persist(
     (set) => ({
       email: "",
       password: "",
@@ -12,9 +12,16 @@ const useAuthStore = create(
       setPassword: (password) => set({ password }),
       setToken: (token) => set({ token }),
       setRole: (role) => set({ role }),
+      logout: () =>
+        set(() => {
+          localStorage.removeItem("auth");
+          return { token: "", role: "", email: "", password: "" };
+        }),
     }),
-    { name: "AuthStore" }
-  ) // Nombre opcional para identificar tu store en las DevTools
+    {
+      name: "auth",
+    }
+  )
 );
 
 export default useAuthStore;

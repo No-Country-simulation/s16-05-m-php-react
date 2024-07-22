@@ -8,7 +8,7 @@ input[type="email"]:focus ~ .input-text,
 input[type="email"]:not(:placeholder-shown) ~ .input-text,
 input[type="password"]:focus ~ .input-text,
 input[type="password"]:not(:placeholder-shown) ~ .input-text {
-  @apply text-color-primary transform -translate-y-3 -translate-x-2 scale-75;
+  @apply text-color-primary transform -translate-y-4 -translate-x-2 scale-75;
 }
 
 @layer base {
