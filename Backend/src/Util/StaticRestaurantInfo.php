@@ -4,5 +4,5 @@ namespace App\Util;
 
 class StaticRestaurantInfo
 {
-  const NAME = 'El Rincón del Paladar';
+  const NAME = 'Healty';
 }
