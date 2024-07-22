@@ -44,4 +44,18 @@ class ProductRepository extends ServiceEntityRepository
 
         return $product;
     }
+
+    public function updateImage(int $id, string $imageName, string $imagePath): Product
+    {
+        /** @var Product $product */
+        $product = $this->find($id);
+
+        $product->setImageName($imageName);
+        $product->setImagePath($imagePath);
+
+        $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush();
+
+        return $product;
+    }
 }

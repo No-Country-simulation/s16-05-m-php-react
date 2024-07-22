@@ -25,3 +25,8 @@ services:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    ImageKit\ImageKit:
+        arguments:
+            $publicKey: '%env(string:IMAGE_KIT_PUBLIC)%'
+            $privateKey: '%env(string:IMAGE_KIT_PRIVATE)%'
+            $urlEndpoint: '%env(string:IMAGE_KIT_URL_ENDPOINT)%'

@@ -39,6 +39,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     normalizationContext: ['groups' => ['table:read']],
     input: TableDto::class,
     processor: TableProcessor::class
+    //TODO add validationContext
 )]
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: '`table`')]
