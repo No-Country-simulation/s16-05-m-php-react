@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,8 +27,8 @@ use App\State\ProductProcessor;
     validationContext: ['groups' => ['product:write:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
-    )]
-    #[Post(
+)]
+#[Post(
     uriTemplate: '/products/{id}/image',
     inputFormats: ['multipart' => ['multipart/form-data']],
     validationContext: ['groups' => ['product-image:validation']],
@@ -77,6 +78,9 @@ class Product
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image_name = null;
+
+    #[Groups(['product:read'])]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -176,5 +180,10 @@ class Product
         $this->image_name = $image_name;
 
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
 }
