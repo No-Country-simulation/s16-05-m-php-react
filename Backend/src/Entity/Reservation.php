@@ -28,7 +28,9 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
     input: ReservationDto::class,
     processor: ReservationProcessor::class,
 )]
-#[Delete()]
+#[Delete(
+    security: 'is_granted("ROLE_ADMIN")',
+)]
 #[Put(
     denormalizationContext: ['groups' => ['reservation:write']],
     normalizationContext: ['groups' => ['reservation:read']],
