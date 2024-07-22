@@ -19,14 +19,18 @@ use App\State\ProductProcessor;
     normalizationContext: ['groups' => ['product:read']],
 )]
 #[Post(
+    security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['product:write']],
     normalizationContext: ['groups' => ['product:read']],
     validationContext: ['groups' => ['product:write:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
 )]
-#[Delete()]
+#[Delete(
+    security: 'is_granted("ROLE_ADMIN")',
+)]
 #[Put(
+    security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['product:write']],
     normalizationContext: ['groups' => ['product:read']],
     validationContext: ['groups' => ['product:write:validation']],

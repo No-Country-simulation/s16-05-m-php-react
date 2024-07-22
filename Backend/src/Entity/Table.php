@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     normalizationContext: ['groups' => ['table:read']],
 )]
 #[Post(
+    security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['table:write']],
     normalizationContext: ['groups' => ['table:read']],
     validationContext: ['groups' => ['table:write:validation']],
@@ -29,8 +30,11 @@ use Symfony\Component\Serializer\Attribute\Groups;
     //     description: 'Ejemplo de descripción!!!'
     // )
 )]
-#[Delete()]
+#[Delete(
+    security: 'is_granted("ROLE_ADMIN")',
+)]
 #[Put(
+    security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['table:write']],
     normalizationContext: ['groups' => ['table:read']],
     input: TableDto::class,
