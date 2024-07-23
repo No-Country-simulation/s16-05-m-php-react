@@ -6,9 +6,10 @@ import useAuthStore from "@/stores/useAuthStore";
 import logo from "../assets/logog.svg";
 import backgroundImage from "../assets/backgroundImage.png";
 import { useNavigate } from "react-router-dom";
+import Footer from "@/components/Footer/Footer";
 
 const Login = () => {
-  const { email, password, setEmail, setPassword, setToken, setRole } =
+  const { email, password, setEmail, setPassword, setToken, setRole, setUsername } =
     useAuthStore();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,17 +23,15 @@ const Login = () => {
       const response = await loginUser(email, password);
 
       if (response.status === 200) {
-        const { token, role } = response.data;
+        const { token, role, username } = response.data;
         setToken(token);
         setRole(role);
-        console.log("Inicio de sesión exitoso");
+        setUsername(username)
         navigate("/tables");
       } else {
-        console.error(`Error en el inicio de sesión: ${response.status}`);
         setError("Error al iniciar sesión, verifica tus credenciales");
       }
     } catch (error) {
-      console.error("Error en el inicio de sesión:", error);
       setError("Error al iniciar sesión, verifica tus credenciales");
     } finally {
       setLoading(false); // Terminar el estado de carga
@@ -41,14 +40,12 @@ const Login = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center h-[80vh]"
+      className="flex flex-col items-center justify-center bg-color-bg text-color-text w-full min-w-screen min-h-screen bg-cover bg-center"
       style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: `url(${backgroundImage})`
       }}
     >
-      <img src={logo} alt="logo" className="w-80 h-72" />
+      <img src={logo} alt="logo" className="w-80 h-72 mt-32" />
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5">
           <label className="relative w-[350px]">
@@ -94,7 +91,7 @@ const Login = () => {
               <div role="status">
                 <svg
                   aria-hidden="true"
-                  class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
+                  className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +105,7 @@ const Login = () => {
                     fill="currentFill"
                   />
                 </svg>
-                <span class="sr-only">Loading...</span>
+                <span className="sr-only">Loading...</span>
               </div>
             ) : (
               "INGRESAR"
@@ -117,6 +114,9 @@ const Login = () => {
         </div>
       </form>
       {error && <div className="text-red-500">{error}</div>}
+      <div className="mt-20 w-full">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -8,14 +8,16 @@ const useAuthStore = create(
       password: "",
       token: "",
       role: "",
+      username: "",
       setEmail: (email) => set({ email }),
       setPassword: (password) => set({ password }),
       setToken: (token) => set({ token }),
       setRole: (role) => set({ role }),
+      setUsername: (username) => set({ username }),
       logout: () =>
         set(() => {
           localStorage.removeItem("auth");
-          return { token: "", role: "", email: "", password: "" };
+          return { token: "", role: "", email: "", password: "", username: "" };
         }),
     }),
     {

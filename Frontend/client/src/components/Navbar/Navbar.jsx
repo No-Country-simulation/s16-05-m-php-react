@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout, email, role } = useAuthStore((state) => ({
+  const { logout, email, role, username } = useAuthStore((state) => ({
     logout: state.logout,
     email: state.email,
     role: state.role,
+    username: state.username
   }));
   const [isOpenUser, setIsOpenUser] = useState(false);
 
@@ -24,12 +25,11 @@ const Navbar = () => {
   const handleUserInfo = () => {};
 
   return (
-    <div className="flex flex-row justify-between items-center p-10 h-28 font-title border-b-[2px] border-color-secondary text-color-secondary">
-      <img src={logo} alt="logo" className="w-24 h-20" />
-
-      <div className="flex gap-12 items-center font-bold justify-center">
-        <a href="/tables"> Agregar Mesa</a>
-        <a href="#">Agregar Menú</a>
+    <div className="flex flex-row justify-between items-center font-title border-b-[2px] border-color-secondary text-color-secondary">
+      <img src={logo} alt="logo" className="w-20 ml-10" />
+      <div className="flex gap-12 items-center font-bold justify-center mr-10">
+        <a href="/tables"> Mesas</a>
+        <a href="#">Menú</a>
         <FaRegUserCircle
           className="text-color-secondary text-3xl cursor-pointer"
           onClick={() => setIsOpenUser(!isOpenUser)}
@@ -40,17 +40,15 @@ const Navbar = () => {
             <p>Usuario: {email}</p>
           </div>
         )}
-
         <div className="relative flex flex-col items-center">
           <MdLogout
             className="text-color-secondary text-3xl cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           />
-
           {isOpen && (
             <div
               onClick={handleLogout}
-              className="absolute top-[32px] right-0 mt-1 w-40 bg-color-primary text-black p-2 rounded text-center shadow-md cursor-pointer"
+              className="absolute top-[32px] right-0 mt-1 w-40 bg-color-primary text-white p-2 rounded text-center shadow-md cursor-pointer"
             >
               Cerrar sesión
             </div>

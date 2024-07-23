@@ -6,7 +6,6 @@ const Button1 = ({onClick, text, type, variant}) => {
         style = "bg-color-primary text-color-secondary";
     }else if(variant === "confirm"){
         style = "bg-color-secondary text-color-primary";
-        //style = "bg-emerald-500 text-white"
     }
 
     return (

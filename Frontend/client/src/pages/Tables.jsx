@@ -6,6 +6,8 @@ import TableSixChairs from "@/components/table/6Chairs";
 import NewMesa from "@/components/modal/newTable";
 import EditMesa from "@/components/modal/editTable";
 import Button1 from "@/components/ui/button1";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 const Tables = () => {
   const { tables, error, loading, fetchTables } = useTablesStore();
@@ -33,11 +35,11 @@ const Tables = () => {
   };
   if (loading) {
     return (
-      <div className="flex justify-center items-center w-full bg-color-bg h-[10vh]">
+      <div className="flex justify-center items-center w-full bg-color-bg h-[100vh]">
         <div role="status">
           <svg
             aria-hidden="true"
-            class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
+            className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-red-600 "
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +53,7 @@ const Tables = () => {
               fill="currentFill"
             />
           </svg>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
       </div>
     );
@@ -59,7 +61,7 @@ const Tables = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center w-full bg-color-bg h-[10vh]">
+      <div className="flex justify-center w-full bg-color-bg h-[100vh]">
         {error}
       </div>
     );
@@ -67,7 +69,7 @@ const Tables = () => {
 
   if (!tables) {
     return (
-      <div className="flex justify-center w-full h-[10vh] bg-color-bg">
+      <div className="flex justify-center w-full h-[100vh] bg-color-bg">
         No se encontraron datos de las tablas.
       </div>
     );
@@ -110,23 +112,32 @@ const Tables = () => {
   });
 
   return (
-    <div className=" w-full h-[70vh] bg-color-bg">
-      <div className="w-full flex justify-center my-4">
-        <Button1
-          type="button"
-          text="Agregar Una Nueva Mesa"
-          onClick={openModalNewMesa}
-        />
-      </div>
-      <NewMesa isOpen={isModalOpenNewMesa} onClose={closeModalNewMesa} />
-      <div className="flex justify-center">{tablesResponse}</div>
-      <EditMesa
-        isOpen={isModalOpenEditMesa}
-        onClose={closeModalEditMesa}
-        id={idMesa}
-        nameMesa={nameMesa}
-        capacityMesa={capacityMesa}
-      />
+    <div className="flex flex-col bg-color-bg text-color-text">
+      <Navbar />
+        <div className=" w-full min-h-[70vh] bg-color-bg">
+          <div className="w-full flex justify-center my-4">
+            <Button1
+              type="button"
+              text="Agregar Una Nueva Mesa"
+              onClick={openModalNewMesa}
+            />
+          </div>
+          <NewMesa 
+          isOpen={isModalOpenNewMesa} 
+          onClose={closeModalNewMesa} 
+          />
+          <div className="flex justify-center flex-wrap">
+            {tablesResponse}
+          </div>
+          <EditMesa
+            isOpen={isModalOpenEditMesa}
+            onClose={closeModalEditMesa}
+            id={idMesa}
+            nameMesa={nameMesa}
+            capacityMesa={capacityMesa}
+          />
+        </div>
+      <Footer />
     </div>
   );
 };
