@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen bg-color-bg text-color-text">
+      <div className="flex flex-col overflow-y-hidden min-h-screen bg-color-bg text-color-text">
         <Navbar />
         <div className="flex-grow">
           <Router />

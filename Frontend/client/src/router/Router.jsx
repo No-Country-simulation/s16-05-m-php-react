@@ -4,6 +4,7 @@ import Login from "@/pages/Login";
 import Tables from "@/pages/Tables";
 import PrivateRoute from "./PrivateRoom";
 import useAuthStore from "@/stores/useAuthStore";
+import TablesUser from "@/pages/TablesUser";
 
 const Router = () => {
   const { token } = useAuthStore();
@@ -19,6 +20,7 @@ const Router = () => {
           </PrivateRoute>
         }
       />
+      <Route path="/reserve" element={<TablesUser />} />
     </Routes>
   );
 };

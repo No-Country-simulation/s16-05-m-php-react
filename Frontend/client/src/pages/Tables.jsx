@@ -31,13 +31,14 @@ const Tables = () => {
     setNameMesa(name);
     setCapacityMesa(capacity);
   };
+
   if (loading) {
     return (
-      <div className="flex justify-center items-center w-full bg-color-bg h-[10vh]">
+      <div className="flex flex-wrap w-screen justify-center items-center bg-color-bg ">
         <div role="status">
           <svg
             aria-hidden="true"
-            class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
+            className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +52,7 @@ const Tables = () => {
               fill="currentFill"
             />
           </svg>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
       </div>
     );
@@ -82,6 +83,7 @@ const Tables = () => {
           id={table.id}
           hover
           onClick={() => dataMesa(table.id, table.name, table.capacity)}
+          className="max-w-[200px] m-2"
         />
       );
     }
@@ -93,6 +95,7 @@ const Tables = () => {
           id={table.id}
           hover
           onClick={() => dataMesa(table.id, table.name, table.capacity)}
+          className="max-w-[200px] m-2"
         />
       );
     }
@@ -104,13 +107,14 @@ const Tables = () => {
           id={table.id}
           hover
           onClick={() => dataMesa(table.id, table.name, table.capacity)}
+          className="max-w-[200px] m-2"
         />
       );
     }
   });
 
   return (
-    <div className=" w-full h-[70vh] bg-color-bg">
+    <div className="w-full h-full bg-color-bg overflow-hidden">
       <div className="w-full flex justify-center my-4">
         <Button1
           type="button"
@@ -119,7 +123,9 @@ const Tables = () => {
         />
       </div>
       <NewMesa isOpen={isModalOpenNewMesa} onClose={closeModalNewMesa} />
-      <div className="flex justify-center">{tablesResponse}</div>
+      <div className="flex flex-wrap justify-center overflow-hidden">
+        {tablesResponse}
+      </div>
       <EditMesa
         isOpen={isModalOpenEditMesa}
         onClose={closeModalEditMesa}
