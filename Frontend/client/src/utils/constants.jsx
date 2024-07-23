@@ -1,1 +1,0 @@
-export const BASE_URL = "https://s16-05-m-php-react.onrender.com/api"
