@@ -24,6 +24,7 @@ class ProductRepository extends ServiceEntityRepository
         
         $product->setName($productDto->getName());
         $product->setPrice($productDto->getPrice());
+        $product->setDescription($productDto->getDescription());
         $product->setIsAvailable($productDto->getIsAvailable());
 
         $productDto->getCategories()->map(function (Category $category) use ($product) {
@@ -42,6 +43,7 @@ class ProductRepository extends ServiceEntityRepository
 
         $product->setName($productDto->getName());
         $product->setPrice($productDto->getPrice());
+        $product->setDescription($productDto->getDescription());
         $product->setIsAvailable($productDto->getIsAvailable());
         $product->getCategories()->clear();
 

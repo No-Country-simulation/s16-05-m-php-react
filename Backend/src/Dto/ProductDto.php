@@ -44,6 +44,17 @@ class ProductDto
     #[GreaterThan(0, groups: ['product:write:validation'])]
     #[Groups(['product:write'])]
     private $price;
+
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'string',
+            'example' => 'Arroz blanco, preparado con los granos más puros y selectos.',
+            'description' => 'Descripción del producto',
+        ]
+    )]
+    #[NotBlank(groups: ['product:write:validation'])]
+    #[Groups(['product:write'])]
+    private $description;
     
     #[ApiProperty(
         openapiContext: [
@@ -153,6 +164,18 @@ class ProductDto
     public function removeCategory(Category $category): static
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
