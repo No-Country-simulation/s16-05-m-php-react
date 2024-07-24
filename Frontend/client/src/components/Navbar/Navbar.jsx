@@ -44,8 +44,8 @@ const Navbar = () => {
         <div className="hidden md:flex gap-12 items-center font-bold justify-center">
           {token ? (
             <>
-              <a href="/tables">Agregar Mesa</a>
-              <a href="#">Agregar Menú</a>
+              <a href="/tables">Mesas</a>
+              <a href="/menu">Menú</a>
               <FaRegUserCircle
                 className="text-color-secondary text-3xl cursor-pointer"
                 onClick={() => setIsOpenUser(!isOpenUser)}
@@ -64,7 +64,7 @@ const Navbar = () => {
                 {isOpen && (
                   <div
                     onClick={handleLogout}
-                    className="absolute top-[32px] right-0 mt-1 w-40 bg-color-primary text-black p-2 rounded text-center shadow-md cursor-pointer"
+                    className="absolute top-[32px] right-0 mt-1 w-40 bg-color-primary text-white p-2 rounded text-center shadow-md cursor-pointer"
                   >
                     Cerrar sesión
                   </div>
@@ -92,10 +92,10 @@ const Navbar = () => {
           {token ? (
             <>
               <a href="/tables" className="font-bold">
-                Agregar Mesa
+                Mesas
               </a>
-              <a href="#" className="font-bold">
-                Agregar Menú
+              <a href="/menu" className="font-bold">
+                Menú
               </a>
               <FaRegUserCircle
                 className="text-color-secondary text-3xl cursor-pointer"

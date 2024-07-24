@@ -7,7 +7,7 @@ import Button1 from "@/components/ui/button1";
 const NotFoundPage = () => {
   return (
     <div
-      className="flex flex-col items-center justify-center h-[100vh] bg-color-bg text-color-text"
+      className="flex flex-col items-center justify-center h-[75.5vh] bg-color-bg text-color-text"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",

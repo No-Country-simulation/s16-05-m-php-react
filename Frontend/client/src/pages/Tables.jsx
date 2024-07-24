@@ -34,7 +34,7 @@ const Tables = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-wrap w-screen justify-center items-center bg-color-bg ">
+      <div className="flex flex-wrap w-full h-[75.5vh] justify-center items-center bg-color-bg ">
         <div role="status">
           <svg
             aria-hidden="true"
@@ -68,7 +68,7 @@ const Tables = () => {
 
   if (!tables) {
     return (
-      <div className="flex justify-center w-full h-[10vh] bg-color-bg">
+      <div className="flex justify-center w-full h-[75.5vh] bg-color-bg">
         No se encontraron datos de las tablas.
       </div>
     );

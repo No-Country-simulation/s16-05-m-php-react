@@ -1,5 +1,6 @@
 import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
+import useAuthStore from "@/stores/useAuthStore";
 
 export const createUser = async (email, password) => {
   try {
@@ -20,7 +21,6 @@ export const loginUser = async (email, password) => {
       email,
       password,
     });
-    console.log(response.data);
     return response;
   } catch (error) {
     console.log({ loginUserError: error });
@@ -53,6 +53,7 @@ export const getTables = async () => {
 };
 
 export const createTable = async (name, capacity, min_required_capacity) => {
+  const { token } = useAuthStore.getState();
   try {
     const response = await axios.post(`${BASE_URL}/tables`, {
       name,
@@ -60,7 +61,8 @@ export const createTable = async (name, capacity, min_required_capacity) => {
       min_required_capacity,
     }, {
       headers: {
-        "Content-Type": "application/ld+json"
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
       }
     });
     return response;
@@ -70,6 +72,7 @@ export const createTable = async (name, capacity, min_required_capacity) => {
 };
 
 export const updateTable = async (id, name, capacity, min_required_capacity) => {
+  const { token } = useAuthStore.getState();
   try {
     const response = await axios.put(`${BASE_URL}/tables/${id}`, {
       name,
@@ -77,7 +80,8 @@ export const updateTable = async (id, name, capacity, min_required_capacity) => 
       min_required_capacity,
     }, {
       headers: {
-        "Content-Type": "application/ld+json"
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
       }
     });
     return response;
@@ -87,8 +91,14 @@ export const updateTable = async (id, name, capacity, min_required_capacity) => 
 };
 
 export const deleteTable = async (id,) => {
+  const { token } = useAuthStore.getState();
   try {
-    const response = await axios.delete(`${BASE_URL}/tables/${id}`);
+    const response = await axios.delete(`${BASE_URL}/tables/${id}`,{}, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
     return response;
   } catch (error) {
     throw error;

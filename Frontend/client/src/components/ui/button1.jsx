@@ -3,9 +3,9 @@ import React from 'react';
 const Button1 = ({onClick, text, type, variant}) => {
     var style;
     if(!variant){
-        style = "bg-color-primary text-color-secondary";
+        style = "bg-color-primary text-white";
     }else if(variant === "confirm"){
-        style = "bg-color-secondary text-color-primary";
+        style = "bg-color-secondary text-black";
         //style = "bg-emerald-500 text-white"
     }
 
