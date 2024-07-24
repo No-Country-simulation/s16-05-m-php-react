@@ -13,6 +13,15 @@ const Menu = () => {
             />
             <div className="flex flex-wrap items-center justify-center">
                 <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
+                <CardCategory name={"Hamburguesas"} description={"Para verdaderos fanáticos"} image={Hamburguesa} />
             </div>
         </div>
     );
