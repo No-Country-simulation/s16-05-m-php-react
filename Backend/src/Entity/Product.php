@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Dto\ProductDto;
@@ -21,6 +21,12 @@ use App\State\ProductProcessor;
 
 #[GetCollection(
     normalizationContext: ['groups' => ['product:read'], 'skip_null_values' => false],
+)]
+#[GetCollection(
+    uriTemplate: '/categories/{categoryId}/products',
+    uriVariables: [
+        'categoryId' => new Link(fromClass: Category::class, toProperty: 'categories', description: 'Category Id'),
+    ]
 )]
 #[Post(
     security: 'is_granted("ROLE_ADMIN")',
