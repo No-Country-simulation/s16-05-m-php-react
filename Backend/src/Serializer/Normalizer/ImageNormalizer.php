@@ -2,12 +2,13 @@
 
 namespace App\Serializer\Normalizer;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use ImageKit\ImageKit;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ProductNormalizer implements NormalizerInterface
+class ImageNormalizer implements NormalizerInterface
 {
     public function __construct(
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
@@ -16,9 +17,6 @@ class ProductNormalizer implements NormalizerInterface
     ) {
     }
 
-    /**
-     * @param Product $object
-     */
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         $data = $this->normalizer->normalize($object, $format, $context);
@@ -33,11 +31,14 @@ class ProductNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Product;
+        return $data instanceof Product || $data instanceof Category;
     }
 
     public function getSupportedTypes(?string $format): array
     {
-        return [Product::class => true];
+        return [
+            Product::class => true,
+            Category::class => true,
+        ];
     }
 }
