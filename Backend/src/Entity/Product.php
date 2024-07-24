@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use ApiPlatform\Metadata\Delete;
@@ -19,7 +20,7 @@ use App\State\ProductProcessor;
 
 
 #[GetCollection(
-    normalizationContext: ['groups' => ['product:read']],
+    normalizationContext: ['groups' => ['product:read'], 'skip_null_values' => false],
 )]
 #[Post(
     security: 'is_granted("ROLE_ADMIN")',
@@ -86,9 +87,21 @@ class Product
     #[Groups(['product:read'])]
     private ?string $image = null;
 
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
+    #[Groups(['product:read'])]
+    private Collection $categories;
+    
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['product:read'])]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,5 +202,41 @@ class Product
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }
