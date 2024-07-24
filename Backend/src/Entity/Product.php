@@ -37,6 +37,7 @@ use App\State\ProductProcessor;
     processor: ProductProcessor::class
 )]
 #[Post(
+    security: 'is_granted("ROLE_ADMIN")',
     uriTemplate: '/products/{id}/image',
     inputFormats: ['multipart' => ['multipart/form-data']],
     validationContext: ['groups' => ['product-image:validation']],

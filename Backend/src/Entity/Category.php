@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[GetCollection(normalizationContext: ['groups' => ['category:read']])]
 #[Post(
+    security: 'is_granted("ROLE_ADMIN")',
     uriTemplate: '/categories/{id}/image',
     inputFormats: ['multipart' => ['multipart/form-data']],
     normalizationContext: ['groups' => ['category:read']],
