@@ -93,7 +93,7 @@ export const updateTable = async (id, name, capacity, min_required_capacity) => 
 export const deleteTable = async (id,) => {
   const { token } = useAuthStore.getState();
   try {
-    const response = await axios.delete(`${BASE_URL}/tables/${id}`,{}, {
+    const response = await axios.delete(`${BASE_URL}/tables/${id}`, {
       headers: {
         "Content-Type": "application/ld+json",
         "Authorization": `Bearer ${token}`
