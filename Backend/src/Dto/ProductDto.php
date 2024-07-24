@@ -3,13 +3,16 @@
 namespace App\Dto;
 
 use ApiPlatform\Metadata\ApiProperty;
+use App\Entity\Category;
 use App\Entity\Product;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
-use Symfony\Component\Validator\Constraints\Unique;
 
 #[UniqueEntity(fields: ['name'], entityClass: Product::class, groups: ['product:write:validation'])]
 class ProductDto
@@ -53,6 +56,27 @@ class ProductDto
     #[Type(type: 'boolean', groups: ['product:write:validation'])]
     #[Groups(['product:write'])]
     private $is_available;
+
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ApiProperty(
+        openapiContext: [
+            'type' => 'array',
+            'minItems' => 1,
+            'items' => ['type' => 'string'],
+            'example' => ['/api/categories/1', '/api/categories/2'],
+            'description' => 'Lista de URI de categorias',
+        ]
+    )]
+    #[Count(min: 1, groups: ['product:write:validation'])]
+    #[Groups(['product:write'])]
+    private Collection $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection ();
+    }
 
     public function getId()
     {
@@ -98,6 +122,37 @@ class ProductDto
     public function setIsAvailable($is_available)
     {
         $this->is_available = $is_available;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }    
+    
+    public function setCategories(Collection $categories): static
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

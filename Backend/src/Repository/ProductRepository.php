@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Dto\ProductDto;
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,6 +26,10 @@ class ProductRepository extends ServiceEntityRepository
         $product->setPrice($productDto->getPrice());
         $product->setIsAvailable($productDto->getIsAvailable());
 
+        $productDto->getCategories()->map(function (Category $category) use ($product) {
+            $product->addCategory($category);
+        });
+
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
 
@@ -38,6 +43,11 @@ class ProductRepository extends ServiceEntityRepository
         $product->setName($productDto->getName());
         $product->setPrice($productDto->getPrice());
         $product->setIsAvailable($productDto->getIsAvailable());
+        $product->getCategories()->clear();
+
+        $productDto->getCategories()->map(function (Category $category) use ($product) {
+            $product->addCategory($category);
+        });
 
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
