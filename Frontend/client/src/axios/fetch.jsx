@@ -104,3 +104,81 @@ export const deleteTable = async (id,) => {
     throw error;
   }
 };
+
+export const getCategory = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories`);
+    return response.data;
+  } catch (error) {
+    console.error({ getTablesError: error });
+    throw error;
+  }
+};
+
+export const  createCategory = async (name, phrase) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.post(`${BASE_URL}/categories`, {
+      name,
+      phrase
+    }, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const categoryImage = async (image, id) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.post(`${BASE_URL}/categories/${id}/image`, {
+      image
+    }, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updateCategory = async (id, name, phrase) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.put(`${BASE_URL}/categories/${id}`, {
+      name,
+      phrase
+    }, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteCategory = async (id) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.delete(`${BASE_URL}/categories/${id}`, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
