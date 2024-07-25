@@ -16,7 +16,7 @@ const EditCategory = ({ isOpen, onClose, name, phrase, image, id }) => {
         if (id) {
             setNameCategory(name);
             setPhraseCategory(phrase);
-            setImageCategory(image);
+            setImagePreview(image);
             setCategory(<CardCategory name={name} description={phrase} image={image} notHover={true} notOnClick={true}/>);
         }
     }, [id, name, phrase, image]);
@@ -53,34 +53,32 @@ const EditCategory = ({ isOpen, onClose, name, phrase, image, id }) => {
         if(name === nameCategory && phrase === phraseCategory && imageCategory === "") {
             onClose();
             return;
-        }
-        if(name !== nameCategory || phrase !== phraseCategory) {
-            if(nameCategory === "" || phraseCategory === "") {
-                setError("Todos los campos son obligatorios");
-                return;
-            }else{
+        }else{
+            if(imageCategory !== "") {
                 try {
-                    const response = await updateCategory(id, nameCategory, phraseCategory);
-                    if(response === 200){
-                        if(imageCategory === ""){
-                            window.location.reload();
+                    const response = await categoryImage(imageCategory, id);
+                    if(response.status === 201) {
+                        try {
+                            const responseUpdate = await updateCategory(id, nameCategory, phraseCategory);
+                            if(responseUpdate.status === 200) {
+                                window.location.reload();
+                            }
+                        } catch (error) {
+                            setError(error.responseUpdate.data.message);
                         }
                     }
                 } catch (error) {
                     setError(error.response.data.message);
-                    return;
                 }
-            }
-        }
-        if(imageCategory !== "") {
-            try {
-                const response = await categoryImage(imageCategory, id);
-                if(response === 201){
-                    window.location.reload();
+            }else{
+                try {
+                    const responseUpdate = await updateCategory(id, nameCategory, phraseCategory);
+                    if(responseUpdate.status === 200) {
+                        window.location.reload();
+                    }
+                } catch (error) {
+                    setError(error.response.data.message);
                 }
-            } catch (error) {
-                setError(error.response.data.message);
-                return;
             }
         }
     };
