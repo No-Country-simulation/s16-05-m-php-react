@@ -36,7 +36,7 @@ const Router = () => {
         }
       />
       <Route
-        path="/products"
+        path="/products/:category"
         element={
           <PrivateRoute>
             <Products />

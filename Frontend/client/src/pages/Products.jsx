@@ -1,12 +1,14 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
 import product from "@/assets/product.png";
 import CardProduct from "@/components/Cards/CardProduct";
 import Button1 from "@/components/ui/button1";
 
 const Products = () => {
+    const { category } = useParams();
     return (
         <div className="flex flex-col text-center items-center bg-color-bg text-color-text w-full min-h-[80vh]">
-            <h1 className="text-4xl font-bold my-10 text-color-secondary ">Productos de la Categoría Hamburguesas</h1>
+            <h1 className="text-4xl font-bold my-10 text-color-secondary ">Productos de la Categoría {category}</h1>
             <Button1
                 type="button"
                 text="Agregar Nuevo Producto"
