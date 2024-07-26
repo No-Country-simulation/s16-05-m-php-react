@@ -5,7 +5,7 @@ const CardCategory = ({name, description, image, edit, deleteOnClick,editOnClick
     var heightDiv = "h-[250px]";
     var buttons = "";
     var noHover = false;
-    var onclick = ()=> products(name);
+    var onclick = ()=> products(id);
     if(edit){
         buttons = (<div className="flex w-full justify-around mt-3">
             <Button1
@@ -28,8 +28,8 @@ const CardCategory = ({name, description, image, edit, deleteOnClick,editOnClick
     if(notOnClick){
         onclick = () => {};
     }
-    const products = (category) => {
-        window.location.pathname = `/products/${category}`;
+    const products = (id) => {
+        window.location.pathname = `/products/${id}`;
     };    
     return (
         <div className={`bg-[#3C3A3A] w-[250px] ${heightDiv} rounded-2xl m-10`} id={id}>
