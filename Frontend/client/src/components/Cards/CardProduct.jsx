@@ -1,7 +1,7 @@
 import React from "react";
 import Button1 from "@/components/ui/button1";
 
-const CardProduct = ({name, description, image, price, disabled, edit}) => {
+const CardProduct = ({name, description, image, price, disabled, edit, onClickDelete, onClickEdit}) => {
     const priceFinal = price.toLocaleString();
     var disabledStyle = null;
     var noDisponible = null;
@@ -21,11 +21,13 @@ const CardProduct = ({name, description, image, price, disabled, edit}) => {
                     <Button1
                         type="button"
                         text="Eliminar"
+                        onClick={onClickDelete}
                     />
                     <Button1
                         type="button"
                         text="Editar"
                         variant={"confirm"}
+                        onClick={onClickEdit}
                     />
             </div>
         );

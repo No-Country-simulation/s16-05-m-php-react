@@ -72,7 +72,6 @@ const NewProduct = ({ isOpen, onClose, categories }) => {
 
     const handleIsAvailableChange = (event) => {
         const available = Boolean(event.target.value);
-        console.log(available);
         const name = nameProduct || 'Producto';
         const description = descriptionProduct || 'Descripción';
         const price = priceProduct || 0;

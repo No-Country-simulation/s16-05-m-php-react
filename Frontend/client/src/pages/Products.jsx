@@ -22,6 +22,8 @@ const Products = () => {
     const [description, setDescription] = useState(null);
     const [image, setImage] = useState(null);
     const [id, setId] = useState(null);
+    const [price, setPrice] = useState(null);
+    const [isAvailable, setIsAvailable] = useState(null);
 
     const openModalNewProduct = () => setIsModalOpenNewProduct(true);
     const closeModalNewProduct = () => setIsModalOpenNewProduct(false);
@@ -84,12 +86,14 @@ const Products = () => {
         }
     };
 
-    const dataProduct = (name, description, image, id) => {
-        openModalEditProduct();
+    const dataProduct = (name, description, image, id, price, available) => {
         setName(name);
         setDescription(description);
         setImage(image);
         setId(id);
+        setPrice(price);
+        setIsAvailable(available);
+        openModalEditProduct();
     };
 
     const productResponse = product["hydra:member"].map((product) => {
@@ -102,6 +106,8 @@ const Products = () => {
             price={product.price}
             disabled={product.is_available}
             edit
+            onClickDelete={()=>deleteProducts(product.id)}
+            onClickEdit={()=>dataProduct(product.name, product.description, product.image, product.id, product.price, product.is_available)}
         />);
 });
     return (
@@ -123,7 +129,7 @@ const Products = () => {
                 {productResponse}
             </div>
             <NewProduct isOpen={isModalOpenNewProduct} onClose={closeModalNewProduct} categories={dataCategory}/>
-            <EditProduct isOpen={isModalOpenEditProduct} onClose={closeModalEditProduct} name={name} description={description} image={image} id={id}/>
+            <EditProduct isOpen={isModalOpenEditProduct} onClose={closeModalEditProduct} name={name} description={description} image={image} price={price} id={id} categoryId={categoryId} available={isAvailable} categories={dataCategory}/>
         </div>
     );
 };
