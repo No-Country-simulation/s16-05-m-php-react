@@ -2,6 +2,7 @@ import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 import useAuthStore from "@/stores/useAuthStore";
 
+/** CREACIÓN DE USUARIOS */
 export const createUser = async (email, password) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/users`, {
@@ -42,6 +43,7 @@ export const recoverPassword = async (code, newPassword) => {
   }
 };
 
+/** CRUD DE TABLAS */
 export const getTables = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/tables`);
@@ -105,6 +107,7 @@ export const deleteTable = async (id,) => {
   }
 };
 
+/** CRUD DE CATEGORÍAS */
 export const getCategory = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/categories`);
@@ -182,3 +185,90 @@ export const deleteCategory = async (id) => {
     throw error;
   }
 };
+
+/** CRUD DE PRODUCTOS */
+
+export const getProduct = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories/${id}/products`);
+    return response.data;
+  } catch (error) {
+    console.error({ getTablesError: error });
+    throw error;
+  }
+};
+
+export const createProduct = async (name, description, price, category, is_available) => {
+  const { token } = useAuthStore.getState();
+  const categories = [];
+  categories.push(`api/categories/${category}`);
+  try {
+    const response = await axios.post(`${BASE_URL}/products`, {
+      name,
+      description,
+      price,
+      categories,
+      is_available
+    }, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const productImage = async (image, id) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.post(`${BASE_URL}/products/${id}/image`, {
+      image
+    }, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updateProduct = async (id, name, description, price, image) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.put(`${BASE_URL}/products/${id}`, {
+      name,
+      description,
+      price,
+      image
+    }, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteProduct = async (id) => {
+  const { token } = useAuthStore.getState();
+  try {
+    const response = await axios.delete(`${BASE_URL}/products/${id}`, {
+      headers: {
+        "Content-Type": "application/ld+json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  } 
+}
