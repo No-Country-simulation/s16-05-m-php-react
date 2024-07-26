@@ -1,8 +1,27 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getRestaurantName } from "@/axios/fetch";
 import Table from "/table.png";
 import RestLogo from "/restlogo.png";
 import Menu from "/menu.png";
 
 const SelectOption = () => {
+  const navigate = useNavigate();
+  const [restaurantName, setRestaurantName] = useState("");
+
+  useEffect(() => {
+    const fetchRestaurantName = async () => {
+      try {
+        const name = await getRestaurantName();
+        setRestaurantName(name);
+      } catch (error) {
+        console.error("Error fetching restaurant name:", error);
+      }
+    };
+
+    fetchRestaurantName();
+  }, []);
+
   return (
     <div className="w-[100%] h-[100%] bg-[#272727]">
       <div className="flex h-[100dvh] flex-col justify-start max-w-[600px] mx-[auto] my-[0px] bg-[#272727] gap-[7%] w-[95%] mx-[auto]">
@@ -17,6 +36,7 @@ const SelectOption = () => {
               alt="Logo de un restaurante"
               className="w-[70px] h-[70px]"
             />
+            <p className="text-[white]"> {restaurantName} </p>
           </div>
         </div>
         <div className="flex flex-col gap-[25px] w-[100%] mx-[auto]">
@@ -35,7 +55,9 @@ const SelectOption = () => {
               className="w-[70px] h-[60px]"
               alt="Imagen ilustrativa de una mesa"
             />
-            <p className="text-[white]">Reservar una mesa</p>
+            <a className="text-[white]" href="/reserve">
+              Reservar una mesa
+            </a>
           </div>
         </div>
       </div>

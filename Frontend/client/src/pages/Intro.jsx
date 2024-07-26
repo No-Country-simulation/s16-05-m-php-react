@@ -4,16 +4,17 @@ import deco1 from "/deco1.png";
 import deco2 from "/deco2.png";
 import logo from "/logo.png";
 import bg_mobile from "/bg_mobile.png";
+import { useNavigate } from "react-router-dom";
 
 const Intro = () => {
   const minCards = 1;
   const maxCards = 3;
-
+  const navigate = useNavigate();
   const [cardPosition, setCardPosition] = useState(1);
 
   const nextCard = () => {
     if (cardPosition === maxCards) {
-      //redirigir a otro lugar
+      navigate("/select");
     }
     if (cardPosition >= minCards && cardPosition < maxCards) {
       setCardPosition(cardPosition + 1);
@@ -24,6 +25,11 @@ const Intro = () => {
     if (cardPosition > minCards) {
       setCardPosition(cardPosition - 1);
     }
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate("/select");
   };
 
   return (
@@ -43,7 +49,7 @@ const Intro = () => {
         >
           <img src={logo} alt="logo de ReservApp" />
           <Button
-            className="bg-color-primary font-title w-[200px] mx-[auto] mt-[10%] mb-[15%]"
+            className="bg-color-primary font-title  hover:bg-color-primary w-[200px] mx-[auto] mt-[10%] mb-[15%]"
             onClick={nextCard}
           >
             Continuar
@@ -101,6 +107,7 @@ const Intro = () => {
           <button
             className="background-transparent font-bold uppercase px-3 py-1 text-xs outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 capitalize text-white"
             type="button"
+            onClick={handleClick}
           >
             Saltar
           </button>

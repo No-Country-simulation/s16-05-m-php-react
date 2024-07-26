@@ -9,11 +9,11 @@ const Footer = () => {
   };
 
   return (
-    <div className="flex items-center justify-between p-5 gap-5 h-28 border-t-[2px] border-color-secondary font-title text-color-secondary">
-      <div>
+    <div className=" flex items-center  justify-center md:justify-between p-5 gap-5 h-28 border-t-[2px] border-color-secondary font-title text-color-secondary">
+      <div className="hidden md:flex">
         <img src={logo} alt="logo" className="w-30 h-24" />
       </div>
-      <div className="flex flex-col gap-1 font-bold">
+      <div className=" text-xs md:text-lg flex flex-col gap-1 font-bold ">
         <a href="#"> Soporte</a>
         <a href="#"> Políticas de privacidad</a>
         <a href="#"> © 2024 Copyright ReservApp</a>

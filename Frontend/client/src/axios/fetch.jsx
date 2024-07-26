@@ -20,7 +20,6 @@ export const loginUser = async (email, password) => {
       email,
       password,
     });
-    console.log(response.data);
     return response;
   } catch (error) {
     console.log({ loginUserError: error });
@@ -54,42 +53,99 @@ export const getTables = async () => {
 
 export const createTable = async (name, capacity, min_required_capacity) => {
   try {
-    const response = await axios.post(`${BASE_URL}/tables`, {
-      name,
-      capacity,
-      min_required_capacity,
-    }, {
-      headers: {
-        "Content-Type": "application/ld+json"
+    const response = await axios.post(
+      `${BASE_URL}/tables`,
+      {
+        name,
+        capacity,
+        min_required_capacity,
+      },
+      {
+        headers: {
+          "Content-Type": "application/ld+json",
+        },
       }
-    });
+    );
     return response;
   } catch (error) {
     throw error;
   }
 };
 
-export const updateTable = async (id, name, capacity, min_required_capacity) => {
+export const updateTable = async (
+  id,
+  name,
+  capacity,
+  min_required_capacity
+) => {
   try {
-    const response = await axios.put(`${BASE_URL}/tables/${id}`, {
-      name,
-      capacity,
-      min_required_capacity,
-    }, {
-      headers: {
-        "Content-Type": "application/ld+json"
+    const response = await axios.put(
+      `${BASE_URL}/tables/${id}`,
+      {
+        name,
+        capacity,
+        min_required_capacity,
+      },
+      {
+        headers: {
+          "Content-Type": "application/ld+json",
+        },
       }
-    });
+    );
     return response;
   } catch (error) {
     throw error;
   }
 };
 
-export const deleteTable = async (id,) => {
+export const deleteTable = async (id) => {
   try {
     const response = await axios.delete(`${BASE_URL}/tables/${id}`);
     return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createReservation = async (
+  date,
+  time,
+  owner_first_name,
+  owner_last_name,
+  owner_phone_number,
+  owner_email,
+  table
+) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/reservations`, {
+      date,
+      time,
+      owner_first_name,
+      owner_last_name,
+      owner_phone_number,
+      owner_email,
+      table,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getReservations = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/reservations`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getRestaurantName = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/restaurant-info`);
+    console.log(response.data.name);
+    return response.data.name;
   } catch (error) {
     throw error;
   }

@@ -2,8 +2,21 @@ import { Button } from "@/components/ui/button";
 // import TableFourChairs from "@/components/table/4Chairs";
 // import TableTwoChairs from "@/components/table/2Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmReservation = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/reservations");
+  };
+
+  const handleReturn = (e) => {
+    e.preventDefault();
+    navigate("/reserve");
+  };
+
   return (
     <div className="bg-[#272727] w-[100%] h-[100%] flex flex-col justify-between max-w-[600px] mx-[auto]">
       <h4 className="my-[80px] mx-[auto] max-w-[200px] text-center font-[700] text-[32px]">
@@ -34,13 +47,16 @@ const ConfirmReservation = () => {
       </div>
 
       <div className="flex justify-center gap-[20px] w-[100%]">
-        <Button className="bg-color-secondary w-[40%] font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]">
+        <Button
+          className="bg-color-secondary w-[40%] font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
+          onClick={handleReturn}
+        >
           CANCELAR
         </Button>
 
         <Button
           className="bg-color-primary w-[40%] font-title hover:bg-color-primary px-[20px] py-[10px] border border-[#900B09]"
-          type="submit"
+          onClick={handleSubmit}
         >
           RESERVAR
         </Button>

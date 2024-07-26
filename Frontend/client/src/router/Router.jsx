@@ -6,6 +6,10 @@ import PrivateRoute from "./PrivateRoom";
 import useAuthStore from "@/stores/useAuthStore";
 import TablesUser from "@/pages/TablesUser";
 import Intro from "@/pages/Intro";
+import Reservations from "@/pages/Reservations";
+import ConfirmReservation from "@/pages/ConfirmReservation";
+import SelectOption from "@/pages/SelectOption";
+import Reserve from "@/pages/Reserve";
 
 const Router = () => {
   const { token } = useAuthStore();
@@ -24,8 +28,13 @@ const Router = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/reserve" element={<TablesUser />} />
+      <Route path="/reserve" element={<Reserve />} />
       <Route path="/" element={<Intro />} />
+      <Route path="/reservations" element={<Reservations />} />
+      <Route path="/confirm" element={<ConfirmReservation />} />
+      <Route path="/select" element={<SelectOption />} />
+      <Route path="/table" element={<TablesUser />} />
+      <Route path="/confirm" element={<ConfirmReservation />} />
     </Routes>
   );
 };

@@ -73,10 +73,10 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <a href="/home" className="font-bold">
+              <a href="/reserve" className="font-bold">
                 Reservar Mesa
               </a>
-              <a href="#" className="font-bold">
+              <a href="/reservations" className="font-bold">
                 Consultar Reserva
               </a>
               <a href="#" className="font-bold">
@@ -124,7 +124,7 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <a href="/home" className="font-bold">
+              <a href="/reserve" className="font-bold">
                 Reservar Mesa
               </a>
               <a href="#" className="font-bold">
