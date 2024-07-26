@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
 
 #[UniqueEntity(fields: ['name'], entityClass: Product::class, groups: ['product:write:validation'])]
@@ -63,7 +64,7 @@ class ProductDto
             'description' => 'El estado debe ser un bolean con true o false'
         ]
     )]
-    #[NotBlank(groups: ['product:write:validation'])]
+    #[NotNull(groups: ['product:write:validation'])]
     #[Type(type: 'boolean', groups: ['product:write:validation'])]
     #[Groups(['product:write'])]
     private $is_available;
