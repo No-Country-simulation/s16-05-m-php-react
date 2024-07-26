@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,6 +21,16 @@ use App\Entity\Table;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
+#[Get(
+    normalizationContext: ['groups' => ['reservation:read']],
+    uriTemplate: '/reservations/{code}',
+    uriVariables: [
+        'code' => new Link(identifiers: ['code'])],
+    openapi: new Operation(
+        summary: 'Get reservation by code',
+        description: 'Get reservation by code'
+    )
+)]
 #[GetCollection(
     normalizationContext: ['groups' => ['reservation:read']],
 )]
