@@ -20,19 +20,11 @@ const Login = () => {
 
     try {
       const response = await loginUser(email, password);
-
-      if (response.status === 200) {
         const { token, role } = response.data;
         setToken(token);
         setRole(role);
-        console.log("Inicio de sesión exitoso");
         navigate("/tables");
-      } else {
-        console.error(`Error en el inicio de sesión: ${response.status}`);
-        setError("Error al iniciar sesión, verifica tus credenciales");
-      }
     } catch (error) {
-      console.error("Error en el inicio de sesión:", error);
       setError("Error al iniciar sesión, verifica tus credenciales");
     } finally {
       setLoading(false); // Terminar el estado de carga
@@ -94,7 +86,7 @@ const Login = () => {
               <div role="status">
                 <svg
                   aria-hidden="true"
-                  class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
+                  className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +100,7 @@ const Login = () => {
                     fill="currentFill"
                   />
                 </svg>
-                <span class="sr-only">Loading...</span>
+                <span className="sr-only">Loading...</span>
               </div>
             ) : (
               "INGRESAR"
