@@ -36,7 +36,7 @@ const SelectOption = () => {
               alt="Logo de un restaurante"
               className="w-[70px] h-[70px]"
             />
-            <p className="text-[white]"> {restaurantName} </p>
+            <p className="text-[white]"> {restaurantName} Restaurant</p>
           </div>
         </div>
         <div className="flex flex-col gap-[25px] w-[100%] mx-[auto]">
