@@ -1,6 +1,7 @@
 import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 import useAuthStore from "@/stores/useAuthStore";
+import instance from "./axiosInstance";
 
 /** CREACIÓN DE USUARIOS */
 export const createUser = async (email, password) => {
@@ -318,16 +319,20 @@ export const productImage = async (image, id) => {
   }
 };
 
-export const updateProduct = async (id, name, description, price, image) => {
+export const updateProduct = async (id, name, description, price, available, category) => {
   const { token } = useAuthStore.getState();
+  const is_available = Boolean(available);
+  const categories = [];
+  categories.push(`api/categories/${category}`);
   try {
     const response = await axios.put(
       `${BASE_URL}/products/${id}`,
       {
         name,
-        description,
         price,
-        image,
+        description,
+        is_available,
+        categories
       },
       {
         headers: {
