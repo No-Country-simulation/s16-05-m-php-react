@@ -64,13 +64,15 @@ class ReservationRepository extends ServiceEntityRepository
         return null !== $this->findOneBy(['code' => $code]);
     }
 
-    public function existReservationByDateAndTime(\DateTimeImmutable $date, \DateTimeImmutable $time): bool
+    public function existReservationByDateAndTime(\DateTimeImmutable $date, \DateTimeImmutable $time, int $tableId): bool
     {
         return null !== $this->createQueryBuilder('r')
             ->where('r.date = :date')
             ->andWhere('r.time = :time')
+            ->andWhere('r.table = :table')
             ->setParameter('date', $date->format('Y-m-d'))
             ->setParameter('time', $time->format('H:i'))
+            ->setParameter('table', $tableId)
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
