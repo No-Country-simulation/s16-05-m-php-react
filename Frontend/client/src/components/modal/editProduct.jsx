@@ -14,19 +14,28 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
     const [categoryProduct, setCategoryProduct] = useState('');
     const [categoryTextProduct, setCategoryTextProduct] = useState('');
     const [isAvailableProduct, setIsAvailableProduct] = useState(true);
+    const [isAvailable, setIsAvailable] = useState(null);
+    const [NoIsAvailable, setNoIsAvailable] = useState(null);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        if (id) {
+        if (isOpen) {
             setNameProduct(name);
             setDescriptionProduct(description);
             setImagePreview(image);
             setPriceProduct(price);
             setCategoryProduct(categoryId);
             setIsAvailableProduct(available);
-            setProduct(<CardProduct price={price} name={name} description={description} image={image} />);
+            if(available === true){
+                setIsAvailable(true);
+                setNoIsAvailable(false);
+            }else{
+                setIsAvailable(false);
+                setNoIsAvailable(true);
+            }
+            setProduct(<CardProduct price={price} name={name} description={description} image={image} disabled={available} />);
         }
-    }, [id, name, description, image, price, categoryId, available]);
+    }, [isOpen]);
     if (!isOpen)return null;
 
     const handleNameChange = (event) => {
@@ -86,8 +95,8 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
         const available = Boolean(event.target.value);
         const name = nameProduct || 'Producto';
         const description = descriptionProduct || 'Descripción';
-        const price = priceProduct || 0;
         const image = imagePreview;
+        const price = priceProduct || 0;
         setIsAvailableProduct(available);
         setProduct(<CardProduct price={price} name={name} description={description} image={image} disabled={available} />);
     };
@@ -100,7 +109,7 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(name === nameProduct && description === descriptionProduct && imageProduct === "") {
+        if(name === nameProduct && description === descriptionProduct && imageProduct === "" && price === priceProduct && categoryId === categoryProduct && available === isAvailableProduct) {
             onClose();
             return;
         }else{
@@ -109,7 +118,7 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
                     const response = await productImage(imageProduct, id);
                     if(response.status === 201) {
                         try {
-                            const responseUpdate = await updateProduct(id, nameProduct, descriptionProduct);
+                            const responseUpdate = await updateProduct(id, nameProduct, descriptionProduct, priceProduct, isAvailableProduct, categoryProduct);
                             if(responseUpdate.status === 200) {
                                 window.location.reload();
                             }
@@ -122,7 +131,7 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
                 }
             }else{
                 try {
-                    const responseUpdate = await updateProduct(id, nameProduct, descriptionProduct);
+                    const responseUpdate = await updateProduct(id, nameProduct, descriptionProduct, priceProduct, isAvailableProduct, categoryProduct);
                     if(responseUpdate.status === 200) {
                         window.location.reload();
                     }
@@ -133,8 +142,24 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
         }
     };
 
+    const close = () => {
+        setProduct(null);
+        setNameProduct('');
+        setDescriptionProduct('');
+        setImageProduct('');
+        setImagePreview('');
+        setPriceProduct(0);
+        setCategoryProduct('');
+        setCategoryTextProduct('');
+        setIsAvailableProduct(true);
+        setIsAvailable(null);
+        setNoIsAvailable(null);
+        setError("");
+        onClose();
+    };
+
     return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center z-10" onClick={onClose}>
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center z-10" onClick={close}>
             <div className="bg-color-bg p-5 rounded-md relative border-2 border-color-secondary w-1/2 h-3/4 min-h-[580px]" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center"}} onClick={e => e.stopPropagation()}>
                 <h1 className="text-3xl font-title font-bold text-color-secondary text-center">Nuevo Producto</h1>
                 <form className='flex flex-col h-full justify-around pb-5 items-center' onSubmit={handleSubmit}>
@@ -149,9 +174,9 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
                         </select>
                     </div>
                     <div className='w-1/2 flex'>
-                        <input type="file" className="w-1/3 font-semibold text-center"  accept="image/*" onChange={handleImageChange} required/>
-                        <label htmlFor="disponible" className='mx-3 font-semibold'><input type="radio" id='disponible' className='mx-2' name='disponibilidad' defaultChecked value={true} onClick={handleIsAvailableChange} />Disponible</label>
-                        <label htmlFor="noDisponible" className='mx-3 font-semibold'><input type="radio" id='noDisponible' className='mx-2' name='disponibilidad' value={""} onClick={handleIsAvailableChange} /> No Disponible</label>
+                        <input type="file" className="w-1/3 font-semibold text-center" accept="image/*" onChange={handleImageChange}/>
+                        <label htmlFor="disponible" className='mx-3 font-semibold'><input type="radio" id='disponible' className='mx-2' name='disponibilidad' value={true} onClick={handleIsAvailableChange} defaultChecked={isAvailable}/>Disponible</label>
+                        <label htmlFor="noDisponible" className='mx-3 font-semibold'><input type="radio" id='noDisponible' className='mx-2' name='disponibilidad' value={""} onClick={handleIsAvailableChange} defaultChecked={NoIsAvailable}/> No Disponible</label>
                     </div>
                     <h1 className='font-bold text-color-secondary text-xl'>Previsualización</h1>
                     <div className='min-w-56 h-3/5 w-1/2 bg-color-bg rounded-md flex justify-center items-center'>
@@ -161,7 +186,7 @@ const EditProduct = ({ isOpen, onClose, name, description, image, id, price, cat
                         </div>
                     </div>
                     <div className='flex justify-around w-1/2 min-w-56'>
-                        <Button1 type={"button"} text={"Cancelar"} onClick={onClose} />
+                        <Button1 type={"button"} text={"Cancelar"} onClick={close} />
                         <Button1 type={"submit"} variant={"confirm"} text={"Aceptar"} />
                     </div>
                 </form>
