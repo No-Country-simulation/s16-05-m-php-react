@@ -2,20 +2,41 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\Parameter;
+use ApiPlatform\OpenApi\Model\Response;
+use App\Dto\TableAvailableTimeSlotsDto;
 use App\Dto\TableDto;
 use App\Repository\TableRepository;
+use App\State\TableAvailableTimeSlotsStateProvider;
 use App\State\TableProcessor;
 use App\State\TableStateProvider;
+use ArrayObject;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[GetCollection(
+    uriTemplate: '/tables/{id}/available-time-slots',
+    requirements: ['id' => '\d+'],
+    provider: TableAvailableTimeSlotsStateProvider::class,
+    output: TableAvailableTimeSlotsDto::class,
+    openapi: new Operation(
+        summary: 'Obtiene los horarios disponibles de una mesa',
+        description: 'Obtiene los horarios disponibles de una mesa en base a una fecha dada.',
+        parameters: [
+            new Parameter('date', 'query', 'Fecha en formato YYYY-MM-DD', example: '2024-01-01')
+        ],
+    )
+)]
 #[GetCollection(
     normalizationContext: ['groups' => ['table:read']],
     provider: TableStateProvider::class
@@ -60,7 +81,7 @@ class Table
     #[ORM\Column]
     #[Groups(['table:read'])]
     private ?int $capacity = null;
-        
+
     #[ORM\Column]
     #[Groups(['table:read'])]
     private ?int $min_required_capacity = null;

@@ -70,4 +70,16 @@ class TableRepository extends ServiceEntityRepository
 
         return $paginator;
     }
+
+    public function getTableWithReservationsByDate(int $id, string $date): ?Table
+    {
+        return $this->createQueryBuilder('t')
+        ->select('t, r')
+        ->leftJoin('t.reservations', 'r', 'WITH', 'r.table = t AND r.date = :date')
+        ->where('t.id = :tableId')
+        ->setParameter('date', $date)
+        ->setParameter('tableId', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 }
