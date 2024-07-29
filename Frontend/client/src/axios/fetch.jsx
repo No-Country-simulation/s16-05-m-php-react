@@ -126,20 +126,29 @@ export const createReservation = async (
   owner_last_name,
   owner_phone_number,
   owner_email,
-  table
+  table // table es el @id de la mesa
 ) => {
   try {
-    const response = await axios.post(`${BASE_URL}/reservations`, {
-      date,
-      time,
-      owner_first_name,
-      owner_last_name,
-      owner_phone_number,
-      owner_email,
-      table,
-    });
-    return response;
+    const response = await axios.post(
+      `${BASE_URL}/reservations`,
+      {
+        date,
+        time,
+        owner_first_name,
+        owner_last_name,
+        owner_phone_number,
+        owner_email,
+        table, // Enviamos table en la carga útil
+      },
+      {
+        headers: {
+          "Content-Type": "application/ld+json", // Añadimos el header necesario
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
+    console.error({ createReservationError: error });
     throw error;
   }
 };

@@ -77,11 +77,11 @@ const Reserve = () => {
               <SelectValue placeholder="Horario" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="19 a 20 hs">19 a 20 hs</SelectItem>
-              <SelectItem value="20 a 21 hs">20 a 21 hs</SelectItem>
-              <SelectItem value="21 a 22 hs">21 a 22 hs</SelectItem>
-              <SelectItem value="22 a 23 hs">22 a 23 hs</SelectItem>
-              <SelectItem value="23 a 00 hs">23 a 00 hs</SelectItem>
+              <SelectItem value="19:00">19 a 20 hs</SelectItem>
+              <SelectItem value="20:00">20 a 21 hs</SelectItem>
+              <SelectItem value="21:00">21 a 22 hs</SelectItem>
+              <SelectItem value="22:00">22 a 23 hs</SelectItem>
+              <SelectItem value="23:00">23 a 00 hs</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -123,7 +123,6 @@ const Reserve = () => {
           <p>Celular</p>
           <Input
             className="bg-color-bg border-color-secondary"
-            type="number"
             value={owner_phone_number}
             onChange={(e) => setOwner_phone_number(e.target.value)}
           />

@@ -1,20 +1,82 @@
 import { Button } from "@/components/ui/button";
-// import TableFourChairs from "@/components/table/4Chairs";
-// import TableTwoChairs from "@/components/table/2Chairs";
+import TableTwoChairs from "@/components/table/2Chairs";
+import TableFourChairs from "@/components/table/4Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
+import useReserveStore from "@/stores/useReserveStore";
 import { useNavigate } from "react-router-dom";
+import { createReservation } from "@/axios/fetch";
+
+const formatDate = (dateString) => {
+  const [year, month, day] = dateString.split("-");
+  const date = new Date(year, month - 1, day);
+  const formattedDay = String(date.getDate()).padStart(2, "0");
+  const formattedMonth = String(date.getMonth() + 1).padStart(2, "0");
+  const formattedYear = date.getFullYear();
+  return `${formattedDay}/${formattedMonth}/${formattedYear}`;
+};
 
 const ConfirmReservation = () => {
   const navigate = useNavigate();
+  const { date, time, table, number_of_people } = useReserveStore((state) => ({
+    date: state.date,
+    time: state.time,
+    table: state.table,
+    number_of_people: state.number_of_people,
+  }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/reservations");
+
+    const {
+      date,
+      time,
+      owner_first_name,
+      owner_last_name,
+      owner_phone_number,
+      owner_email,
+      table,
+    } = useReserveStore.getState();
+
+    console.log(
+      date,
+      time,
+      owner_first_name,
+      owner_last_name,
+      owner_phone_number,
+      owner_email,
+      table["@id"]
+    );
+
+    createReservation(
+      date,
+      time,
+      owner_first_name,
+      owner_last_name,
+      owner_phone_number,
+      owner_email,
+      table["@id"] // Enviamos solo el @id como table
+    )
+      .then((response) => {
+        navigate("/reservations");
+      })
+      .catch((error) => {
+        console.error("Error al crear la reserva:", error);
+      });
   };
 
   const handleReturn = (e) => {
     e.preventDefault();
-    navigate("/reserve");
+    navigate("/reservations");
+  };
+
+  const renderTable = () => {
+    if (number_of_people <= 2) {
+      return <TableTwoChairs name={table.name} />;
+    } else if (number_of_people <= 4) {
+      return <TableFourChairs name={table.name} />;
+    } else {
+      return <TableSixChairs name={table.name} />;
+    }
   };
 
   return (
@@ -26,25 +88,21 @@ const ConfirmReservation = () => {
       <div className="">
         <div className="flex border-t py-[10px]">
           <p className="w-[50%] ml-[5%]">Restaurante</p>
-          <span>nombre resto</span>
+          <span>Healthy Restaurant</span>
         </div>
 
         <div className="flex border-t py-[10px]">
           <p className="w-[50%] ml-[5%]">Fecha</p>
-          <span>dd/mm/aaaa</span>
+          <span>{formatDate(date)}</span>
         </div>
 
         <div className="flex border-t border-b py-[10px]">
           <p className="w-[50%] ml-[5%]">Hora</p>
-          <span>hh a hh</span>
+          <span>{time}</span>
         </div>
       </div>
 
-      <div className="mx-[auto]">
-        <TableSixChairs />
-        {/* <TableFourChairs /> */}
-        {/* <TableTwoChairs /> */}
-      </div>
+      <div className="mx-[auto]">{renderTable()}</div>
 
       <div className="flex justify-center gap-[20px] w-[100%]">
         <Button

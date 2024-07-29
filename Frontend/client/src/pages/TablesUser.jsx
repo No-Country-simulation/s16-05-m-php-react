@@ -5,11 +5,14 @@ import TableTwoChairs from "@/components/table/2Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import useReserveStore from "@/stores/useReserveStore";
 
 const TablesUser = () => {
   const { tables, error, loading, fetchTables } = useTablesStore();
+  const { number_of_people, setTable } = useReserveStore(); // Obtiene el número de personas y setTable del estado de Zustand
 
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedTableId, setSelectedTableId] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,22 +25,9 @@ const TablesUser = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [isModalOpenNewMesa, setIsModalOpenNewMesa] = useState(false);
-  const [isModalOpenEditMesa, setIsModalOpenEditMesa] = useState(false);
-  const [idMesa, setIdMesa] = useState(null);
-  const [nameMesa, setNameMesa] = useState(null);
-  const [capacityMesa, setCapacityMesa] = useState(null);
-
-  const openModalNewMesa = () => setIsModalOpenNewMesa(true);
-  const closeModalNewMesa = () => setIsModalOpenNewMesa(false);
-  const openModalEditMesa = () => setIsModalOpenEditMesa(true);
-  const closeModalEditMesa = () => setIsModalOpenEditMesa(false);
-
-  const dataMesa = (id, name, capacity) => {
-    openModalEditMesa();
-    setIdMesa(id);
-    setNameMesa(name);
-    setCapacityMesa(capacity);
+  const handleSelectTable = (table) => {
+    setSelectedTableId(table.id);
+    setTable({ name: table.name, id: table.id, "@id": table["@id"] }); // Aseguramos que @id se almacene
   };
 
   const navigate = useNavigate();
@@ -61,7 +51,7 @@ const TablesUser = () => {
       <div className="w-[100%] h-[100%] bg-color-bg ">
         <div
           role="status"
-          className="flex h-[100dvh] mt-5 flex-col items-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]"
+          className="flex h-screen justify-center mt-5 flex-col items-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]"
         >
           <svg
             aria-hidden="true"
@@ -91,16 +81,28 @@ const TablesUser = () => {
       </div>
     );
   }
-  const tablesResponse = tables["hydra:member"].map((table) => {
+
+  const filteredTables = tables["hydra:member"].filter((table) => {
+    if (number_of_people <= 2) {
+      return table["capacity"] === 2;
+    } else if (number_of_people <= 4) {
+      return table["capacity"] === 4;
+    } else {
+      return table["capacity"] === 6;
+    }
+  });
+
+  const tablesResponse = filteredTables.map((table) => {
     if (table["capacity"] === 2) {
       return (
         <TableTwoChairs
           key={table.id}
           name={table.name}
           id={table.id}
+          reservedChairs={table.reservedChairs}
           hover
-          onClick={() => dataMesa(table.id, table.name, table.capacity)}
-          className="max-w-[200px] m-2"
+          onSelect={() => handleSelectTable(table)}
+          selected={selectedTableId === table.id}
           isMobile={isMobile}
         />
       );
@@ -111,9 +113,10 @@ const TablesUser = () => {
           key={table.id}
           name={table.name}
           id={table.id}
+          reservedChairs={table.reservedChairs}
           hover
-          onClick={() => dataMesa(table.id, table.name, table.capacity)}
-          className="max-w-[200px] m-2"
+          onSelect={() => handleSelectTable(table)}
+          selected={selectedTableId === table.id}
           isMobile={isMobile}
         />
       );
@@ -124,16 +127,18 @@ const TablesUser = () => {
           key={table.id}
           name={table.name}
           id={table.id}
+          reservedChairs={table.reservedChairs}
           hover
-          onClick={() => dataMesa(table.id, table.name, table.capacity)}
-          className="max-w-[200px] m-2"
+          onSelect={() => handleSelectTable(table)}
+          selected={selectedTableId === table.id}
           isMobile={isMobile}
         />
       );
     }
   });
+
   return (
-    <div className="flex h-screen font-title mt-5 flex-col gap-10 flex-wrap items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
+    <div className="flex h-screen font-title mt-5 flex-row gap-10 flex-wrap items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
       <p className="font-bold text-2xl text-color-text">Seleccione una mesa</p>
       <div className="flex flex-row flex-wrap items-center justify-center">
         {tablesResponse}
