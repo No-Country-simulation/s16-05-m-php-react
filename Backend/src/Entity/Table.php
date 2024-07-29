@@ -10,6 +10,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use App\Dto\TableDto;
 use App\Repository\TableRepository;
 use App\State\TableProcessor;
+use App\State\TableStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +18,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 
 #[GetCollection(
     normalizationContext: ['groups' => ['table:read']],
+    provider: TableStateProvider::class
 )]
 #[Post(
     security: 'is_granted("ROLE_ADMIN")',
