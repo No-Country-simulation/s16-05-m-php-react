@@ -37,7 +37,7 @@ class ReservationRepository extends ServiceEntityRepository
         return $reservation;
     }
 
-    public function uptimeFromDto(ReservationDto $reservationDto, int $id): Reservation
+    public function updateFromDto(ReservationDto $reservationDto, int $id): Reservation
     {
         /**
          * @var Reservation $reservation
