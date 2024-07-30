@@ -7,6 +7,7 @@ use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Service\ReservationService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @extends ServiceEntityRepository<Reservation>
@@ -37,7 +38,7 @@ class ReservationRepository extends ServiceEntityRepository
         return $reservation;
     }
 
-    public function uptimeFromDto(ReservationDto $reservationDto, int $id): Reservation
+    public function updateFromDto(ReservationDto $reservationDto, int $id): Reservation
     {
         /**
          * @var Reservation $reservation
@@ -64,15 +65,35 @@ class ReservationRepository extends ServiceEntityRepository
         return null !== $this->findOneBy(['code' => $code]);
     }
 
-    public function existReservationByDateAndTime(\DateTimeImmutable $date, \DateTimeImmutable $time): bool
+    public function existReservationByDateAndTime(\DateTimeImmutable $date, \DateTimeImmutable $time, int $tableId): bool
     {
         return null !== $this->createQueryBuilder('r')
             ->where('r.date = :date')
             ->andWhere('r.time = :time')
+            ->andWhere('r.table = :table')
             ->setParameter('date', $date->format('Y-m-d'))
             ->setParameter('time', $time->format('H:i'))
+            ->setParameter('table', $tableId)
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
+    }
+
+    public function updateReservationStatus(int $id, int $statusId): Reservation
+    {
+        /** @var Reservation $reservation */
+        $reservation = $this->find($id);
+
+        if (null === $reservation) {
+            throw new NotFoundHttpException('Reservation not found');
+        }
+
+        $reservation->setStatus($statusId);
+        $reservation->setUpdateAt(new \DateTimeImmutable);
+
+        $this->getEntityManager()->persist($reservation);
+        $this->getEntityManager()->flush();
+
+        return $reservation;
     }
 }
