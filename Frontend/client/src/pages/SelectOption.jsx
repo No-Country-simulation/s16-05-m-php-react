@@ -41,14 +41,14 @@ const SelectOption = () => {
         </div>
         <div className="flex flex-col gap-[25px] w-[100%] mx-[auto]">
           <h5 className="font-[250]">Seleccione una opción</h5>
-          <div className="w-[100%] flex justify-start items-center bg-[#7C7676] rounded-[20px] p-[5px] gap-[25px]">
+          <button className="w-[100%] flex justify-start items-center bg-[#7C7676] rounded-[20px] p-[5px] gap-[25px]" onClick={() => navigate("/category")}>
             <img
               src={Menu}
               className="w-[60px] h-[70px]"
               alt="Imagen ilustrativa de un menú"
             />
             <p className="text-[white]">Ver menú de comidas</p>
-          </div>
+          </button>
           <div className="w-[100%] flex justify-start items-center bg-[#7C7676] rounded-[20px] p-[5px] gap-[25px]">
             <img
               src={Table}
