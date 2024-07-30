@@ -15,9 +15,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Dto\ReservationDto;
+use App\Dto\ReservationStatusDto;
 use App\State\ReservationProcessor;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Table;
+use App\State\ReservationStatusProcessor;
+use App\Util\ReservationStatuses;
 use Symfony\Component\Serializer\Attribute\Context;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
@@ -51,6 +54,26 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
     input: ReservationDto::class,
     processor: ReservationProcessor::class
 )]
+#[Put(
+    normalizationContext: ['groups' => ['reservation:read']],
+    uriTemplate: '/reservations/{id}/status',
+    requirements: ['id' => '\d+'],
+    processor: ReservationStatusProcessor::class,
+    input: ReservationStatusDto::class,
+    security: 'is_granted("ROLE_ADMIN")',
+    openapi: new Operation(
+        summary: 'Update reservation status',
+        description: "Cambiar el estado de una reserva
+## Estados disponibles:
+- `in-progress`: Indica que la reserva está en curso, probablemente el cliente está en el restaurante.\n
+- `canceled`: Indica que la reserva ha sido cancelada.
+- `completed`: Indica que la reserva ha sido completada con éxito.
+- `pending`: Indica que la reserva ha sido creada pero aún no ha sido confirmada o atendida.
+- `no-show`: Para indicar que el cliente no se presentó a la reserva.
+- `scheduled`: La reserva está confirmada y a la espera de la fecha y hora acordadas.
+      "
+    )
+)]
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
@@ -66,8 +89,8 @@ class Reservation
     private ?string $code;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['reservation:read'])]
-    private ?string $status = null;
+    #[Groups(['reservation:read', Types::INTEGER])]
+    private ?int $status = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['reservation:read'])]
@@ -119,7 +142,7 @@ class Reservation
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->status = 'waiting';
+        $this->status = ReservationStatuses::IN_PROGRESS;
         $this->created_at = new \DateTimeImmutable();
         $this->update_at = new \DateTimeImmutable();
     }
@@ -141,12 +164,12 @@ class Reservation
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(int $status): static
     {
         $this->status = $status;
 

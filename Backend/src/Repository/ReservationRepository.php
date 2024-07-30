@@ -7,6 +7,7 @@ use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Service\ReservationService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @extends ServiceEntityRepository<Reservation>
@@ -76,5 +77,23 @@ class ReservationRepository extends ServiceEntityRepository
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
+    }
+
+    public function updateReservationStatus(int $id, int $statusId): Reservation
+    {
+        /** @var Reservation $reservation */
+        $reservation = $this->find($id);
+
+        if (null === $reservation) {
+            throw new NotFoundHttpException('Reservation not found');
+        }
+
+        $reservation->setStatus($statusId);
+        $reservation->setUpdateAt(new \DateTimeImmutable);
+
+        $this->getEntityManager()->persist($reservation);
+        $this->getEntityManager()->flush();
+
+        return $reservation;
     }
 }
