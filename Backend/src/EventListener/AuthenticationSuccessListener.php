@@ -25,6 +25,7 @@ class AuthenticationSuccessListener
     
     $data['roles'] = $user->getRoles();
     $data['username'] = $user->getUsername();
+    $data['createdAt'] = now()->getTimestamp() * 1000;
     $data['expiresAt'] = now('+1 hour')->getTimestamp() * 1000;
 
     $event->setData($data);
