@@ -71,19 +71,19 @@ class Table
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $capacity = null;
 
     #[ORM\Column]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $min_required_capacity = null;
 
     /**
@@ -91,6 +91,10 @@ class Table
      */
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'table')]
     private Collection $reservations;
+
+    #[ORM\Column]
+    #[Groups(['table:read', 'reservation:read'])]
+    private ?int $attendee_count = null;
 
     public function __construct()
     {
@@ -164,6 +168,18 @@ class Table
                 $reservation->setTable(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAttendeeCount(): ?int
+    {
+        return $this->attendee_count;
+    }
+
+    public function setAttendeeCount(int $attendee_count): static
+    {
+        $this->attendee_count = $attendee_count;
 
         return $this;
     }

@@ -67,6 +67,25 @@ class TableDto
   #[Groups(['table:write'])]
   private $min_required_capacity;
 
+  #[ApiProperty(
+    openapiContext: [
+      'type' => 'integer',
+      'minimum' => 1,
+      'example' => 1,
+      'description' => 'Cantidad de personas que van a asistir a la mesa. Debe ser mayor o igual que la capacidad minima requerida',
+    ]
+  )]
+  #[NotBlank(groups: ['table:write:validation'])]
+  #[Type(type: 'integer', groups: ['table:write:validation'])]
+  #[GreaterThan(0, groups: ['table:write:validation'])]
+  #[GreaterThanOrEqual(
+    propertyPath: 'min_required_capacity',
+    groups: ['table:write:validation'],
+    message: 'table.min_required_capacity.less_than_or_equal'
+  )]
+  #[Groups(['table:write'])]
+  private $attendee_count;
+
   public function getId()
   {
     return $this->id;
@@ -111,6 +130,18 @@ class TableDto
   public function setMinRequiredCapacity($min_required_capacity)
   {
     $this->min_required_capacity = $min_required_capacity;
+
+    return $this;
+  }
+
+  public function getAttendeeCount()
+  {
+    return $this->attendee_count;
+  }
+
+  public function setAttendeeCount($attendee_count)
+  {
+    $this->attendee_count = $attendee_count;
 
     return $this;
   }
