@@ -54,7 +54,7 @@ const ConfirmReservation = () => {
       owner_last_name,
       owner_phone_number,
       owner_email,
-      table["@id"] // Enviamos solo el @id como table
+      table["@id"]
     )
       .then((response) => {
         navigate("/reservations");
