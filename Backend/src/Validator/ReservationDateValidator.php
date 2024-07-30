@@ -31,7 +31,7 @@ class ReservationDateValidator extends ConstraintValidator
         $date = $receipt->getDate();
         $time = $receipt->getTime();
 
-        if ($this->reservationRepository->existReservationByDateAndTime($date, $time)) {
+        if ($this->reservationRepository->existReservationByDateAndTime($date, $time, $receipt->getTable()->getId())) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ date }}', $date->format('Y-m-d'))
                 ->setParameter('{{ time }}', $time->format('H:i'))

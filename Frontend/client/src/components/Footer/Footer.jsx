@@ -1,12 +1,32 @@
-import React from 'react'
+import React from "react";
+import logo from "../../assets/logog.svg";
+import { FaInstagram } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
-  return (
-    <div className='flex items-center justify-center gap-5 h-28 border-t-[1px] font-title'>
-        <a href="#"> Sobre Nosotros</a>
-        <a href="#"> Políticas de Privacidad</a>
-    </div>
-  )
-}
+  const handleContactButtonClick = () => {
+    window.open(`https://wa.me/${+542616002891}`, "_blank");
+  };
 
-export default Footer
+  return (
+    <div className=" flex items-center  justify-center md:justify-between p-5 gap-5 h-28 border-t-[2px] border-color-secondary font-title text-color-secondary">
+      <div className="hidden md:flex">
+        <img src={logo} alt="logo" className="w-30 h-24" />
+      </div>
+      <div className=" text-xs md:text-lg flex flex-col gap-1 font-bold ">
+        <a href="#"> Soporte</a>
+        <a href="#"> Políticas de privacidad</a>
+        <a href="#"> © 2024 Copyright ReservApp</a>
+      </div>
+      <div className="flex gap-5 items-center">
+        <FaInstagram className="text-color-secondary text-3xl cursor-pointer" />
+        <FaWhatsapp
+          onClick={handleContactButtonClick}
+          className="text-color-secondary text-3xl cursor-pointer"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Footer;
