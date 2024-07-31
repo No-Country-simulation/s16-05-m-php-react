@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import deco1 from "/decoration1.png";
 import bg1_mobile from "/bg1_mobile.png";
 
 const Reservations = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="w-[100%] h-[100%] min-h-[100dvh] bg-[#272727] max-w-[520px] mx-[auto] overflow-hidden"
@@ -56,22 +58,27 @@ const Reservations = () => {
         </div>
       </div>
 
-      <svg
-        className="mx-[auto] mt-[10px]"
-        width="32"
-        height="32"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <button
+        className="bg-[transparent] ml-[45%] mt-[10px]"
+        onClick={() => navigate("/reserve")}
       >
-        <path
-          d="M24 10V38M10 24H38"
-          stroke="#fff"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+        <svg
+          className=""
+          width="32"
+          height="32"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M24 10V38M10 24H38"
+            stroke="#fff"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
     </div>
   );
 };
