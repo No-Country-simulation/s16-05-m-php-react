@@ -1,4 +1,4 @@
-import deco1 from "/deco1.png";
+import deco1 from "/decoration1.png";
 import bg1_mobile from "/bg1_mobile.png";
 
 const Reservations = () => {
@@ -14,10 +14,10 @@ const Reservations = () => {
       <img
         src={deco1}
         alt="Imagen ilustrativa"
-        className="mt-[-25px] mx-[auto] scale-[1.2]"
+        className="mx-[auto] mt-[60px] scale-[1.2]"
       />
 
-      <h5 className="text-center text-[22px]">¡Hola Nombre!</h5>
+      <h5 className="text-center text-[22px] mt-[80px]">¡Hola Nombre!</h5>
 
       <h4 className="text-center text-[32px] mt-[10px] mb-[30px]">
         Tus reservaciones
