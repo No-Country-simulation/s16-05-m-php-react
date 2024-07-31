@@ -92,10 +92,6 @@ class Table
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'table')]
     private Collection $reservations;
 
-    #[ORM\Column]
-    #[Groups(['table:read', 'reservation:read'])]
-    private ?int $attendee_count = null;
-
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -168,18 +164,6 @@ class Table
                 $reservation->setTable(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getAttendeeCount(): ?int
-    {
-        return $this->attendee_count;
-    }
-
-    public function setAttendeeCount(int $attendee_count): static
-    {
-        $this->attendee_count = $attendee_count;
 
         return $this;
     }

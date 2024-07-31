@@ -3,3 +3,7 @@ table:
         less_than_or_equal: min_required_capacity debe ser menor o igual a capacity.
     capacity:
         greater_than_or_equal: capacity debe ser mayor o igual a min_required_capacity.
+reservation:
+    attendee_count:
+        greater_than_or_equal: \'attendee_count\' debe ser mayor o igual a \'min_required_capacity\' \({{ compared_value }}\) de la mesa.
+        less_than_or_equal: \'attendee_count\' debe ser menor o igual a \'capacity\' \({{ compared_value }}\) de la mesa.
