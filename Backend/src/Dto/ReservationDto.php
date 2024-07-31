@@ -8,7 +8,11 @@ use App\Validator\ReservationDate;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
 
 #[ReservationDate(groups: ['reservation:write:validation'])]
 class ReservationDto
@@ -97,6 +101,22 @@ class ReservationDto
     #[NotBlank(groups: ['reservation:write:validation'])]
     #[Groups(['reservation:write'])]
     private ?Table $table;
+
+    #[NotBlank(groups: ['reservation:write:validation'])]
+    #[Type(type: 'integer', groups: ['reservation:write:validation'])]
+    #[GreaterThan(0, groups: ['reservation:write:validation'])]
+    #[GreaterThanOrEqual(
+        message: 'reservation.attendee_count.greater_than_or_equal',
+        propertyPath: 'table.min_required_capacity',
+        groups: ['reservation:write:validation'],
+    )]
+    #[LessThanOrEqual(
+        message: 'reservation.attendee_count.less_than_or_equal',
+        propertyPath: 'table.capacity',
+        groups: ['reservation:write:validation'],
+    )]
+    #[Groups(['reservation:write'])]
+    private int $attendee_count;
 
     public function getDate()
     {
@@ -202,6 +222,18 @@ class ReservationDto
     public function setTable(?Table $table)
     {
         $this->table = $table;
+
+        return $this;
+    }
+
+    public function getAttendeeCount()
+    {
+        return $this->attendee_count;
+    }
+
+    public function setAttendeeCount($attendee_count)
+    {
+        $this->attendee_count = $attendee_count;
 
         return $this;
     }
