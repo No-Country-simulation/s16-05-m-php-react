@@ -110,12 +110,12 @@ class Reservation
 
     #[ORM\Column]
     #[Groups(['reservation:read'])]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
     #[Groups(['reservation:read'])]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     private ?\DateTimeImmutable $update_at = null;
 
     /**
@@ -138,6 +138,10 @@ class Reservation
     #[Groups(['reservation:read'])]
     #[Context([DateTimeNormalizer::FORMAT_KEY => 'H:i'])]
     private ?\DateTimeImmutable $time = null;
+
+    #[ORM\Column]
+    #[Groups(['reservation:read'])]
+    private ?int $attendee_count = null;
 
     public function __construct()
     {
@@ -309,6 +313,18 @@ class Reservation
     public function setTime(\DateTimeImmutable $time): static
     {
         $this->time = $time;
+
+        return $this;
+    }
+
+    public function getAttendeeCount(): ?int
+    {
+        return $this->attendee_count;
+    }
+
+    public function setAttendeeCount(int $attendee_count): static
+    {
+        $this->attendee_count = $attendee_count;
 
         return $this;
     }

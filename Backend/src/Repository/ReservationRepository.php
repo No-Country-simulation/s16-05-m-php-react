@@ -31,6 +31,7 @@ class ReservationRepository extends ServiceEntityRepository
         $reservation->setOwnerPhoneNumber($reservationDto->getOwnerPhoneNumber());
         $reservation->setOwnerEmail($reservationDto->getOwnerEmail());
         $reservation->setTable($reservationDto->getTable());
+        $reservation->setAttendeeCount($reservationDto->getAttendeeCount());
 
         $this->getEntityManager()->persist($reservation);
         $this->getEntityManager()->flush();
@@ -53,6 +54,7 @@ class ReservationRepository extends ServiceEntityRepository
         $reservation->setOwnerEmail($reservationDto->getOwnerEmail());
         $reservation->setUpdateAt(new \DateTimeImmutable);
         $reservation->setTable($reservationDto->getTable());
+        $reservation->setAttendeeCount($reservationDto->getAttendeeCount());
 
         $this->getEntityManager()->persist($reservation);
         $this->getEntityManager()->flush();

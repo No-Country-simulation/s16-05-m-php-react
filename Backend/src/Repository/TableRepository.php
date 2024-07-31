@@ -29,7 +29,6 @@ class TableRepository extends ServiceEntityRepository
         $table->setName($tableDto->getName());
         $table->setCapacity($tableDto->getCapacity());
         $table->setMinRequiredCapacity($tableDto->getMinRequiredCapacity());
-        $table->setAttendeeCount($tableDto->getAttendeeCount());
 
         $this->getEntityManager()->persist($table);
         $this->getEntityManager()->flush();
@@ -44,7 +43,6 @@ class TableRepository extends ServiceEntityRepository
         $table->setName($tableDto->getName());
         $table->setCapacity($tableDto->getCapacity());
         $table->setMinRequiredCapacity($tableDto->getMinRequiredCapacity());
-        $table->setAttendeeCount($tableDto->getAttendeeCount());
 
         $this->getEntityManager()->persist($table);
         $this->getEntityManager()->flush();
