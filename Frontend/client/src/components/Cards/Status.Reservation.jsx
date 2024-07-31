@@ -35,7 +35,7 @@ const CardStatus = ({ status }) => {
         }
     }, [status]);
     return (
-        <div className={`px-4 py-2 rounded-3xl ${backgroundColor} text-center text-white cursor-default text-nowrap font-bold`}>{text}
+        <div className={`px-4 w-fit py-1 rounded-3xl ${backgroundColor} text-center text-white cursor-default text-nowrap font-bold`}>{text}
         </div>)
 }
 

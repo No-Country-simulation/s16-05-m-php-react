@@ -16,6 +16,7 @@ import NotFoundPage from "@/pages/NotFound";
 import CategoryClient from "@/pages/CategoryClient";
 import ProductClient from "@/pages/ProductClient";
 import ReservationsAdmin from "@/pages/Reservations.Admin";
+import SearchReservation from "@/pages/SearchReservation";
 import Success from "@/components/modal/Success";
 
 const Router = () => {
@@ -44,6 +45,7 @@ const Router = () => {
       <Route path="/confirm" element={<ConfirmReservation />} />
       <Route path="/category" element={<CategoryClient />} />
       <Route path="/productsClient/:categoryId" element={<ProductClient />} />
+      <Route path="/search" element={<SearchReservation />} />
       <Route
         path="/menu"
         element={
