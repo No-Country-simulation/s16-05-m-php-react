@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import CardStatus from "@/components/Cards/Status.Reservation";
+import Button1 from "./button1";
 
 const Table = ({data, searchCode}) => {
     const [response, setResponse] = useState("");
@@ -15,7 +16,7 @@ const Table = ({data, searchCode}) => {
             setResponse(
                 <tbody>
                     <tr>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">♥</td>
+                        <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} /></td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={data.status} /></td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.code}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.table.name}</td>
@@ -36,7 +37,7 @@ const Table = ({data, searchCode}) => {
             const reserveList = data.map((item) => {
                 return (<tbody key={item.id}>
                     <tr className="h-20">
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">♥</td>
+                        <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} /></td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={item.status} /></td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.code}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item['table']['name']}</td>
