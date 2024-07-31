@@ -16,6 +16,7 @@ import NotFoundPage from "@/pages/NotFound";
 import CategoryClient from "@/pages/CategoryClient";
 import ProductClient from "@/pages/ProductClient";
 import ReservationsAdmin from "@/pages/Reservations.Admin";
+import Success from "@/components/modal/Success";
 
 const Router = () => {
   const { token } = useAuthStore();

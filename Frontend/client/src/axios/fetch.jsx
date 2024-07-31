@@ -119,6 +119,7 @@ export const deleteTable = async (id) => {
   }
 };
 
+
 /** CRUD DE CATEGORÍAS */
 export const getCategory = async () => {
   try {
@@ -286,7 +287,14 @@ export const productImage = async (image, id) => {
   }
 };
 
-export const updateProduct = async (id, name, description, price, available, category) => {
+export const updateProduct = async (
+  id,
+  name,
+  description,
+  price,
+  available,
+  category
+) => {
   const { token } = useAuthStore.getState();
   const is_available = Boolean(available);
   const categories = [];
@@ -299,7 +307,7 @@ export const updateProduct = async (id, name, description, price, available, cat
         price,
         description,
         is_available,
-        categories
+        categories,
       },
       {
         headers: {
@@ -357,9 +365,12 @@ export const createReservation = async (
   owner_last_name,
   owner_phone_number,
   owner_email,
-  table // table es el @id de la mesa
+  table
 ) => {
   try {
+    // Asegurarse de que el campo table esté en el formato correcto
+    const formattedTable = typeof table === "string" ? table : table["@id"];
+
     const response = await axios.post(
       `${BASE_URL}/reservations`,
       {
@@ -369,11 +380,11 @@ export const createReservation = async (
         owner_last_name,
         owner_phone_number,
         owner_email,
-        table, // Enviamos table en la carga útil
+        table: formattedTable, // Asegurarse de que table sea una cadena
       },
       {
         headers: {
-          "Content-Type": "application/ld+json", // Añadimos el header necesario
+          "Content-Type": "application/ld+json",
         },
       }
     );
