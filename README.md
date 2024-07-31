@@ -44,8 +44,18 @@ Características Principales
 
 #### 👉🏻 Lista de Tareas ✅
 
+- Planificación y definición del proyecto.
+- Seguimiento del progreso y gestión de tareas, utilizando Jira.
+- Gestión de recursos y asignación de trabajo a cada integrante del equipo.
+- Gestión de cada Sprint y backlog.
+- Comunicación mediante dailys y colaboración con cada área.
 
-#### 👉🏻 Construida con 🛠️
+
+#### 👉🏻 Herramientas utilizadas 🛠️
+
+![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
+![Scrum Master](https://img.shields.io/badge/Scrum%20Master-4A90E2?style=for-the-badge&logo=organization&logoColor=white)
 
 
 
@@ -61,33 +71,38 @@ Características Principales
 
 #### 👉🏻 Lista de Tareas ✅
 
-- Desarrollo de una API REST con PHP y Symfony.
-- Crear una base de datos MySQL en Railway.
-- Desplegar la API en Railway.
-- Validación de usuarios con JWT construido y firmado en la aplicación.
-- Documentación de la API en Swagger3.
-- Puntos finales (endpoints) y servicios completamente probados.
 
+- Desarrollo de las APIS REST con PHP y Symfony.
+- Esquema de la base de datos utilizando MySQL.
+- Autenticación mediante JWT.
+- Protección de endpoints.
+- CRUD y validación de reservas, mesas, productos y categorías.
+- Validaciones especiales para las reservas, para evitar que se reserve una misma mesa, en una misma fecha y horario.
+- Generación de código único para cada reserva.
+- Consulta de disponibilidad horaria (en una fecha dada) de una mesa.
+- Almacenamiento de imágenes.
+- Sistema de recuperación de contraseña.
+- Deploy en Render.
 
-#### 👉🏻 Documentación 📜
-
-- Puedes leer la documentación de la API: <a href="https://energetic-hope-production.up.railway.app/swagger-ui/index.html" target="_blank">Aqui</a>.
 
 #### 👉🏻 Construida con 🛠️
 
-![PHP](https://img.shields.io/badge/PHP-blue?logo=php&logoColor=white) 
-![Symfony](https://img.shields.io/badge/Symfony-000000?logo=symfony&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-blue?style=for-the-badge&logo=php&logoColor=white) 
+![Symfony](https://img.shields.io/badge/Symfony-000000?style=for-the-badge&logo=symfony&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-%23316192.svg?style=for-the-badge&logo=mysqll&logoColor=white)
-![API PLATFORM](https://img.shields.io/badge/API%20Platform-0098D8?logo=api-platform&logoColor=white)
-![Render](https://img.shields.io/badge/Render-46E3B7?logo=render&logoColor=white)
+![API PLATFORM](https://img.shields.io/badge/API%20Platform-0098D8?style=for-the-badge&logo=api-platform&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+
+
+
 
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
 | <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=100>| <img src="https://avatars.githubusercontent.com/u/94977362?v=4" width=100>| <img src="https://media.licdn.com/dms/image/D4D03AQHBEVBNjjEX_w/profile-displayphoto-shrink_800_800/0/1701990403396?e=1723680000&v=beta&t=KPxDd0RZwj1AkJ67ZvOh_QJkCADVI61W-1Up9Qa_d9k" width=100>| 
-|:-:|:-:|:-:| 
-| **Juan Camilo García Gómez**| **Nicolás Galarza**| **Sebastián Laverde**| 
-| <a href="https://www.linkedin.com/in/ramon-cruz187/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/johanacarrizo/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/maximiliano-abel-marcos/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | 
-| <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/JohanaCarrizo"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/maximiliano-abel-marcos/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | 
+|:-:|:-:|
+| **Juan Camilo García Gómez**| **Nicolás Galarza**|
+| <a href=""><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/johanacarrizo/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |  
+| <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/JohanaCarrizo"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | 
 
 
 
@@ -97,10 +112,11 @@ Características Principales
 
 #### 👉🏻 Lista de Tareas ✅
 
+
 - Desarrollo de una aplicación front-end con React.
-- Implementación de arquitectura de seguridad con interceptores JWT.
-- Conexión con una API REST.
-- Despliegue de front-end en Vercel.
+- Manejo de estados con Zustand.
+- Conexión con una API REST mediante Axios.
+- Despliegue de la aplicación en Vercel.
 
 
 #### 👉🏻 Construido con 🛠️
@@ -186,6 +202,6 @@ Características Principales
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
 <br><br>
 
