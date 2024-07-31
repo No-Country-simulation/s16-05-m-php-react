@@ -6,7 +6,7 @@
 <br>
 <h2>¿Qué esperás para reservar? </h2>
   
-### ReserveApp está pensado como una aplicación que le permita a los usuarios poder reservar mesa, de un restaurante de una manera ágil y cómoda, desde su casa o trabajo.
+### ReservApp está pensado como una aplicación que le permita a los usuarios poder reservar mesa, de un restaurante de una manera ágil y cómoda, desde su casa o trabajo.
 
   
 </div>
@@ -20,7 +20,7 @@ Este proyecto está dirigido a:
 <br><br>
 Características Principales de la App:
 
-<li>Reservar una mesa: El usuario-cliente de ReserveApp, podra acceder a la vista de las mesas disponibles del restaurante, seleccionar la mesa deseada, luego completar un formulario de datos (Fecha y horario de reserva, cantidad de comensales y algunos datos personales). Luego será llevado a una vista de confirmación y al presionar el botón Reservar, se le mostrará una vista con el resumen de su reserva.</li>
+<li>Reservar una mesa: El usuario-cliente de ReservApp, podra acceder a la vista de las mesas disponibles del restaurante, seleccionar la mesa deseada, luego completar un formulario de datos (Fecha y horario de reserva, cantidad de comensales y algunos datos personales). Luego será llevado a una vista de confirmación y al presionar el botón Reservar, se le mostrará una vista con el resumen de su reserva.</li>
 <li>Ver menú de comidas: En esta vista - que es solo a modo informativa - se le presentará el menú del restaurante, en forma de categorías y también podrá seleccionar cada una de ellas, para ver los platos disponibles.</li>
 <li>Consultar mi reserva: Esta funcionalidad le permitirá acceder, al usuario-cliente, a su reserva, mediante el código de reserva.</li>
 <li>Interfaz Amigable: Diseño intuitivo y responsivo para una experiencia de usuario óptima en todos los dispositivos.</li>
@@ -28,7 +28,7 @@ Características Principales de la App:
 <br><br>
 Características Principales para el Dueño del restaurante:
 
-<li>Login: El dueño del restaurante tendrá acceso como usuario-admin a ReserveApp, mediante correo electrónico y contraseña.</li>
+<li>Login: El dueño del restaurante tendrá acceso como usuario-admin a ReservApp, mediante correo electrónico y contraseña.</li>
 <li>Home: El usuario-admin tendrá acceso a la vista Home, en donde podrá ver las mesas de su restaurante y el estado de cada una. También en el navbar tiene 2 botones, uno para ver las reservas y otro para ver el menu</li>
 <li>ABM Mesa: El usuario-admin, podrá agregar, modificar, y eliminar una mesa.</li>
 <li>ABM Menú: El usuario-admin, podrá agregar, modificar, y eliminar el menu, ya sea una categoría o un plato.</li>
