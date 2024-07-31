@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import deco1 from "/deco1.png";
-import deco2 from "/deco2.png";
+import deco1 from "/decoration1.png";
+import deco2 from "/decoration2.png";
 import logo from "/logo.png";
 import bg_mobile from "/bg_mobile.png";
 import { useNavigate } from "react-router-dom";
@@ -34,11 +34,11 @@ const Intro = () => {
 
   return (
     <div className="w-[100%] h-[100%] bg-[#272727]">
-      <div className="flex h-[100dvh] flex-col justify-between max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
+      <div className="flex min-h-[100dvh] h-[auto] flex-col justify-between max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
         <div
           className={
             cardPosition === 1
-              ? "flex flex-col justify-end h-[100%] backdrop-blur-3xl"
+              ? "flex flex-col justify-center min-h-[100dvh] h-[auto]"
               : "hidden"
           }
           style={{
@@ -59,11 +59,11 @@ const Intro = () => {
         <div className={cardPosition === 2 ? "block" : "hidden"}>
           <img
             src={deco1}
-            className="w-[100%] mt-[20%] 2xl:mt-[unset]"
+            className="w-[100%] mt-[10%]"
             alt="Imagen decorativa"
           />
 
-          <div className="w-[100%] min-h-[20vh] mt-[5%] 2xl:mt-[unset]">
+          <div className="w-[100%] min-h-[20vh] mt-[20px]">
             <div className="flex flex-col">
               <h4 className="px-[2.5%] text-center text-[30px] font-[400] text-white">
                 ¡Hace tu reserva!
@@ -79,11 +79,11 @@ const Intro = () => {
         <div className={cardPosition === 3 ? "block" : "hidden"}>
           <img
             src={deco2}
-            className="w-[100%] mt-[20%] 2xl:mt-[unset]"
+            className="w-[100%] mt-[10%]"
             alt="Imagen decorativa"
           />
 
-          <div className="w-[100%] min-h-[20vh] mt-[5%] 2xl:mt-[unset]">
+          <div className="w-[100%] min-h-[20vh] mt-[20px]">
             <div className="flex flex-col">
               <h4 className="px-[2.5%] text-center text-[30px] font-[400] text-white">
                 Consultá nuestro menú

@@ -118,7 +118,7 @@ const ConfirmReservation = () => {
 
       <div className="mx-[auto]">{renderTable()}</div>
 
-      <div className="flex justify-center gap-[20px] w-[100%]">
+      <div className="flex justify-center gap-[20px] w-[100%] mb-[20px]">
         <Button
           className="bg-color-secondary w-[40%] font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
           onClick={handleReturn}
