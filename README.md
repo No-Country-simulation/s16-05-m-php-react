@@ -56,8 +56,12 @@ Características Principales
 
 #### 👉🏻 Construida con 🛠️
 
+
+| <img src="./Frontend/client/src/assets/Foto-AlanRojas.webp" width=100>| <img src="https://avatars.githubusercontent.com/u/94977362?v=4" width=100>| 
 |:-:|
 | **Alan Rojas**|
+| <a href="https://www.linkedin.com/in/alan-rojas-polanco-97a4b5291/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+| <a href="https://github.com/ARojasPolanco"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 
   
 ## ✔ BackEnd
@@ -114,14 +118,14 @@ Características Principales
 
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
-| <img src="https://media.licdn.com/dms/image/D4D03AQF6xGOtBG09hw/profile-displayphoto-shrink_800_800/0/1712960997420?e=1723680000&v=beta&t=gVXxdIWatz2HvUhz2nr2kpT3CVJjPn8KMcQ_6gcCeeM" width=100>|
-| <img src="https://media.licdn.com/dms/image/D4D03AQF6xGOtBG09hw/profile-displayphoto-shrink_800_800/0/1712960997420?e=1723680000&v=beta&t=gVXxdIWatz2HvUhz2nr2kpT3CVJjPn8KMcQ_6gcCeeM" width=100>|
+| <img src="./Frontend/client/src/assets/Foto-Pablo.webp" width=100>|
+| <img src="./Frontend/client/src/assets/Foto-SergioGutierrez.webp" width=100>|
 |:-:|:-:|
 | **Pablo Nudenberg**| **Sergio Gutierrez Padilla**|
 | <a href="https://www.linkedin.com/in/pablo-nudenberg/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
-| <a href="https://www.linkedin.com/in/johanacarrizo/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
+| <a href="https://www.linkedin.com/in/sagutierrezwd/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
 | <a href="https://github.com/pablomh3"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> 
-| <a href="#"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://github.com/SagutierrezWD"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 <br>
 
 
