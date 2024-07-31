@@ -18,15 +18,22 @@ Este proyecto está dirigido a:
 <li>Dueño del restaurante: Quien tendrá la posibilidad de utilizar la app, como usuario administrador, mediante un login, que le dará acceso a las funcionalidades principales.</li>
 
 <br><br>
-Características Principales
+Características Principales de la App:
 
-<li>Vista de las mesas: Navegación por un extenso catálogo de productos de merchandising de diversas franquicias y consolas.</li>
-<li>Vista del menu: Filtros avanzados por franquicia, consola, género de videojuego, y plataforma de PC para facilitar la búsqueda de productos.</li>
-<li>Carrito de Compras: Funcionalidad para agregar productos al carrito y proceder con una compra segura.</li>
-<li>Gestión de Usuarios: Registro y autenticación de usuarios con roles de administrador y cliente.</li>
-<li>Gestión de Pedidos: Creación y seguimiento de pedidos con detalles completos de la orden.</li>
-<li>Interfaz Amigable: Diseño intuitivo y responsive para una experiencia de usuario óptima en todos los dispositivos.</li>
-</p
+<li>Reservar una mesa: El usuario-cliente de ReserveApp, podra acceder a la vista de las mesas disponibles del restaurante, seleccionar la mesa deseada, luego completar un formulario de datos (Fecha y horario de reserva, cantidad de comensales y algunos datos personales). Luego será llevado a una vista de confirmación y al presionar el botón Reservar, se le mostrará una vista con el resumen de su reserva.</li>
+<li>Ver menú de comidas: En esta vista - que es solo a modo informativa - se le presentará el menú del restaurante, en forma de categorías y también podrá seleccionar cada una de ellas, para ver los platos disponibles.</li>
+<li>Consultar mi reserva: Esta funcionalidad le permitirá acceder, al usuario-cliente, a su reserva, mediante el código de reserva.</li>
+<li>Interfaz Amigable: Diseño intuitivo y responsivo para una experiencia de usuario óptima en todos los dispositivos.</li>
+
+<br><br>
+Características Principales para el Dueño del restaurante:
+
+<li>Login: El dueño del restaurante tendrá acceso como usuario-admin a ReserveApp, mediante correo electrónico y contraseña.</li>
+<li>Home: El usuario-admin tendrá acceso a la vista Home, en donde podrá ver las mesas de su restaurante y el estado de cada una. También en el navbar tiene 2 botones, uno para ver las reservas y otro para ver el menu</li>
+<li>ABM Mesa: El usuario-admin, podrá agregar, modificar, y eliminar una mesa.</li>
+<li>ABM Menú: El usuario-admin, podrá agregar, modificar, y eliminar el menu, ya sea una categoría o un plato.</li>
+<li>Gestión de Rerservas: Podrá visualizar un listado de cada mesa, con su estado, fecha y horario de reserva, código, nombre del cliente que realizó la reserva y sus datos de contacto, por cualquier eventualidad.</li>
+</p>
 <br>
 </div>
 
@@ -102,7 +109,7 @@ Características Principales
 |:-:|:-:|
 | **Juan Camilo García Gómez**| **Nicolás Galarza**|
 | <a href="https://www.linkedin.com/in/juan-camilo-garcia-"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href=""><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
-| <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href=""><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/nicogmrz4"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 
 <br><br>
 
@@ -119,9 +126,11 @@ Características Principales
 
 #### 👉🏻 Construido con 🛠️
 
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://es.react.dev)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
