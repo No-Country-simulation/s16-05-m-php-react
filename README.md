@@ -83,9 +83,7 @@ Características Principales
 
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
-| <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=100>
-| <img src="https://avatars.githubusercontent.com/u/94977362?v=4" width=100>
-| <img src="https://media.licdn.com/dms/image/D4D03AQHBEVBNjjEX_w/profile-displayphoto-shrink_800_800/0/1701990403396?e=1723680000&v=beta&t=KPxDd0RZwj1AkJ67ZvOh_QJkCADVI61W-1Up9Qa_d9k" width=100>| 
+| <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=100>| <img src="https://avatars.githubusercontent.com/u/94977362?v=4" width=100>| <img src="https://media.licdn.com/dms/image/D4D03AQHBEVBNjjEX_w/profile-displayphoto-shrink_800_800/0/1701990403396?e=1723680000&v=beta&t=KPxDd0RZwj1AkJ67ZvOh_QJkCADVI61W-1Up9Qa_d9k" width=100>| 
 |:-:|:-:|:-:| 
 | **Juan Camilo García Gómez**| **Nicolás Galarza**| **Sebastián Laverde**| 
 | <a href="https://www.linkedin.com/in/ramon-cruz187/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/johanacarrizo/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/maximiliano-abel-marcos/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | 
