@@ -3,8 +3,10 @@ import TableTwoChairs from "@/components/table/2Chairs";
 import TableFourChairs from "@/components/table/4Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
 import useReserveStore from "@/stores/useReserveStore";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createReservation } from "@/axios/fetch";
+import Error from "@/components/modal/error";
 
 const formatDate = (dateString) => {
   const [year, month, day] = dateString.split("-");
@@ -17,6 +19,7 @@ const formatDate = (dateString) => {
 
 const ConfirmReservation = () => {
   const navigate = useNavigate();
+  const [apiStatus, setApiStatus] = useState(0);
   const { date, time, table, number_of_people } = useReserveStore((state) => ({
     date: state.date,
     time: state.time,
@@ -61,6 +64,7 @@ const ConfirmReservation = () => {
       })
       .catch((error) => {
         console.error("Error al crear la reserva:", error);
+        setApiStatus(error.response.status);
       });
   };
 
@@ -80,7 +84,17 @@ const ConfirmReservation = () => {
   };
 
   return (
-    <div className="bg-[#272727] w-[100%] h-[100%] flex flex-col justify-between max-w-[600px] mx-[auto]">
+    <div className="bg-[#272727] w-[100%] h-[100%] flex flex-col justify-between max-w-[600px] mx-[auto] relative">
+      {
+        // Modal de error
+        apiStatus === 422 || apiStatus === 400 || apiStatus === 404 ? (
+          <Error message="No se pudo realizar la reserva" />
+        ) : apiStatus === 401 || apiStatus === 405 ? (
+          <Error message="Se produjo un error" />
+        ) : (
+          ""
+        )
+      }
       <h4 className="my-[80px] mx-[auto] max-w-[200px] text-center font-[700] text-[32px]">
         Confirmación de reserva
       </h4>
