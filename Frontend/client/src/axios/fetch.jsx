@@ -119,7 +119,6 @@ export const deleteTable = async (id) => {
   }
 };
 
-
 /** CRUD DE CATEGORÍAS */
 export const getCategory = async () => {
   try {
@@ -345,7 +344,7 @@ export const getReservationByCode = async (code) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 /**CRUD Reservas */
 
@@ -365,7 +364,8 @@ export const createReservation = async (
   owner_last_name,
   owner_phone_number,
   owner_email,
-  table
+  table,
+  attendee_count
 ) => {
   try {
     // Asegurarse de que el campo table esté en el formato correcto
@@ -380,7 +380,8 @@ export const createReservation = async (
         owner_last_name,
         owner_phone_number,
         owner_email,
-        table: formattedTable, // Asegurarse de que table sea una cadena
+        table: formattedTable,
+        attendee_count,
       },
       {
         headers: {
@@ -391,6 +392,23 @@ export const createReservation = async (
     return response.data;
   } catch (error) {
     console.error({ createReservationError: error });
+    throw error;
+  }
+};
+
+export const getTablesReserved = async (date, time) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/tables`, {
+      params: {
+        date,
+        time,
+      },
+      headers: {
+        Accept: "application/ld+json",
+      },
+    });
+    return response.data;
+  } catch (error) {
     throw error;
   }
 };

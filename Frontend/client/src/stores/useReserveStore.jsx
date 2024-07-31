@@ -18,7 +18,7 @@ const useReserveStore = create(
           id: "",
           "@id": "", // Añadimos @id para almacenar el valor
         },
-        number_of_people: 1,
+        attendee_count: 1,
         code: "", // Añadimos code para almacenar el código de la reserva
         setDate: (date) => set({ date }),
         setTime: (time) => set({ time }),
@@ -28,7 +28,8 @@ const useReserveStore = create(
           set({ owner_phone_number }),
         setOwner_email: (owner_email) => set({ owner_email }),
         setTable: (table) => set({ table }),
-        setNumber_of_people: (number_of_people) => set({ number_of_people }),
+        setAttendee_count: (attendee_count) =>
+          set({ attendee_count: Number(attendee_count) }),
         setCode: (code) => set({ code }), // Añadimos el setter para code
         setModal: (modal) => set({ modal }),
       }),

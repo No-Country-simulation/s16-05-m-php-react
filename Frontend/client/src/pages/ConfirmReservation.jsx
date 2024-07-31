@@ -21,15 +21,23 @@ const ConfirmReservation = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const { date, time, table, number_of_people, setCode, setModal } =
-    useReserveStore((state) => ({
-      date: state.date,
-      time: state.time,
-      table: state.table,
-      number_of_people: state.number_of_people,
-      setCode: state.setCode,
-      setModal: state.setModal,
-    }));
+  const {
+    date,
+    time,
+    table,
+    number_of_people,
+    setCode,
+    attendee_count,
+    setModal,
+  } = useReserveStore((state) => ({
+    date: state.date,
+    time: state.time,
+    table: state.table,
+    attendee_count: state.attendee_count,
+    number_of_people: state.number_of_people,
+    setCode: state.setCode,
+    setModal: state.setModal,
+  }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,10 +50,14 @@ const ConfirmReservation = () => {
       owner_last_name,
       owner_phone_number,
       owner_email,
+      attendee_count,
       table,
       setCode,
       setModal,
     } = useReserveStore.getState();
+
+    console.log("Tipo de attendee_count:", typeof attendee_count);
+    console.log("Tipo de attendee_count:", typeof owner_phone_number);
 
     console.log(
       date,
@@ -54,7 +66,8 @@ const ConfirmReservation = () => {
       owner_last_name,
       owner_phone_number,
       owner_email,
-      table["@id"]
+      table["@id"],
+      attendee_count
     );
 
     createReservation(
@@ -64,12 +77,13 @@ const ConfirmReservation = () => {
       owner_last_name,
       owner_phone_number,
       owner_email,
-      table["@id"]
+      table["@id"],
+      attendee_count
     )
       .then((response) => {
         const { code } = response;
-        setCode(code); // Almacena el código en el store
-        setModal(true); // Abre el modal
+        setCode(code);
+        setModal(true);
         navigate("/reservations");
         setLoading(false);
       })
@@ -84,12 +98,18 @@ const ConfirmReservation = () => {
   };
 
   const renderTable = () => {
-    if (number_of_people <= 2) {
-      return <TableTwoChairs name={table.name} />;
-    } else if (number_of_people <= 4) {
-      return <TableFourChairs name={table.name} />;
+    if (attendee_count <= 2) {
+      return (
+        <TableTwoChairs name={table.name} reservedChairs={attendee_count} />
+      );
+    } else if (attendee_count <= 4) {
+      return (
+        <TableFourChairs name={table.name} reservedChairs={attendee_count} />
+      );
     } else {
-      return <TableSixChairs name={table.name} />;
+      return (
+        <TableSixChairs name={table.name} reservedChairs={attendee_count} />
+      );
     }
   };
 
@@ -120,7 +140,7 @@ const ConfirmReservation = () => {
 
       <div className="flex justify-center gap-[20px] w-[100%]">
         <Button
-          className="bg-color-secondary w-[40%] font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
+          className="bg-color-secondary w-[40%] font-title font-bold  hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
           onClick={handleReturn}
         >
           CANCELAR

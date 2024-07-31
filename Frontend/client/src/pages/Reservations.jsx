@@ -3,6 +3,7 @@ import bg1_mobile from "/bg1_mobile.png";
 import useReserveStore from "@/stores/useReserveStore";
 import { formatDate } from "./ConfirmReservation";
 import Success from "@/components/modal/Success";
+import Button1 from "@/components/ui/button1";
 
 const Reservations = () => {
   const { date, time, table, number_of_people, code, modal, owner_first_name } =
@@ -15,6 +16,10 @@ const Reservations = () => {
       owner_first_name: state.owner_first_name,
       modal: state.modal,
     }));
+
+  const handleClick = () => {
+    window.location.href = "/select";
+  };
 
   return (
     <div
@@ -87,6 +92,9 @@ const Reservations = () => {
           strokeLinejoin="round"
         />
       </svg>
+      <div className="flex justify-center w-full my-5">
+        <Button1 text={"Volver a inicio"} onClick={handleClick} />
+      </div>
     </div>
   );
 };
