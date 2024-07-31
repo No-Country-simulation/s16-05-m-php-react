@@ -15,6 +15,7 @@ import Reserve from "@/pages/Reserve";
 import NotFoundPage from "@/pages/NotFound";
 import CategoryClient from "@/pages/CategoryClient";
 import ProductClient from "@/pages/ProductClient";
+import ReservationsAdmin from "@/pages/Reservations.Admin";
 
 const Router = () => {
   const { token } = useAuthStore();
@@ -55,6 +56,14 @@ const Router = () => {
         element={
           <PrivateRoute>
             <Products />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reservationsAdmin"
+        element={
+          <PrivateRoute>
+            <ReservationsAdmin />
           </PrivateRoute>
         }
       />
