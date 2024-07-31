@@ -110,12 +110,12 @@ class Reservation
 
     #[ORM\Column]
     #[Groups(['reservation:read'])]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
     #[Groups(['reservation:read'])]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     private ?\DateTimeImmutable $update_at = null;
 
     /**
