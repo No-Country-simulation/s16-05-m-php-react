@@ -8,7 +8,6 @@ const TableTwoChairs = ({
   onClick,
   isMobile,
   selected,
-  onSelect,
 }) => {
   const defaultChairsColor = "bg-[#58575776]"; // Gris si está disponible
   const reservedChairsColor = "bg-[#da070776] cursor-not-allowed"; // Rojo si está reservada
@@ -49,7 +48,7 @@ const TableTwoChairs = ({
             ? "hover:scale-110"
             : ""
         } cursor-pointer bg-[#C0C0C030] ${tableClass} rotate-45 border-solid rounded-xl relative backdrop-blur border-4 border-[#343333]`}
-        onClick={() => onSelect(id, name)}
+        onClick={onClick}
       >
         <div className="w-full h-full flex justify-center items-center -rotate-45">
           <span className=" font-title text-color-secondary font-bold text-center">
