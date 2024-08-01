@@ -40,6 +40,12 @@ const SearchReservation = () => {
 
     useEffect(() => {
         if(bool === true){
+            var button = (<tr>
+                <td className="py-3" colSpan={2}><Button1 text={"Cancelar la reserva"} type={"button"} onClick={() => handleCancel(reservation.id)} /></td>
+            </tr>);
+            if(reservation.status === "canceled"){
+                button = "";
+            }
             setResponseReservation(<tbody>
                 <tr>
                     <td className="text-center px-2 py-1 text-color-secondary border-t-2 border-l-2 border-b-2 border-color-secondary"> Código: </td>
@@ -89,9 +95,7 @@ const SearchReservation = () => {
                     <td className="text-center px-2 py-1 text-color-secondary border-t-2 border-l-2 border-b-2 border-color-secondary"> Actualizada: </td>
                     <td className="text-center px-2 py-1 border-t-2 border-r-2 border-b-2 border-color-secondary"> {reservation.update_at} </td>
                 </tr>
-                <tr>
-                    <td className="py-3" colSpan={2}><Button1 text={"Cancelar la reserva"} type={"button"} onClick={() => handleCancel(reservation.id)} /></td>
-                </tr>
+                {button}
             </tbody>);
             setBool(null);
             setCode("");
@@ -138,18 +142,21 @@ const SearchReservation = () => {
     };
 
     const handleCancel = async(idReserva) => {
-        setLoading(true);
-        confirm("¿Desea cancelar la reserva?");
-        if(!confirm) return;
-        try{
-            const response = await cancelReserva(idReserva);
-            if(response.status === 200) {
-                alert("Reserva cancelada");
+        const confirmDelete = confirm("¿Desea cancelar la reserva?");
+        if(!confirmDelete){
+            return;
+        }else if(confirm) {
+            setLoading(true);
+            try{
+                const response = await cancelReserva(idReserva);
+                if(response) {
+                    alert("Reserva cancelada");
+                    window.location.href = "/select";
+                }
+            }catch(error) {
+                alert("No se pudo cancelar la reserva: "+error);
                 window.location.href = "/select";
             }
-        }catch(error) {
-            alert("No se pudo cancelar la reserva: "+error);
-            window.location.href = "/select";
         }
     };
 
