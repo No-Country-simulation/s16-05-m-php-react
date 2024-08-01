@@ -21,14 +21,14 @@ const Reserve = () => {
     owner_last_name,
     owner_phone_number,
     owner_email,
-    number_of_people,
+    attendee_count,
     setDate,
     setTime,
     setOwner_first_name,
     setOwner_last_name,
     setOwner_phone_number,
     setOwner_email,
-    setNumber_of_people,
+    setAttendee_count,
   } = useReserveStore();
 
   const navigate = useNavigate();
@@ -87,9 +87,7 @@ const Reserve = () => {
         </div>
         <div className="flex flex-col">
           <p>Cantidad de personas</p>
-          <Select
-            onValueChange={(value) => setNumber_of_people(parseInt(value))}
-          >
+          <Select onValueChange={(value) => setAttendee_count(parseInt(value))}>
             <SelectTrigger className="w-[280px] bg-color-bg border-color-secondary">
               <SelectValue placeholder="Personas" />
             </SelectTrigger>

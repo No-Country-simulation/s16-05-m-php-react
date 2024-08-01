@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import deco1 from "/decoration1.png";
-import deco2 from "/decoration2.png";
+import deco1 from "/deco1.png";
+import deco2 from "/deco2.png";
 import logo from "/logo.png";
 import bg_mobile from "/bg_mobile.png";
 import { useNavigate } from "react-router-dom";

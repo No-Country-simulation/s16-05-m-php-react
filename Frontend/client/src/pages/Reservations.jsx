@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import deco1 from "/decoration1.png";
+import deco1 from "/deco1.png";
 import bg1_mobile from "/bg1_mobile.png";
 import useReserveStore from "@/stores/useReserveStore";
 import { formatDate } from "./ConfirmReservation";
@@ -7,7 +7,6 @@ import Success from "@/components/modal/Success";
 import Button1 from "@/components/ui/button1";
 
 const Reservations = () => {
-  
   const navigate = useNavigate();
   const { date, time, table, number_of_people, code, modal, owner_first_name } =
     useReserveStore((state) => ({
@@ -100,18 +99,10 @@ const Reservations = () => {
           />
         </svg>
       </button>
-        <path
-          d="M24 10V38M10 24H38"
-          stroke="#fff"
-          strokeWidth="6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+
       <div className="flex justify-center w-full my-5">
         <Button1 text={"Volver a inicio"} onClick={handleClick} />
       </div>
-
     </div>
   );
 };
