@@ -15,6 +15,7 @@ const Table = ({data, searchCode}) => {
             reservas();
         }
     }, [data]);
+        
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -61,8 +62,8 @@ const Table = ({data, searchCode}) => {
         setResponse(reserveList);
     }
     
-    const editar = (data) => {
-        setIdReserve(data);
+    const editar = (item) => {
+        setIdReserve(item);
         openModal();
     }
 
