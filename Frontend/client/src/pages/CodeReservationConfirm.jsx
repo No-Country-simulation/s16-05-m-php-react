@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { decode as base64_decode, encode as base64_encode } from 'base-64';
+import { confirmarReserva, cancelReserva } from "@/axios/fetch";
 
 const CodeReservationConfirm = () => {
     const {id, request} = useParams();
@@ -8,13 +9,18 @@ const CodeReservationConfirm = () => {
     const [responseRequest, setResponseRequest] = useState(null);
 
     useEffect(() => {
-        setLoading(true);
-        if(request === 'confirm') {
-            confirmarReserva(id);
-        }else if(request === 'cancel') {
-            cancelarReserva(id);
+        if(request === 'confirm' || request === 'cancel') {
+            setLoading(true);
+            var idReserva = base64_decode(id);
+            var idReserva = Number(idReserva);
+            console.log(idReserva);
+            if(request === 'confirm') {
+                confirmaReserva(idReserva);
+            }else if(request === 'cancel') {
+                cancelarReserva(idReserva);
+            }
         }
-    }, [id, request]);
+    }, []);
 
     useEffect(() => {
         if (loading) {
@@ -44,11 +50,11 @@ const CodeReservationConfirm = () => {
         }
     }, [loading]);
 
-    const confirmarReserva = async (idReserve) => {
-        const idReserva = base64_decode(idReserve);
+    const confirmaReserva = async (data) => {
+        console.log("entra en confirmarReserva");
         try{
-            const response = await confirmarReserva(idReserva);
-            if(response.status === 200) {
+            const response = await confirmarReserva(data);
+            if(response) {
                 setLoading(false);
                 setResponseRequest("su reserva se confirmó con éxito");
             }
@@ -58,11 +64,10 @@ const CodeReservationConfirm = () => {
         }
     };
 
-    const cancelarReserva = async (id) => {
-        const idReserva = base64_decode(id);
+    const cancelarReserva = async (data) => {
         try{
-            const response = await confirmarReserva(idReserva);
-            if(response.status === 200) {
+            const response = await cancelReserva(data);
+            if(response) {
                 setLoading(false);
                 setResponseRequest("su reserva se cancelo con éxito");
             }
