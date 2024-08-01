@@ -138,9 +138,9 @@ const TablesUser = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-center text-center">
+    <div className="w-full flex flex-col items-center justify-around text-center">
       <p className="font-bold text-2xl text-color-text text-center my-5">Seleccione una mesa</p>
-      <div className="flex flex-wrap items-center justify-center max-w-sm">
+      <div className="flex flex-wrap items-center justify-center max-w-sm min-h-[80vh]">
         {tablesResponse}
       </div>
       <div className="flex justify-around items-center flex-wrap w-full max-w-sm ">
