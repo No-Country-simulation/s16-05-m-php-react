@@ -67,6 +67,15 @@ class TableDto
   #[Groups(['table:write'])]
   private $min_required_capacity;
 
+  #[ApiProperty(
+    openapiContext: [
+      'type' => 'integer',
+      'minimum' => 1,
+      'example' => 1,
+      'description' => 'Cantidad de personas que van a asistir a la mesa. Debe ser mayor o igual que la capacidad minima requerida',
+    ]
+  )]
+
   public function getId()
   {
     return $this->id;

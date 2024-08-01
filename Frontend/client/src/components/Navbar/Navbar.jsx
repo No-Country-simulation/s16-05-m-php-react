@@ -46,6 +46,7 @@ const Navbar = () => {
             <>
               <a href="/tables">Mesas</a>
               <a href="/menu">Menú</a>
+              <a href="/reservationsAdmin">Reservas</a>
               <FaRegUserCircle
                 className="text-color-secondary text-3xl cursor-pointer"
                 onClick={() => setIsOpenUser(!isOpenUser)}
@@ -96,6 +97,9 @@ const Navbar = () => {
               </a>
               <a href="/menu" className="font-bold">
                 Menú
+              </a>
+              <a href="/reservationsAdmin" className="font-bold">
+                Reservas
               </a>
               <FaRegUserCircle
                 className="text-color-secondary text-3xl cursor-pointer"

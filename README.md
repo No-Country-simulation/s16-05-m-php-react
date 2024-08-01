@@ -6,7 +6,7 @@
 <br>
 <h2>¿Qué esperás para reservar? </h2>
   
-### ReserveApp está pensado como una aplicación que le permita a los usuarios poder reservar mesa, de un restaurante de una manera ágil y cómoda, desde su casa o trabajo.
+### ReservApp está pensado como una aplicación que le permita a los usuarios poder reservar mesa, de un restaurante de una manera ágil y cómoda, desde su casa o trabajo.
 
   
 </div>
@@ -18,15 +18,22 @@ Este proyecto está dirigido a:
 <li>Dueño del restaurante: Quien tendrá la posibilidad de utilizar la app, como usuario administrador, mediante un login, que le dará acceso a las funcionalidades principales.</li>
 
 <br><br>
-Características Principales
+Características Principales de la App:
 
-<li>Vista de las mesas: Navegación por un extenso catálogo de productos de merchandising de diversas franquicias y consolas.</li>
-<li>Vista del menu: Filtros avanzados por franquicia, consola, género de videojuego, y plataforma de PC para facilitar la búsqueda de productos.</li>
-<li>Carrito de Compras: Funcionalidad para agregar productos al carrito y proceder con una compra segura.</li>
-<li>Gestión de Usuarios: Registro y autenticación de usuarios con roles de administrador y cliente.</li>
-<li>Gestión de Pedidos: Creación y seguimiento de pedidos con detalles completos de la orden.</li>
-<li>Interfaz Amigable: Diseño intuitivo y responsive para una experiencia de usuario óptima en todos los dispositivos.</li>
-</p
+<li>Reservar una mesa: El usuario-cliente de ReservApp, podra acceder a la vista de las mesas disponibles del restaurante, seleccionar la mesa deseada, luego completar un formulario de datos (Fecha y horario de reserva, cantidad de comensales y algunos datos personales). Luego será llevado a una vista de confirmación y al presionar el botón Reservar, se le mostrará una vista con el resumen de su reserva.</li>
+<li>Ver menú de comidas: En esta vista - que es solo a modo informativa - se le presentará el menú del restaurante, en forma de categorías y también podrá seleccionar cada una de ellas, para ver los platos disponibles.</li>
+<li>Consultar mi reserva: Esta funcionalidad le permitirá acceder, al usuario-cliente, a su reserva, mediante el código de reserva.</li>
+<li>Interfaz Amigable: Diseño intuitivo y responsivo para una experiencia de usuario óptima en todos los dispositivos.</li>
+
+<br><br>
+Características Principales para el Dueño del restaurante:
+
+<li>Login: El dueño del restaurante tendrá acceso como usuario-admin a ReservApp, mediante correo electrónico y contraseña.</li>
+<li>Home: El usuario-admin tendrá acceso a la vista Home, en donde podrá ver las mesas de su restaurante y el estado de cada una. También en el navbar tiene 2 botones, uno para ver las reservas y otro para ver el menu</li>
+<li>ABM Mesa: El usuario-admin, podrá agregar, modificar, y eliminar una mesa.</li>
+<li>ABM Menú: El usuario-admin, podrá agregar, modificar, y eliminar el menu, ya sea una categoría o un plato.</li>
+<li>Gestión de Rerservas: Podrá visualizar un listado de cada mesa, con su estado, fecha y horario de reserva, código, nombre del cliente que realizó la reserva y sus datos de contacto, por cualquier eventualidad.</li>
+</p>
 <br>
 </div>
 
@@ -34,15 +41,6 @@ Características Principales
   
   <br>
   
-  <img style="width:700px;" src="">
-  <br>
-  <img style="width:700px;" src="">
-  <br>
-  <img style="width:700px;" src="">
-  <br>
-  <img style="width:700px;" src="">
-  
-
   <h3 align="center"><b>Puedes visitar nuestra página web aquí:</b></h3>
   <h3 align="center"><a href=""></a></h3>
   <p  align="center"></p>
@@ -53,46 +51,65 @@ Características Principales
 
 #### 👉🏻 Lista de Tareas ✅
 
+- Planificación y definición del proyecto.
+- Seguimiento del progreso y gestión de tareas, utilizando Jira.
+- Gestión de recursos y asignación de trabajo a cada integrante del equipo.
+- Gestión de cada Sprint y backlog.
+- Comunicación mediante dailys y colaboración con cada área.
 
-#### 👉🏻 Construida con 🛠️
 
+#### 👉🏻 Herramientas utilizadas 🛠️
+
+![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
+![Scrum Master](https://img.shields.io/badge/Scrum%20Master-4A90E2?style=for-the-badge&logo=organization&logoColor=white)
+
+
+
+
+| <img src="./Frontend/client/src/assets/Foto-AlanRojas.webp" width=100>|
 |:-:|
 | **Alan Rojas**|
+| <a href="https://www.linkedin.com/in/alan-rojas-polanco-97a4b5291/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+| <a href="https://github.com/ARojasPolanco"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 
   
 ## ✔ BackEnd
 
 #### 👉🏻 Lista de Tareas ✅
 
-- Desarrollo de una API REST con PHP y Symfony.
-- Crear una base de datos MySQL en Railway.
-- Desplegar la API en Railway.
-- Validación de usuarios con JWT construido y firmado en la aplicación.
-- Documentación de la API en Swagger3.
-- Puntos finales (endpoints) y servicios completamente probados.
 
+- Desarrollo de las APIS REST con PHP y Symfony.
+- Esquema de la base de datos utilizando MySQL.
+- Autenticación mediante JWT.
+- Protección de endpoints.
+- CRUD y validación de reservas, mesas, productos y categorías.
+- Validaciones especiales para las reservas, para evitar que se reserve una misma mesa, en una misma fecha y horario.
+- Generación de código único para cada reserva.
+- Consulta de disponibilidad horaria (en una fecha dada) de una mesa.
+- Almacenamiento de imágenes.
+- Sistema de recuperación de contraseña.
+- Deploy en Render.
 
-#### 👉🏻 Documentación 📜
-
-- Puedes leer la documentación de la API: <a href="https://energetic-hope-production.up.railway.app/swagger-ui/index.html" target="_blank">Aqui</a>.
 
 #### 👉🏻 Construida con 🛠️
 
-![PHP](https://img.shields.io/badge/PHP-blue?logo=php&logoColor=white) 
-![Symfony](https://img.shields.io/badge/Symfony-000000?logo=symfony&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-blue?style=for-the-badge&logo=php&logoColor=white) 
+![Symfony](https://img.shields.io/badge/Symfony-000000?style=for-the-badge&logo=symfony&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-%23316192.svg?style=for-the-badge&logo=mysqll&logoColor=white)
-![API PLATFORM](https://img.shields.io/badge/API%20Platform-0098D8?logo=api-platform&logoColor=white)
-![Render](https://img.shields.io/badge/Render-46E3B7?logo=render&logoColor=white)
+![API PLATFORM](https://img.shields.io/badge/API%20Platform-0098D8?style=for-the-badge&logo=api-platform&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+
+
 
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
-| <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=100>| <img src="https://avatars.githubusercontent.com/u/94977362?v=4" width=100>| <img src="https://media.licdn.com/dms/image/D4D03AQHBEVBNjjEX_w/profile-displayphoto-shrink_800_800/0/1701990403396?e=1723680000&v=beta&t=KPxDd0RZwj1AkJ67ZvOh_QJkCADVI61W-1Up9Qa_d9k" width=100>| 
-|:-:|:-:|:-:| 
-| **Juan Camilo García Gómez**| **Nicolás Galarza**| **Sebastián Laverde**| 
-| <a href="https://www.linkedin.com/in/ramon-cruz187/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/johanacarrizo/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/maximiliano-abel-marcos/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | 
-| <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/JohanaCarrizo"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/maximiliano-abel-marcos/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | 
 
-
+| <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=90>|<img src="./Frontend/client/src/assets/Foto-Nico-Galarza.png" width=100>|
+|:-:|:-:|
+| **Juan Camilo García Gómez**| **Nicolás Galarza**|
+| <a href="https://www.linkedin.com/in/juan-camilo-garcia-"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href=""><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
+| <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/nicogmrz4"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 
 <br><br>
 
@@ -100,28 +117,28 @@ Características Principales
 
 #### 👉🏻 Lista de Tareas ✅
 
+
 - Desarrollo de una aplicación front-end con React.
-- Implementación de arquitectura de seguridad con interceptores JWT.
-- Conexión con una API REST.
-- Despliegue de front-end en Vercel.
+- Manejo de estados con Zustand.
+- Conexión con una API REST mediante Axios.
+- Despliegue de la aplicación en Vercel.
 
 
 #### 👉🏻 Construido con 🛠️
 
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://es.react.dev)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
-| <img src="https://media.licdn.com/dms/image/D4D03AQF6xGOtBG09hw/profile-displayphoto-shrink_800_800/0/1712960997420?e=1723680000&v=beta&t=gVXxdIWatz2HvUhz2nr2kpT3CVJjPn8KMcQ_6gcCeeM" width=100>|
-| <img src="https://media.licdn.com/dms/image/D4D03AQF6xGOtBG09hw/profile-displayphoto-shrink_800_800/0/1712960997420?e=1723680000&v=beta&t=gVXxdIWatz2HvUhz2nr2kpT3CVJjPn8KMcQ_6gcCeeM" width=100>|
+| <img src="./Frontend/client/src/assets/Foto-Pablo.webp" width=100>|<img src="./Frontend/client/src/assets/Foto-SergioGutierrez.webp" width=100>|
 |:-:|:-:|
 | **Pablo Nudenberg**| **Sergio Gutierrez Padilla**|
-| <a href="https://www.linkedin.com/in/pablo-nudenberg/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
-| <a href="https://www.linkedin.com/in/johanacarrizo/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
-| <a href="https://github.com/pablomh3"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> 
-| <a href="#"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://www.linkedin.com/in/pablo-nudenberg/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/sagutierrezwd/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
+| <a href="https://github.com/pablomh3"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/SagutierrezWD"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 <br>
 
 
@@ -192,6 +209,6 @@ Características Principales
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)
 <br><br>
 

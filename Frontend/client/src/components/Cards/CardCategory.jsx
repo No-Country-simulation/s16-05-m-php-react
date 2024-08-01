@@ -1,7 +1,7 @@
 import React from "react";
 import Button1 from "@/components/ui/button1";
 
-const CardCategory = ({name, description, image, edit, deleteOnClick,editOnClick, notHover, notOnClick, id}) => {
+const CardCategory = ({name, description, image, edit, deleteOnClick,editOnClick, notHover, notOnClick, id, destino}) => {
     var heightDiv = "h-[250px]";
     var buttons = "";
     var noHover = false;
@@ -29,7 +29,11 @@ const CardCategory = ({name, description, image, edit, deleteOnClick,editOnClick
         onclick = () => {};
     }
     const products = (id) => {
-        window.location.pathname = `/products/${id}`;
+        if(destino === "productsClient"){
+            window.location.pathname = `/productsClient/${id}`
+        }else{
+            window.location.pathname = `/products/${id}`;
+        }
     };    
     return (
         <div className={`bg-[#3C3A3A] w-[250px] ${heightDiv} rounded-2xl m-10`} id={id}>

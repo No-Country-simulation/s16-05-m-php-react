@@ -38,7 +38,9 @@ const CardProduct = ({name, description, image, price, disabled, edit, onClickDe
             <div className="w-[250px] h-[390px] flex flex-col justify-around items-center relative">
                 {disabledStyle}
                 {noDisponible}
-                <img src={`${image}`} alt="Imagen de un producto" className="w-[230px] bg-color-bg h-[170px] rounded-2xl object-cover object-center"/>
+                <div className="w-[230px]">
+                    <img src={`${image}`} alt="Imagen de un producto" className="w-[230px] bg-color-bg h-[170px] rounded-2xl object-cover object-center"/>
+                </div>
                 <h1 className="text-3xl px-3 font-bold text-color-secondary">{name}</h1>
                 <p className="text-base px-3 font-semibold text-white">{description}</p>
                 <p className="text-lg px-3 font-semibold text-color-secondary">$ {priceFinal}</p>

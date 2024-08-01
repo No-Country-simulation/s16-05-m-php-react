@@ -71,19 +71,19 @@ class Table
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $capacity = null;
 
     #[ORM\Column]
-    #[Groups(['table:read'])]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $min_required_capacity = null;
 
     /**

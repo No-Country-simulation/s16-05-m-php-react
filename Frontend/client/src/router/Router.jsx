@@ -13,6 +13,11 @@ import ConfirmReservation from "@/pages/ConfirmReservation";
 import SelectOption from "@/pages/SelectOption";
 import Reserve from "@/pages/Reserve";
 import NotFoundPage from "@/pages/NotFound";
+import CategoryClient from "@/pages/CategoryClient";
+import ProductClient from "@/pages/ProductClient";
+import ReservationsAdmin from "@/pages/Reservations.Admin";
+import SearchReservation from "@/pages/SearchReservation";
+import Success from "@/components/modal/Success";
 
 const Router = () => {
   const { token } = useAuthStore();
@@ -38,6 +43,9 @@ const Router = () => {
       <Route path="/select" element={<SelectOption />} />
       <Route path="/table" element={<TablesUser />} />
       <Route path="/confirm" element={<ConfirmReservation />} />
+      <Route path="/category" element={<CategoryClient />} />
+      <Route path="/productsClient/:categoryId" element={<ProductClient />} />
+      <Route path="/search" element={<SearchReservation />} />
       <Route
         path="/menu"
         element={
@@ -51,6 +59,14 @@ const Router = () => {
         element={
           <PrivateRoute>
             <Products />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reservationsAdmin"
+        element={
+          <PrivateRoute>
+            <ReservationsAdmin />
           </PrivateRoute>
         }
       />
