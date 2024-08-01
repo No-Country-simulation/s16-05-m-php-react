@@ -441,3 +441,18 @@ export const confirmarReserva = async (id) => {
     throw error;
   }
 }
+
+export const editStatusReserve = async (id, status) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
+      status,
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

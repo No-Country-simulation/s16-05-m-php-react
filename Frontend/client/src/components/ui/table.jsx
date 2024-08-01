@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from "react";
 import CardStatus from "@/components/Cards/Status.Reservation";
 import Button1 from "./button1";
+import EditReserve from "../modal/editReserve";
 
 const Table = ({data, searchCode}) => {
     const [response, setResponse] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [idReserve, setIdReserve] = useState("");
+
     useEffect(() => {
         if(searchCode === true){
             reserva();
@@ -12,50 +16,57 @@ const Table = ({data, searchCode}) => {
         }
     }, [data]);
 
-    const reserva = () => {
-            setResponse(
-                <tbody>
-                    <tr>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} /></td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={data.status} /></td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.code}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.table.name}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.date}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.time}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_first_name + " " + data.owner_last_name}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_phone_number}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_email}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.attendee_count}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.created_at}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.update_at}</td>
-                    </tr>
-                </tbody>
-            )
-        }
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
-        const reservas = () => {
-            const reserveList = data.map((item) => {
-                return (<tbody key={item.id}>
-                    <tr className="h-20">
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} /></td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={item.status} /></td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.code}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item['table']['name']}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.date}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.time}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_first_name + " " + item.owner_last_name}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_phone_number}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_email}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.attendee_count}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.created_at}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.update_at}</td>
-                    </tr>
-                </tbody>);
-            });
-            setResponse(reserveList);
-        }
+    const reserva = () => {
+        setResponse(
+            <tbody>
+                <tr>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} onClick={()=>editar(data)}/></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={data.status} /></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.code}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.table.name}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.date}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.time}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_first_name + " " + data.owner_last_name}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_phone_number}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_email}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.attendee_count}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.created_at}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.update_at}</td>
+                </tr>
+            </tbody>
+        )
+    }
+    const reservas = () => {
+        const reserveList = data.map((item) => {
+            return (<tbody key={item.id}>
+                <tr className="h-20">
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} onClick={()=>editar(item)}/></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={item.status} /></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.code}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item['table']['name']}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.date}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.time}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_first_name + " " + item.owner_last_name}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_phone_number}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_email}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.attendee_count}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.created_at}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.update_at}</td>
+                </tr>
+            </tbody>);
+        });
+        setResponse(reserveList);
+    }
     
-    return (<table className="my-5 text-center text-wrap">
+    const editar = (data) => {
+        setIdReserve(data);
+        openModal();
+    }
+
+    return (<div><table className="my-5 text-center text-wrap">
         <thead>
             <tr>
                 <th className="border-2 border-solid border-color-secondary px-5">Actualizar Estado</th>
@@ -73,7 +84,9 @@ const Table = ({data, searchCode}) => {
             </tr>
         </thead>
         {response}
-    </table>);
+    </table>
+    <EditReserve isOpen={isModalOpen} onClose={closeModal} data={idReserve}/>
+    </div>);
 }
 
 export default Table
