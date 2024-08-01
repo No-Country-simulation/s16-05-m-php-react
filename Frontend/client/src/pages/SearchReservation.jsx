@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getReservationByCode } from "@/axios/fetch";
+import { getReservationByCode, cancelReserva } from "@/axios/fetch";
 import Button1 from "@/components/ui/button1";
 import CardStatus from "@/components/Cards/Status.Reservation";
 
@@ -90,7 +90,7 @@ const SearchReservation = () => {
                     <td className="text-center px-2 py-1 border-t-2 border-r-2 border-b-2 border-color-secondary"> {reservation.update_at} </td>
                 </tr>
                 <tr>
-                    <td className="py-3" colSpan={2}><Button1 text={"Cancelar la reserva"} type={"button"} /></td>
+                    <td className="py-3" colSpan={2}><Button1 text={"Cancelar la reserva"} type={"button"} onClick={() => handleCancel(reservation.id)} /></td>
                 </tr>
             </tbody>);
             setBool(null);
@@ -134,6 +134,22 @@ const SearchReservation = () => {
         }catch(error){
             setBool(false);
             setLoading(false);
+        }
+    };
+
+    const handleCancel = async(idReserva) => {
+        setLoading(true);
+        confirm("¿Desea cancelar la reserva?");
+        if(!confirm) return;
+        try{
+            const response = await cancelReserva(idReserva);
+            if(response.status === 200) {
+                alert("Reserva cancelada");
+                window.location.href = "/select";
+            }
+        }catch(error) {
+            alert("No se pudo cancelar la reserva: "+error);
+            window.location.href = "/select";
         }
     };
 

@@ -415,7 +415,7 @@ export const getTablesReserved = async (date, time) => {
 
 export const cancelReserva = async (id) => {
   try {
-    const response = await axios.update(`${BASE_URL}/reservations/${id}/status`,{
+    const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
       status: "canceled",
     },{
       headers: {
@@ -429,7 +429,7 @@ export const cancelReserva = async (id) => {
 }
 export const confirmarReserva = async (id) => {
   try {
-    const response = await axios.update(`${BASE_URL}/reservations/${id}/status`,{
+    const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
       status: "scheduled",
     },{
       headers: {
