@@ -7,9 +7,7 @@ const TableSixChairs = ({
   hover,
   onClick,
   isMobile,
-  isAvailable,
   selected,
-  onSelect,
 }) => {
   const defaultChairsColor = "bg-[#58575776]"; // gris si está disponible
   const reservedChairsColor = "bg-red-500"; // Rojo si está reservada
@@ -78,7 +76,7 @@ const TableSixChairs = ({
             ? "hover:scale-110"
             : ""
         } cursor-pointer bg-[#C0C0C030] border-solid rounded-xl relative backdrop-blur border-4 border-[#343333] ${tableClass}`}
-        onClick={() => onSelect(id, name)}
+        onClick={onClick}
       >
         <div className="w-full h-full flex justify-center items-center">
           <span className="text-xl font-title font-bold text-color-secondary text-center">

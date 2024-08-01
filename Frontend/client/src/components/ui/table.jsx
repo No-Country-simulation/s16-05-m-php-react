@@ -25,7 +25,7 @@ const Table = ({data, searchCode}) => {
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_first_name + " " + data.owner_last_name}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_phone_number}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_email}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.table.attendee_count}</td>
+                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.attendee_count}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.created_at}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.update_at}</td>
                     </tr>

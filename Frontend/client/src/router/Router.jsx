@@ -6,7 +6,7 @@ import Menu from "@/pages/Menu";
 import Products from "@/pages/Products";
 import PrivateRoute from "./PrivateRoom";
 import useAuthStore from "@/stores/useAuthStore";
-import TablesUser from "@/pages/TablesUser";
+import TablesUser from "@/pages/TablesUser copy";
 import Intro from "@/pages/Intro";
 import Reservations from "@/pages/Reservations";
 import ConfirmReservation from "@/pages/ConfirmReservation";

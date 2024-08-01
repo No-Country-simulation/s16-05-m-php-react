@@ -87,7 +87,9 @@ const Reserve = () => {
         </div>
         <div className="flex flex-col">
           <p>Cantidad de personas</p>
-          <Select onValueChange={(value) => setAttendee_count(parseInt(value))}>
+          <Select
+            onValueChange={(value) => setAttendee_count(parseInt(value))}
+          >
             <SelectTrigger className="w-[280px] bg-color-bg border-color-secondary">
               <SelectValue placeholder="Personas" />
             </SelectTrigger>
