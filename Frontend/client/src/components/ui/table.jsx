@@ -46,7 +46,7 @@ const Table = ({data, searchCode}) => {
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_first_name + " " + item.owner_last_name}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_phone_number}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_email}</td>
-                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.table.attendee_count}</td>
+                        <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.attendee_count}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.created_at}</td>
                         <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.update_at}</td>
                     </tr>
