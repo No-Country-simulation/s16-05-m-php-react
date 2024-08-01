@@ -14,10 +14,10 @@ const TableTwoChairs = ({
 
   const containerClass = isMobile
     ? "w-[90px] h-[90px] m-3"
-    : "w-[180px] h-[180px] m-10";
+    : "w-[180px] h-[180px] m-16";
   const chairClass = isMobile ? "w-[37px] h-[37px]" : "w-[74px] h-[74px]";
   const tableClass = isMobile
-    ? "w-[65px] text-l h-[65px] top-[-77px] left-[12px]"
+    ? "w-[65px] text-3xl h-[65px] top-[-77px] left-[12px]"
     : "w-[130px] text-xl h-[130px] top-[-155px] left-[25px]";
 
   return (
@@ -51,7 +51,7 @@ const TableTwoChairs = ({
         onClick={onClick}
       >
         <div className="w-full h-full flex justify-center items-center -rotate-45">
-          <span className=" font-title text-color-secondary font-bold text-center">
+          <span className=" font-title text-2xl text-color-secondary font-bold text-center">
             {name}
           </span>
         </div>

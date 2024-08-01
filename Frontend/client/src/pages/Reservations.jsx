@@ -8,12 +8,12 @@ import Button1 from "@/components/ui/button1";
 
 const Reservations = () => {
   const navigate = useNavigate();
-  const { date, time, table, number_of_people, code, modal, owner_first_name } =
+  const { date, time, table, attendee_count, code, modal, owner_first_name } =
     useReserveStore((state) => ({
       date: state.date,
       time: state.time,
       table: state.table,
-      number_of_people: state.number_of_people,
+      attendee_count: state.attendee_count,
       code: state.code,
       owner_first_name: state.owner_first_name,
       modal: state.modal,
@@ -39,7 +39,9 @@ const Reservations = () => {
         className="mx-[auto] mt-[60px] scale-[1.2]"
       />
 
-      <h5 className="text-center text-[22px]">¡Hola {owner_first_name}!</h5>
+      <h5 className="text-center text-[22px] pt-2">
+        ¡Hola {owner_first_name}!
+      </h5>
 
       <h4 className="text-center text-[32px] mt-[10px] mb-[30px]">
         Tus reservaciones
@@ -72,8 +74,10 @@ const Reservations = () => {
           <div>
             <p>{formatDate(date)}</p>
             <p>Hora: {time}</p>
-            <p>Comensales {number_of_people}</p>
-            <p>Código de reserva: {code}</p>
+            <p>Comensales: {attendee_count}</p>
+            <p>
+              Código de reserva: <strong> {code}</strong>{" "}
+            </p>
           </div>
         </div>
       </div>

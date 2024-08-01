@@ -172,12 +172,14 @@ const TablesUser = () => {
   });
 
   return (
-    <div className="flex h-screen font-title mt-5 flex-row gap-10 flex-wrap items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
-      <p className="font-bold text-2xl text-color-text">Seleccione una mesa</p>
-      <div className="flex flex-row flex-wrap items-center justify-center">
+    <div className="flex h-screen font-title mt-5 flex-row  flex-wrap items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
+      <p className="font-bold text-2xl text-color-text mt-9">
+        Seleccione una mesa
+      </p>
+      <div className="flex flex-row flex-wrap items-center text-3xl justify-center">
         {tablesResponse}
       </div>
-      <div className="flex justify-center gap-[20px] w-[100%]">
+      <div className="flex justify-end gap-[20px] w-[100%]">
         <Button
           className="bg-color-secondary w-[40%] font-bold font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
           onClick={handleReturn}

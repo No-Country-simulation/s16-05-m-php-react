@@ -79,7 +79,7 @@ const TableSixChairs = ({
         onClick={onClick}
       >
         <div className="w-full h-full flex justify-center items-center">
-          <span className="text-xl font-title font-bold text-color-secondary text-center">
+          <span className=" text-3xl font-title font-bold text-color-secondary text-center">
             {name}
           </span>
         </div>

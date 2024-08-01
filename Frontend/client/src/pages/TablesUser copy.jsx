@@ -7,7 +7,7 @@ import TableFourChairs from "@/components/table/4Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
 
 const TablesUser = () => {
-  const {date, time} = useReserveStore();
+  const { date, time } = useReserveStore();
   const [tablesResponse, setTablesResponse] = useState(null);
   const { tables, error, loading, fetchTablesStates } = useTablesStateStore();
   const { attendee_count, setTable } = useReserveStore();
@@ -19,76 +19,128 @@ const TablesUser = () => {
   }, [date, time]);
 
   useEffect(() => {
-    if(tables !== null){
+    if (tables !== null) {
       filtroTables();
     }
   }, [tables]);
 
   const filtroTables = () => {
+    if (!tables || !tables["hydra:member"]) return; // Verifica si 'tables' y 'tables["hydra:member"]' son válidos
     var mesas = [];
     tables["hydra:member"].filter((table) => {
-      if(attendee_count <= 2){
-        if(table["capacity"]===2){
+      if (attendee_count <= 2) {
+        if (table["capacity"] === 2) {
           mesas.push(table);
         }
-      }else if(attendee_count <= 4){
-        if(table["capacity"]===4){
+      } else if (attendee_count <= 4) {
+        if (table["capacity"] === 4) {
           mesas.push(table);
         }
-      }else if(attendee_count <= 6){
-        if(table["capacity"]===6){
+      } else if (attendee_count <= 6) {
+        if (table["capacity"] === 6) {
           mesas.push(table);
         }
       }
     });
     filteredTables(mesas, null);
   };
-
-  const filteredTables = (data, id) =>{
+  const filteredTables = (data, id) => {
+    if (!data) return; // Verifica si 'data' es null o undefined
     setBool(false);
     setDataTable(data);
     var mesas = [];
     data.map((table) => {
       var reservedChairs = 0;
       var click = () => filteredTables(dataTable, table.id);
-      if(table.status === "reserved"){
+      if (table.status === "reserved") {
         reservedChairs = table.capacity;
         click = () => {};
-      };
-      if(table.capacity === 2){
-        if(id === table.id){
-          mesas.push(<div className="scale-50 m-[-80px]" key={table.id}><TableTwoChairs name={table.name} reservedChairs={reservedChairs} onClick={click} selected={true} /></div>);
+      }
+      if (table.capacity === 2) {
+        if (id === table.id) {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableTwoChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+                selected={true}
+              />
+            </div>
+          );
           setTable({ name: table.name, id: table.id, "@id": table["@id"] });
           setBool(true);
-        }else{
-          mesas.push(<div className="scale-50 m-[-80px]" key={table.id}><TableTwoChairs name={table.name} reservedChairs={reservedChairs} onClick={click} /></div>);
+        } else {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableTwoChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+              />
+            </div>
+          );
         }
-      }else if(table.capacity === 4){
-        if(id === table.id){
-          mesas.push(<div className="scale-50 m-[-80px]" key={table.id}><TableFourChairs name={table.name} reservedChairs={reservedChairs} onClick={click} selected={true} /></div>);
+      } else if (table.capacity === 4) {
+        if (id === table.id) {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableFourChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+                selected={true}
+              />
+            </div>
+          );
           setTable({ name: table.name, id: table.id, "@id": table["@id"] });
           setBool(true);
-        }else{
-          mesas.push(<div className="scale-50 m-[-80px]" key={table.id}><TableFourChairs name={table.name} reservedChairs={reservedChairs} onClick={click} /></div>);
+        } else {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableFourChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+              />
+            </div>
+          );
         }
-      }else if(table.capacity === 6){
-        if(id === table.id){
-          mesas.push(<div className="scale-50 m-[-80px]" key={table.id}><TableSixChairs name={table.name} reservedChairs={reservedChairs} onClick={click} selected={true} /></div>);
+      } else if (table.capacity === 6) {
+        if (id === table.id) {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableSixChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+                selected={true}
+              />
+            </div>
+          );
           setTable({ name: table.name, id: table.id, "@id": table["@id"] });
           setBool(true);
-        }else{
-          mesas.push(<div className="scale-50 m-[-80px]" key={table.id}><TableSixChairs name={table.name} reservedChairs={reservedChairs} onClick={click} /></div>);
+        } else {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableSixChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+              />
+            </div>
+          );
         }
-      };
+      }
     });
     setTablesResponse(mesas);
   };
 
   const confirmClick = () => {
-    if(bool === false){
+    if (bool === false) {
       alert("Por favor, seleccione una mesa");
       return;
-    }else if(bool === true){
+    } else if (bool === true) {
       window.location.href = "/confirm";
     }
   };
@@ -138,14 +190,23 @@ const TablesUser = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-around text-center">
-      <p className="font-bold text-2xl text-color-text text-center my-5">Seleccione una mesa</p>
-      <div className="flex flex-wrap items-center justify-center max-w-sm min-h-[80vh]">
+    <div className="w-full h-screen flex flex-col items-center justify-between py-20 text-center">
+      <p className="font-bold text-2xl text-color-text text-center">
+        Seleccione una mesa
+      </p>
+      <div
+        className="flex flex-wrap items-center justify-center max-w-sm 
+      "
+      >
         {tablesResponse}
       </div>
       <div className="flex justify-around items-center flex-wrap w-full max-w-sm ">
         <div className="my-3">
-          <Button1 text={"Regresar"} variant={"confirm"} onClick={() => window.location.href = "/reserve"} />
+          <Button1
+            text={"Regresar"}
+            variant={"confirm"}
+            onClick={() => (window.location.href = "/reserve")}
+          />
         </div>
         <div className="my-3">
           <Button1 text={"Confirmar"} onClick={confirmClick} />
