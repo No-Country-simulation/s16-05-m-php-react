@@ -10,8 +10,8 @@ const TableTwoChairs = ({
   selected,
   onSelect,
 }) => {
-  const defaultChairsColor = "bg-[#58575776]"; // Verde si está disponible
-  const reservedChairsColor = "bg-red-500"; // Rojo si está reservada
+  const defaultChairsColor = "bg-[#58575776]"; // Gris si está disponible
+  const reservedChairsColor = "bg-[#da070776] cursor-not-allowed"; // Rojo si está reservada
 
   const containerClass = isMobile
     ? "w-[90px] h-[90px] m-3"

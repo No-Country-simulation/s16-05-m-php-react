@@ -119,39 +119,6 @@ export const deleteTable = async (id) => {
   }
 };
 
-export const createReservation = async (
-  date,
-  time,
-  owner_first_name,
-  owner_last_name,
-  owner_phone_number,
-  owner_email,
-  table // table es el @id de la mesa
-) => {
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/reservations`,
-      {
-        date,
-        time,
-        owner_first_name,
-        owner_last_name,
-        owner_phone_number,
-        owner_email,
-        table, // Enviamos table en la carga útil
-      },
-      {
-        headers: {
-          "Content-Type": "application/ld+json", // Añadimos el header necesario
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error({ createReservationError: error });
-    throw error;
-  }
-};
 /** CRUD DE CATEGORÍAS */
 export const getCategory = async () => {
   try {
@@ -179,15 +146,6 @@ export const createCategory = async (name, phrase) => {
         },
       }
     );
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getReservations = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/reservations`);
     return response;
   } catch (error) {
     throw error;
@@ -328,7 +286,14 @@ export const productImage = async (image, id) => {
   }
 };
 
-export const updateProduct = async (id, name, description, price, available, category) => {
+export const updateProduct = async (
+  id,
+  name,
+  description,
+  price,
+  available,
+  category
+) => {
   const { token } = useAuthStore.getState();
   const is_available = Boolean(available);
   const categories = [];
@@ -341,7 +306,7 @@ export const updateProduct = async (id, name, description, price, available, cat
         price,
         description,
         is_available,
-        categories
+        categories,
       },
       {
         headers: {
@@ -366,6 +331,83 @@ export const deleteProduct = async (id) => {
       },
     });
     return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/** Consultas de reservas por código */
+export const getReservationByCode = async (code) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/reservations/${code}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**CRUD Reservas */
+
+export const getReservations = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/reservations`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createReservation = async (
+  date,
+  time,
+  owner_first_name,
+  owner_last_name,
+  owner_phone_number,
+  owner_email,
+  table,
+  attendee_count
+) => {
+  try {
+    // Asegurarse de que el campo table esté en el formato correcto
+    const formattedTable = typeof table === "string" ? table : table["@id"];
+
+    const response = await axios.post(
+      `${BASE_URL}/reservations`,
+      {
+        date,
+        time,
+        owner_first_name,
+        owner_last_name,
+        owner_phone_number,
+        owner_email,
+        table: formattedTable,
+        attendee_count,
+      },
+      {
+        headers: {
+          "Content-Type": "application/ld+json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error({ createReservationError: error });
+    throw error;
+  }
+};
+
+export const getTablesReserved = async (date, time) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/tables`, {
+      params: {
+        date,
+        time,
+      },
+      headers: {
+        Accept: "application/ld+json",
+      },
+    });
+    return response.data;
   } catch (error) {
     throw error;
   }

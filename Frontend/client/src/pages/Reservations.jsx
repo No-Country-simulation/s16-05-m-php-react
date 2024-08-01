@@ -1,7 +1,26 @@
 import deco1 from "/deco1.png";
 import bg1_mobile from "/bg1_mobile.png";
+import useReserveStore from "@/stores/useReserveStore";
+import { formatDate } from "./ConfirmReservation";
+import Success from "@/components/modal/Success";
+import Button1 from "@/components/ui/button1";
 
 const Reservations = () => {
+  const { date, time, table, number_of_people, code, modal, owner_first_name } =
+    useReserveStore((state) => ({
+      date: state.date,
+      time: state.time,
+      table: state.table,
+      number_of_people: state.number_of_people,
+      code: state.code,
+      owner_first_name: state.owner_first_name,
+      modal: state.modal,
+    }));
+
+  const handleClick = () => {
+    window.location.href = "/select";
+  };
+
   return (
     <div
       className="w-[100%] h-[100%] min-h-[100dvh] bg-[#272727] max-w-[520px] mx-[auto] overflow-hidden"
@@ -11,19 +30,20 @@ const Reservations = () => {
         backgroundSize: "cover",
       }}
     >
+      <Success />
       <img
         src={deco1}
         alt="Imagen ilustrativa"
         className="mt-[-25px] mx-[auto] scale-[1.2]"
       />
 
-      <h5 className="text-center text-[22px]">¡Hola Nombre!</h5>
+      <h5 className="text-center text-[22px]">¡Hola {owner_first_name}!</h5>
 
       <h4 className="text-center text-[32px] mt-[10px] mb-[30px]">
         Tus reservaciones
       </h4>
 
-      <div className="w-[95%] mx-[auto] border rounded-[5px] bg-[transparent] border border-[#7F2A44] p-[10px]">
+      <div className="w-[95%] mx-[auto] rounded-[5px] bg-[transparent] border border-[#7F2A44] p-[10px]">
         <div className="flex mb-[10px] items-center">
           <h5 className="ml-[auto] text-[20px]">Restaurante Healthy</h5>
 
@@ -48,10 +68,10 @@ const Reservations = () => {
         <div className="flex">
           <div className="w-[35%]"></div>
           <div>
-            <p>Fecha: dd/mm/aaaa</p>
-            <p>Hora: de hh a hh</p>
-            <p>Comensales: 4</p>
-            <p>Código de reserva: 0000</p>
+            <p>{formatDate(date)}</p>
+            <p>Hora: {time}</p>
+            <p>Comensales {number_of_people}</p>
+            <p>Código de reserva: {code}</p>
           </div>
         </div>
       </div>
@@ -67,11 +87,14 @@ const Reservations = () => {
         <path
           d="M24 10V38M10 24H38"
           stroke="#fff"
-          strokeWidth="4"
+          strokeWidth="6"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
+      <div className="flex justify-center w-full my-5">
+        <Button1 text={"Volver a inicio"} onClick={handleClick} />
+      </div>
     </div>
   );
 };

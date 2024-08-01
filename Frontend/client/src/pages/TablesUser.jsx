@@ -1,18 +1,19 @@
-import useTablesStore from "@/stores/useTableStore";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useReserveStore from "@/stores/useReserveStore";
+import useTablesStore from "@/stores/useTableStore";
 import TableFourChairs from "@/components/table/4Chairs";
 import TableTwoChairs from "@/components/table/2Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import useReserveStore from "@/stores/useReserveStore";
+import { getTablesReserved } from "@/axios/fetch";
 
 const TablesUser = () => {
   const { tables, error, loading, fetchTables } = useTablesStore();
-  const { number_of_people, setTable } = useReserveStore(); // Obtiene el número de personas y setTable del estado de Zustand
-
+  const { attendee_count, date, time, setTable } = useReserveStore();
   const [isMobile, setIsMobile] = useState(false);
   const [selectedTableId, setSelectedTableId] = useState(null);
+  const [tableStates, setTableStates] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,9 +26,39 @@ const TablesUser = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    fetchTables();
+  }, [fetchTables]);
+
+  useEffect(() => {
+    const fetchTableStates = async () => {
+      try {
+        const response = await getTablesReserved(date, time);
+        console.log("Table states response:", response);
+
+        // Asegúrate de que `response` tenga la forma esperada
+        if (
+          response &&
+          response["hydra:member"] &&
+          Array.isArray(response["hydra:member"])
+        ) {
+          setTableStates(response["hydra:member"]);
+        } else {
+          console.error("Expected array but got:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching table states:", error);
+      }
+    };
+
+    if (date && time) {
+      fetchTableStates();
+    }
+  }, [date, time]);
+
   const handleSelectTable = (table) => {
     setSelectedTableId(table.id);
-    setTable({ name: table.name, id: table.id, "@id": table["@id"] }); // Aseguramos que @id se almacene
+    setTable({ name: table.name, id: table.id, "@id": table["@id"] });
   };
 
   const navigate = useNavigate();
@@ -41,10 +72,6 @@ const TablesUser = () => {
     e.preventDefault();
     navigate("/reserve");
   };
-
-  useEffect(() => {
-    fetchTables();
-  }, [fetchTables]);
 
   if (loading) {
     return (
@@ -74,6 +101,7 @@ const TablesUser = () => {
       </div>
     );
   }
+
   if (!tables) {
     return (
       <div className="flex justify-center w-full h-[10vh] bg-color-bg">
@@ -83,9 +111,9 @@ const TablesUser = () => {
   }
 
   const filteredTables = tables["hydra:member"].filter((table) => {
-    if (number_of_people <= 2) {
+    if (attendee_count <= 2) {
       return table["capacity"] === 2;
-    } else if (number_of_people <= 4) {
+    } else if (attendee_count <= 4) {
       return table["capacity"] === 4;
     } else {
       return table["capacity"] === 6;
@@ -93,17 +121,23 @@ const TablesUser = () => {
   });
 
   const tablesResponse = filteredTables.map((table) => {
+    const reservedTable = Array.isArray(tableStates)
+      ? tableStates.find(
+          (state) => state.id === table.id && state.status === "reserved"
+        )
+      : null;
+
     if (table["capacity"] === 2) {
       return (
         <TableTwoChairs
           key={table.id}
           name={table.name}
           id={table.id}
-          reservedChairs={table.reservedChairs}
           hover
           onSelect={() => handleSelectTable(table)}
           selected={selectedTableId === table.id}
           isMobile={isMobile}
+          reservedChairs={reservedTable ? 2 : null}
         />
       );
     }
@@ -113,11 +147,11 @@ const TablesUser = () => {
           key={table.id}
           name={table.name}
           id={table.id}
-          reservedChairs={table.reservedChairs}
           hover
           onSelect={() => handleSelectTable(table)}
           selected={selectedTableId === table.id}
           isMobile={isMobile}
+          reservedChairs={reservedTable ? 4 : null}
         />
       );
     }
@@ -127,11 +161,11 @@ const TablesUser = () => {
           key={table.id}
           name={table.name}
           id={table.id}
-          reservedChairs={table.reservedChairs}
           hover
           onSelect={() => handleSelectTable(table)}
           selected={selectedTableId === table.id}
           isMobile={isMobile}
+          reservedChairs={reservedTable ? 6 : null}
         />
       );
     }
