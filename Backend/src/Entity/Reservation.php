@@ -146,7 +146,7 @@ class Reservation
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->status = ReservationStatuses::IN_PROGRESS;
+        $this->status = ReservationStatuses::PENDING;
         $this->created_at = new \DateTimeImmutable();
         $this->update_at = new \DateTimeImmutable();
     }
