@@ -80,7 +80,7 @@ const CategoryClient = () => {
         />
       </div>
       <div className="flex justify-center w-full mb-5 -mt-15">
-        <div className="w-4/5 flex justify-around max-w-80 min-w-48 items-center bg-[#7C7676] rounded-2xl p-1">
+        <div className=" w-4/5 flex justify-around max-w-80 min-w-48 items-center bg-[#7C7676] rounded-2xl p-1">
           <img
             src={RestLogo}
             alt="Logo de un restaurante"

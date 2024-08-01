@@ -2,47 +2,120 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Dto\ReservationDto;
+use App\Dto\ReservationStatusDto;
+use App\State\ReservationProcessor;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Table;
+use App\State\ReservationStatusProcessor;
+use App\Util\ReservationStatuses;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
+#[Get(
+    normalizationContext: ['groups' => ['reservation:read']],
+    uriTemplate: '/reservations/{code}',
+    uriVariables: [
+        'code' => new Link(identifiers: ['code'])],
+    openapi: new Operation(
+        summary: 'Get reservation by code',
+        description: 'Get reservation by code'
+    )
+)]
+#[GetCollection(
+    normalizationContext: ['groups' => ['reservation:read']],
+)]
+#[Post(
+    denormalizationContext: ['groups' => ['reservation:write']],
+    normalizationContext: ['groups' => ['reservation:read']],
+    validationContext: ['groups' => ['reservation:write:validation']],
+    input: ReservationDto::class,
+    processor: ReservationProcessor::class,
+)]
+#[Delete(
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[Put(
+    denormalizationContext: ['groups' => ['reservation:write']],
+    normalizationContext: ['groups' => ['reservation:read']],
+    validationContext: ['groups' => ['reservation:write:validation']],
+    input: ReservationDto::class,
+    processor: ReservationProcessor::class
+)]
+#[Put(
+    normalizationContext: ['groups' => ['reservation:read']],
+    uriTemplate: '/reservations/{id}/status',
+    requirements: ['id' => '\d+'],
+    processor: ReservationStatusProcessor::class,
+    input: ReservationStatusDto::class,
+    security: 'is_granted("ROLE_ADMIN")',
+    openapi: new Operation(
+        summary: 'Update reservation status',
+        description: "Cambiar el estado de una reserva
+## Estados disponibles:
+- `in-progress`: Indica que la reserva está en curso, probablemente el cliente está en el restaurante.\n
+- `canceled`: Indica que la reserva ha sido cancelada.
+- `completed`: Indica que la reserva ha sido completada con éxito.
+- `pending`: Indica que la reserva ha sido creada pero aún no ha sido confirmada o atendida.
+- `no-show`: Para indicar que el cliente no se presentó a la reserva.
+- `scheduled`: La reserva está confirmada y a la espera de la fecha y hora acordadas.
+      "
+    )
+)]
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $date_from = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $date_to = null;
-
     #[ORM\Column(length: 7)]
-    private ?string $code = null;
+    #[Groups(['reservation:read'])]
+    private ?string $code;
 
     #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[Groups(['reservation:read', Types::INTEGER])]
+    private ?int $status = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_first_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_last_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['reservation:read'])]
     private ?string $owner_phone_number = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $owner_phone_email = null;
+    #[Groups(['reservation:read'])]
+    private ?string $owner_email = null;
 
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
+    #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d H:i:s'])]
     private ?\DateTimeImmutable $update_at = null;
 
     /**
@@ -52,41 +125,35 @@ class Reservation
     private Collection $orders;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Table $_table = null;
+    #[ORM\JoinColumn(nullable: false, name: '_table_id')]
+    #[Groups(['reservation:read'])]
+    private ?Table $table = null;
+    
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    private ?\DateTimeImmutable $date = null;
+    
+    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
+    #[Groups(['reservation:read'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'H:i'])]
+    private ?\DateTimeImmutable $time = null;
+
+    #[ORM\Column]
+    #[Groups(['reservation:read'])]
+    private ?int $attendee_count = null;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->status = ReservationStatuses::IN_PROGRESS;
+        $this->created_at = new \DateTimeImmutable();
+        $this->update_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDateFrom(): ?\DateTimeImmutable
-    {
-        return $this->date_from;
-    }
-
-    public function setDateFrom(\DateTimeImmutable $date_from): static
-    {
-        $this->date_from = $date_from;
-
-        return $this;
-    }
-
-    public function getDateTo(): ?\DateTimeImmutable
-    {
-        return $this->date_to;
-    }
-
-    public function setDateTo(\DateTimeImmutable $date_to): static
-    {
-        $this->date_to = $date_to;
-
-        return $this;
     }
 
     public function getCode(): ?string
@@ -101,12 +168,12 @@ class Reservation
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(int $status): static
     {
         $this->status = $status;
 
@@ -149,14 +216,14 @@ class Reservation
         return $this;
     }
 
-    public function getOwnerPhoneEmail(): ?string
+    public function getOwnerEmail(): ?string
     {
-        return $this->owner_phone_email;
+        return $this->owner_email;
     }
 
-    public function setOwnerPhoneEmail(string $owner_phone_email): static
+    public function setOwnerEmail(string $owner_email): static
     {
-        $this->owner_phone_email = $owner_phone_email;
+        $this->owner_email = $owner_email;
 
         return $this;
     }
@@ -206,7 +273,6 @@ class Reservation
     public function removeOrder(Order $order): static
     {
         if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
             if ($order->getReservation() === $this) {
                 $order->setReservation(null);
             }
@@ -217,12 +283,48 @@ class Reservation
 
     public function getTable(): ?Table
     {
-        return $this->_table;
+        return $this->table;
     }
 
-    public function setTable(?Table $_table): static
+    public function setTable(?Table $table): static
     {
-        $this->_table = $_table;
+        $this->table = $table;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeImmutable $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getTime(): ?\DateTimeImmutable
+    {
+        return $this->time;
+    }
+
+    public function setTime(\DateTimeImmutable $time): static
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    public function getAttendeeCount(): ?int
+    {
+        return $this->attendee_count;
+    }
+
+    public function setAttendeeCount(int $attendee_count): static
+    {
+        $this->attendee_count = $attendee_count;
 
         return $this;
     }

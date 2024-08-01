@@ -2,11 +2,68 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\Parameter;
+use ApiPlatform\OpenApi\Model\Response;
+use App\Dto\TableAvailableTimeSlotsDto;
+use App\Dto\TableDto;
 use App\Repository\TableRepository;
+use App\State\TableAvailableTimeSlotsStateProvider;
+use App\State\TableProcessor;
+use App\State\TableStateProvider;
+use ArrayObject;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
+#[GetCollection(
+    uriTemplate: '/tables/{id}/available-time-slots',
+    requirements: ['id' => '\d+'],
+    provider: TableAvailableTimeSlotsStateProvider::class,
+    output: TableAvailableTimeSlotsDto::class,
+    openapi: new Operation(
+        summary: 'Obtiene los horarios disponibles de una mesa',
+        description: 'Obtiene los horarios disponibles de una mesa en base a una fecha dada.',
+        parameters: [
+            new Parameter('date', 'query', 'Fecha en formato YYYY-MM-DD', example: '2024-01-01')
+        ],
+    )
+)]
+#[GetCollection(
+    normalizationContext: ['groups' => ['table:read']],
+    provider: TableStateProvider::class
+)]
+#[Post(
+    security: 'is_granted("ROLE_ADMIN")',
+    denormalizationContext: ['groups' => ['table:write']],
+    normalizationContext: ['groups' => ['table:read']],
+    validationContext: ['groups' => ['table:write:validation']],
+    input: TableDto::class,
+    processor: TableProcessor::class,
+    // openapi: new Operation(
+    //     summary: 'Ejemplo de sumario',
+    //     description: 'Ejemplo de descripción!!!'
+    // )
+)]
+#[Delete(
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[Put(
+    security: 'is_granted("ROLE_ADMIN")',
+    denormalizationContext: ['groups' => ['table:write']],
+    normalizationContext: ['groups' => ['table:read']],
+    input: TableDto::class,
+    processor: TableProcessor::class,
+    validationContext: ['groups' => ['table:write:validation']],
+)]
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: '`table`')]
 class Table
@@ -14,18 +71,25 @@ class Table
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['table:read', 'reservation:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $available_sits = null;
+    #[Groups(['table:read', 'reservation:read'])]
+    private ?int $capacity = null;
+
+    #[ORM\Column]
+    #[Groups(['table:read', 'reservation:read'])]
+    private ?int $min_required_capacity = null;
 
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: '_table')]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'table')]
     private Collection $reservations;
 
     public function __construct()
@@ -50,14 +114,26 @@ class Table
         return $this;
     }
 
-    public function getAvailableSits(): ?int
+    public function getCapacity(): ?int
     {
-        return $this->available_sits;
+        return $this->capacity;
     }
 
-    public function setAvailableSits(int $available_sits): static
+    public function setCapacity(int $capacity): static
     {
-        $this->available_sits = $available_sits;
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getMinRequiredCapacity(): ?int
+    {
+        return $this->min_required_capacity;
+    }
+
+    public function setMinRequiredCapacity(int $min_required_capacity): static
+    {
+        $this->min_required_capacity = $min_required_capacity;
 
         return $this;
     }

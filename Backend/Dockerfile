@@ -26,3 +26,5 @@ a2dissite 000-default
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && apt install symfony-cli -y
 
 RUN composer install --optimize-autoloader --no-interaction
+
+RUN php bin/console lexik:jwt:generate-keypair --skip-if-exists

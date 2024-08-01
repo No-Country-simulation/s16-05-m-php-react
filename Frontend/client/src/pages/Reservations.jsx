@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import deco1 from "/deco1.png";
 import bg1_mobile from "/bg1_mobile.png";
 import useReserveStore from "@/stores/useReserveStore";
@@ -6,6 +7,7 @@ import Success from "@/components/modal/Success";
 import Button1 from "@/components/ui/button1";
 
 const Reservations = () => {
+  const navigate = useNavigate();
   const { date, time, table, number_of_people, code, modal, owner_first_name } =
     useReserveStore((state) => ({
       date: state.date,
@@ -34,7 +36,7 @@ const Reservations = () => {
       <img
         src={deco1}
         alt="Imagen ilustrativa"
-        className="mt-[-25px] mx-[auto] scale-[1.2]"
+        className="mx-[auto] mt-[60px] scale-[1.2]"
       />
 
       <h5 className="text-center text-[22px]">¡Hola {owner_first_name}!</h5>
@@ -76,22 +78,28 @@ const Reservations = () => {
         </div>
       </div>
 
-      <svg
-        className="mx-[auto] mt-[10px]"
-        width="32"
-        height="32"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <button
+        className="bg-[transparent] ml-[45%] mt-[10px]"
+        onClick={() => navigate("/reserve")}
       >
-        <path
-          d="M24 10V38M10 24H38"
-          stroke="#fff"
-          strokeWidth="6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+        <svg
+          className=""
+          width="32"
+          height="32"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M24 10V38M10 24H38"
+            stroke="#fff"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
       <div className="flex justify-center w-full my-5">
         <Button1 text={"Volver a inicio"} onClick={handleClick} />
       </div>
