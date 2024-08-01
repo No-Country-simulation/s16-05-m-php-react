@@ -37,14 +37,14 @@ Características Principales para el Dueño del restaurante:
 <br>
 </div>
 
-<div align="center">
+<!-- <div align="center">
   
   <br>
   
   <h3 align="center"><b>Puedes visitar nuestra página web aquí:</b></h3>
   <h3 align="center"><a href=""></a></h3>
   <p  align="center"></p>
- </div>
+ </div> -->
 <br><br>
 
 ## ✔ Project Manager
@@ -146,7 +146,7 @@ Características Principales para el Dueño del restaurante:
 
 #### 👉🏻 Documentación 📜
 
-- Puedes leer la documentación: <a href="https://virginiadanitz-1715966829669.atlassian.net/jira/software/projects/EC/boards/2" target="_blank">Aqui</a>.
+- Puedes leer la documentación: <a href="https://drive.google.com/drive/folders/1zZocsdeiY-9NyyOelT8XBIRHJ_ixEz2t?usp=drive_link" target="_blank">Aqui</a>.
 
 #### 👉🏻 Lista de Tareas ✅
 
@@ -178,6 +178,11 @@ Características Principales para el Dueño del restaurante:
 - Avanzar hacia prototipos de calidad media y desarrollo de componentes.
 - Redacción de textos y copywriting.
 - Creación del Readme.md
+
+#### 👉🏻 Prototipo 📽️
+
+- Puedes ver el prototipo: <a href="https://www.figma.com/proto/h15w4nTzOcqvHJFHFY7Wgv/s16-05-php-react?page-id=0%3A1&node-id=327-487&starting-point-node-id=307%3A432&t=nYHVlBGiTvAzuWxY-1" target="_blank">Aqui</a>.
+
 
 #### 👉🏻 Construido con 🛠️
 
