@@ -60,7 +60,6 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
     requirements: ['id' => '\d+'],
     processor: ReservationStatusProcessor::class,
     input: ReservationStatusDto::class,
-    security: 'is_granted("ROLE_ADMIN")',
     openapi: new Operation(
         summary: 'Update reservation status',
         description: "Cambiar el estado de una reserva
@@ -146,7 +145,7 @@ class Reservation
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-        $this->status = ReservationStatuses::IN_PROGRESS;
+        $this->status = ReservationStatuses::PENDING;
         $this->created_at = new \DateTimeImmutable();
         $this->update_at = new \DateTimeImmutable();
     }
