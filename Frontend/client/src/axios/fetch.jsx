@@ -412,3 +412,32 @@ export const getTablesReserved = async (date, time) => {
     throw error;
   }
 };
+
+export const cancelReserva = async (id) => {
+  try {
+    const response = await axios.update(`${BASE_URL}/reservations/${id}/status`,{
+      status: "canceled",
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+export const confirmarReserva = async (id) => {
+  try {
+    const response = await axios.update(`${BASE_URL}/reservations/${id}/status`,{
+      status: "scheduled",
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
