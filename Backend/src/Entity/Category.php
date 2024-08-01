@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Put;
 use App\Dto\CategoryImageDto;
 use App\Repository\CategoryRepository;
 use App\State\CategoryImageProcessor;
+use App\State\CategoryStateProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,16 +26,20 @@ use Symfony\Component\Validator\Constraints as Assert;
     input: CategoryImageDto::class,
     processor: CategoryImageProcessor::class
 )]
-#[ApiResource(
+
+#[Post(
+    security: 'is_granted("ROLE_ADMIN")',
     normalizationContext: ['groups' => ['category:read'], 'skip_null_values' => false],
     denormalizationContext: ['groups' => ['category:write']],
-    security: 'is_granted("ROLE_ADMIN")',
-    operations: [
-        new Post(),
-        new Put(),
-        new Delete()
-    ]
+    processor: CategoryStateProcessor::class
 )]
+#[Put(
+    security: 'is_granted("ROLE_ADMIN")',
+    normalizationContext: ['groups' => ['category:read'], 'skip_null_values' => false],
+    denormalizationContext: ['groups' => ['category:write']],
+    processor: CategoryStateProcessor::class
+)]
+#[Delete()]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
