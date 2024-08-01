@@ -60,7 +60,6 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
     requirements: ['id' => '\d+'],
     processor: ReservationStatusProcessor::class,
     input: ReservationStatusDto::class,
-    security: 'is_granted("ROLE_ADMIN")',
     openapi: new Operation(
         summary: 'Update reservation status',
         description: "Cambiar el estado de una reserva
