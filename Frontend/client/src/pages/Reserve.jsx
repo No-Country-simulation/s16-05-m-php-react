@@ -52,7 +52,7 @@ const Reserve = () => {
   };
 
   return (
-    <div className="flex h-screen mt-5 flex-col gap-11 flex-wrap font-title items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
+    <div className="flex min-h-[100dvh] h-[auto] mt-5 flex-col gap-11 flex-wrap font-title items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
       <p className="font-bold text-2xl font-title">Reserva tu mesa</p>
       <div className="flex flex-col p-2 gap-5">
         <div className="flex flex-col">
@@ -137,7 +137,7 @@ const Reserve = () => {
           />
         </div>
       </div>
-      <div className="flex justify-center gap-[20px] w-[100%]">
+      <div className="flex justify-center gap-[20px] w-[100%] mb-[20px]">
         <Button
           className="bg-color-secondary w-[40%] font-bold font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
           onClick={handleReturn}

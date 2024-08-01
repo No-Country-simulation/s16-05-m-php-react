@@ -3,9 +3,10 @@ import TableTwoChairs from "@/components/table/2Chairs";
 import TableFourChairs from "@/components/table/4Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
 import useReserveStore from "@/stores/useReserveStore";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createReservation } from "@/axios/fetch";
-import { useState } from "react";
+import Error from "@/components/modal/error";
 import Success from "@/components/modal/Success";
 
 export const formatDate = (dateString) => {
@@ -19,6 +20,7 @@ export const formatDate = (dateString) => {
 
 const ConfirmReservation = () => {
   const navigate = useNavigate();
+  const [apiStatus, setApiStatus] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -89,6 +91,7 @@ const ConfirmReservation = () => {
       })
       .catch((error) => {
         console.error("Error al crear la reserva:", error);
+        setApiStatus(error.response.status);
         setLoading(false);
       });
   };
@@ -114,6 +117,17 @@ const ConfirmReservation = () => {
   };
 
   return (
+    <div className="bg-[#272727] w-[100%] h-[100%] flex flex-col justify-between max-w-[600px] mx-[auto] relative">
+      {
+        // Modal de error
+        apiStatus === 422 || apiStatus === 400 || apiStatus === 404 ? (
+          <Error message="No se pudo realizar la reserva" />
+        ) : apiStatus === 401 || apiStatus === 405 ? (
+          <Error message="Se produjo un error" />
+        ) : (
+          ""
+        )
+      }
     <div className="bg-[#272727] w-full h-full flex flex-col justify-between max-w-[600px] mx-[auto]">
       <h4 className="my-[80px] mx-[auto] max-w-[200px] text-center font-[700] text-[32px]">
         Confirmación de reserva
@@ -138,7 +152,7 @@ const ConfirmReservation = () => {
 
       <div className="mx-[auto]">{renderTable()}</div>
 
-      <div className="flex justify-center gap-[20px] w-[100%]">
+      <div className="flex justify-center gap-[20px] w-[100%] mb-[20px]">
         <Button
           className="bg-color-secondary w-[40%] font-title font-bold  hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
           onClick={handleReturn}
