@@ -33,7 +33,7 @@ const EditMesa = ({ isOpen, onClose, id, nameMesa, capacityMesa }) => {
                     setError("Capacidad no válida");
             }
         }
-    }, [capacityMesa, nameMesa]);
+    }, [isOpen, capacityMesa, nameMesa]);
 
     if (!isOpen) return null;
 
@@ -92,8 +92,16 @@ const EditMesa = ({ isOpen, onClose, id, nameMesa, capacityMesa }) => {
         }
     };
 
+    const close = () => {
+        setMesa(null);
+        setNombreMesa("");
+        setCapacityTable("");
+        setError("");
+        onClose();
+    };
+
     return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center z-10" onClick={onClose}>
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center z-10" onClick={close}>
             <div className="bg-color-bg p-10 rounded-md relative border-2 border-color-secondary w-1/2 h-3/4 min-h-[580px]" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center"}} onClick={e => e.stopPropagation()}>
                 <h1 className="text-3xl font-title font-bold text-color-secondary mb-5 text-center">Editar: {nameMesa}</h1>
                 <form className='flex flex-col h-full justify-around py-10 items-center' onSubmit={handleSubmit}>
@@ -109,7 +117,7 @@ const EditMesa = ({ isOpen, onClose, id, nameMesa, capacityMesa }) => {
                         {mesa}
                     </div>
                     <div className='flex justify-around w-1/2 min-w-56'>
-                        <Button1 type={"button"} text={"Cancelar"} onClick={onClose} />
+                        <Button1 type={"button"} text={"Cancelar"} onClick={close} />
                         <Button1 type={"button"} text={"Eliminar"} onClick={deleteMesa}/>
                         <Button1 type={"submit"} variant={"confirm"} text={"Aceptar"} />
                     </div>
