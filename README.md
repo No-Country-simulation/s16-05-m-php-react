@@ -105,7 +105,7 @@ Características Principales para el Dueño del restaurante:
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
 
-| <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=90>|<img src="./Frontend/client/src/assets/Foto-Nico-Galarza-ok.webp" width=100>|
+| <img src="./Frontend/client/src/assets/Foto-JuanCamilo-ok.webp" width=90>|<img src="./Frontend/client/src/assets/Foto-Nico-Galarza-ok.webp" width=100>|
 |:-:|:-:|
 | **Juan Camilo García Gómez**| **Nicolás Galarza**|
 | <a href="https://www.linkedin.com/in/juan-camilo-garcia-"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/nicol%C3%A1s-galarza-0759b2299/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
