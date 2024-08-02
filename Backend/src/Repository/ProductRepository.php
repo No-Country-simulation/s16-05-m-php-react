@@ -46,6 +46,7 @@ class ProductRepository extends ServiceEntityRepository
         $product->setDescription($productDto->getDescription());
         $product->setIsAvailable($productDto->getIsAvailable());
         $product->getCategories()->clear();
+        $product->setUpdatedAt(new \DateTimeImmutable());
 
         $productDto->getCategories()->map(function (Category $category) use ($product) {
             $product->addCategory($category);
@@ -64,6 +65,7 @@ class ProductRepository extends ServiceEntityRepository
 
         $product->setImageName($imageName);
         $product->setImagePath($imagePath);
+        $product->setUpdatedAt(new \DateTimeImmutable());
 
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();

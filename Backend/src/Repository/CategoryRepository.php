@@ -23,6 +23,7 @@ class CategoryRepository extends ServiceEntityRepository
 
         $category->setImageName($imageName);
         $category->setImagePath($imagePath);
+        $category->setUpdatedAt(new \DateTimeImmutable());
 
         $this->getEntityManager()->persist($category);
         $this->getEntityManager()->flush();

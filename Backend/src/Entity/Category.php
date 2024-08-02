@@ -74,9 +74,17 @@ class Category
     #[Groups(['category:read', 'product:read'])]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updated_at = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
+        $this->updated_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -162,5 +170,29 @@ class Category
     public function getImage()
     {
         return $this->image;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
     }
 }
