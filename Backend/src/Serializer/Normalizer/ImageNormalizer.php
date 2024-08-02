@@ -17,13 +17,16 @@ class ImageNormalizer implements NormalizerInterface
     ) {
     }
 
+    /**
+     * @param Category | Product $object
+     */
     public function normalize($object, ?string $format = null, array $context = []): array
     {
         $data = $this->normalizer->normalize($object, $format, $context);
         $data['image'] = null;
         
         if (is_array($data) && null != $object->getImagePath()) {
-            $data['image'] = $_ENV['IMAGE_KIT_URL_ENDPOINT'] . $object->getImagePath();
+            $data['image'] = $_ENV['IMAGE_KIT_URL_ENDPOINT'] . $object->getImagePath() . "?updated=" . $object->getUpdatedAt()->getTimestamp();
         }
 
         return $data;
@@ -31,7 +34,7 @@ class ImageNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Product || $data instanceof Category;
+        return $data instanceof Product || $data instanceof Category && method_exists($data, 'getUpdatedAt');
     }
 
     public function getSupportedTypes(?string $format): array

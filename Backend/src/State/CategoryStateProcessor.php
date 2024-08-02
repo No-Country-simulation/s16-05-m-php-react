@@ -27,6 +27,7 @@ class CategoryStateProcessor implements ProcessorInterface
 
             $category->setName($data->getName());
             $category->setPhrase($data->getPhrase());
+            $category->setUpdatedAt(new \DateTimeImmutable());
 
             $this->em->persist($category);
             $this->em->flush();
