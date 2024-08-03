@@ -32,7 +32,7 @@ use App\State\ProductProcessor;
     security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['product:write']],
     normalizationContext: ['groups' => ['product:read']],
-    validationContext: ['groups' => ['product:write:validation']],
+    validationContext: ['groups' => ['product:write:validation', 'product:post:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
 )]
@@ -53,7 +53,7 @@ use App\State\ProductProcessor;
     security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['product:write']],
     normalizationContext: ['groups' => ['product:read']],
-    validationContext: ['groups' => ['product:write:validation']],
+    validationContext: ['groups' => ['product:write:validation', 'product:put:validation']],
     input: ProductDto::class,
     processor: ProductProcessor::class
 )]
