@@ -45,7 +45,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     security: 'is_granted("ROLE_ADMIN")',
     denormalizationContext: ['groups' => ['table:write']],
     normalizationContext: ['groups' => ['table:read']],
-    validationContext: ['groups' => ['table:write:validation']],
+    validationContext: ['groups' => ['table:write:validation', 'table:post:validation']],
     input: TableDto::class,
     processor: TableProcessor::class,
     // openapi: new Operation(
@@ -62,7 +62,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     normalizationContext: ['groups' => ['table:read']],
     input: TableDto::class,
     processor: TableProcessor::class,
-    validationContext: ['groups' => ['table:write:validation']],
+    validationContext: ['groups' => ['table:write:validation', 'table:put:validation']],
 )]
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: '`table`')]
