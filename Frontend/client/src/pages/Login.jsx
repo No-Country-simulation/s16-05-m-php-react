@@ -8,7 +8,7 @@ import backgroundImage from "../assets/backgroundImage.png";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { email, password, setEmail, setPassword, setToken, setRole } =
+  const { email, password, setEmail, setPassword, setToken, setRole, setUsername, setCreatedAt, setExpiresAt } =
     useAuthStore();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,12 @@ const Login = () => {
 
     try {
       const response = await loginUser(email, password);
-        const { token, role } = response.data;
+        const { token, roles, username, createdAt, expiresAt } = response.data;
         setToken(token);
-        setRole(role);
+        setRole(roles);
+        setUsername(username);
+        setCreatedAt(createdAt);
+        setExpiresAt(expiresAt);
         navigate("/tables");
     } catch (error) {
       setError("Error al iniciar sesión, verifica tus credenciales");
