@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CardStatus = ({ status }) => {
+const CardStatus = ({ status, onClick }) => {
     const [backgroundColor, setBackgroundColor] = useState("");
     const [text, setText] = useState("");
     
@@ -35,7 +35,7 @@ const CardStatus = ({ status }) => {
         }
     }, [status]);
     return (
-        <div className={`px-4 w-fit py-1 rounded-3xl ${backgroundColor} text-center text-white cursor-default text-nowrap font-bold`}>{text}
+        <div className={`px-4 w-fit py-1 rounded-3xl ${backgroundColor} text-center text-white cursor-default text-nowrap font-bold`} onClick={onClick}>{text}
         </div>)
 }
 

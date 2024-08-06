@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.svg";
-import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import useAuthStore from "@/stores/useAuthStore";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +10,12 @@ const Navbar = () => {
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { logout, email, role, token } = useAuthStore((state) => ({
+  const { logout, email, role, token, username } = useAuthStore((state) => ({
     logout: state.logout,
     email: state.email,
     role: state.role,
     token: state.token,
+    username: state.username
   }));
 
   const handleLogout = () => {
@@ -47,14 +48,16 @@ const Navbar = () => {
               <a href="/tables">Mesas</a>
               <a href="/menu">Menú</a>
               <a href="/reservationsAdmin">Reservas</a>
-              <FaRegUserCircle
-                className="text-color-secondary text-3xl cursor-pointer"
-                onClick={() => setIsOpenUser(!isOpenUser)}
-              />
+              <button
+                className="text-color-secondary text-base capitalize cursor-pointer"
+                onClick={() => setIsOpenUser(!isOpenUser)}>
+                  {username}
+                </button>
               {isOpenUser && (
                 <div className="absolute top-[68px] right-24 mt-2 w-56 bg-color-text text-black p-2 rounded text-center shadow-md cursor-pointer">
-                  <p className="font-bold">¡Bienvenido!</p>
-                  <p>Usuario: {email}</p>
+                  <p className="font-bold">¡Bienvenido {username}!</p>
+                  <p>Email: {email}</p>
+                  <p>Rol: {role[0]}</p>
                 </div>
               )}
               <div className="relative flex flex-col items-center">
@@ -101,14 +104,16 @@ const Navbar = () => {
               <a href="/reservationsAdmin" className="font-bold">
                 Reservas
               </a>
-              <FaRegUserCircle
-                className="text-color-secondary text-3xl cursor-pointer"
-                onClick={() => setIsOpenUser(!isOpenUser)}
-              />
+              <button
+                className="text-color-secondary text-base capitalize cursor-pointer"
+                onClick={() => setIsOpenUser(!isOpenUser)}>
+                  {username}
+                </button>
               {isOpenUser && (
                 <div className="absolute top-[68px] right-24 mt-2 w-56 bg-color-text text-black p-2 rounded text-center shadow-md cursor-pointer">
-                  <p className="font-bold">¡Bienvenido!</p>
-                  <p>Usuario: {email}</p>
+                  <p className="font-bold">¡Bienvenido {username}!</p>
+                  <p>Email: {email}</p>
+                  <p>Rol: {role}</p>
                 </div>
               )}
               <div className="relative flex flex-col items-center">

@@ -5,6 +5,7 @@ namespace App\Dto;
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Validator\UniqueDifferent;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -15,7 +16,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
 
-#[UniqueEntity(fields: ['name'], entityClass: Product::class, groups: ['product:write:validation'])]
+#[UniqueEntity(fields: ['name'], entityClass: Product::class, groups: ['product:post:validation'])]
+#[UniqueDifferent(field: 'name', class: Product::class, groups: ['product:put:validation'])]
 class ProductDto
 {
     #[Groups(['product:read'])]

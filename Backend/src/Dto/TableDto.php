@@ -4,6 +4,7 @@ namespace App\Dto;
 
 use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Table;
+use App\Validator\UniqueDifferent;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\GreaterThan;
@@ -12,7 +13,8 @@ use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
 
-#[UniqueEntity(fields: ['name'], entityClass: Table::class, groups: ['table:write:validation'])]
+#[UniqueEntity(fields: ['name'], entityClass: Table::class, groups: ['table:post:validation'])]
+#[UniqueDifferent(field: 'name', class: Table::class, groups: ['table:put:validation'])]
 class TableDto
 {
   #[Groups(['table:read'])]

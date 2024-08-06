@@ -1,7 +1,6 @@
 import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 import useAuthStore from "@/stores/useAuthStore";
-import instance from "./axiosInstance";
 
 /** CREACIÓN DE USUARIOS */
 export const createUser = async (email, password) => {
@@ -431,6 +430,21 @@ export const confirmarReserva = async (id) => {
   try {
     const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
       status: "scheduled",
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const editStatusReserve = async (id, status) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
+      status,
     },{
       headers: {
         "Content-Type": "application/ld+json",

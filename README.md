@@ -37,14 +37,14 @@ Características Principales para el Dueño del restaurante:
 <br>
 </div>
 
-<div align="center">
+<!-- <div align="center">
   
   <br>
   
   <h3 align="center"><b>Puedes visitar nuestra página web aquí:</b></h3>
   <h3 align="center"><a href=""></a></h3>
   <p  align="center"></p>
- </div>
+ </div> -->
 <br><br>
 
 ## ✔ Project Manager
@@ -105,10 +105,10 @@ Características Principales para el Dueño del restaurante:
 #### 👉🏻 Desarrolladores 👨🏻‍💻
 
 
-| <img src="./Frontend/client/src/assets/Foto-JuanCamilo.webp" width=90>|<img src="./Frontend/client/src/assets/Foto-Nico-Galarza.png" width=100>|
+| <img src="./Frontend/client/src/assets/Foto-JuanCamilo-ok.webp" width=90>|<img src="./Frontend/client/src/assets/Foto-Nico-Galarza-ok.webp" width=100>|
 |:-:|:-:|
-| **Juan Camilo García Gómez**| **Nicolás Galarza**|
-| <a href="https://www.linkedin.com/in/juan-camilo-garcia-"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href=""><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
+| **Juan Camilo**<br>**García Gómez**| **Nicolás Galarza**|
+| <a href="https://www.linkedin.com/in/juan-camilo-garcia-"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/nicol%C3%A1s-galarza-0759b2299/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>|
 | <a href="https://github.com/SnackMaste"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/nicogmrz4"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 
 <br><br>
@@ -146,7 +146,7 @@ Características Principales para el Dueño del restaurante:
 
 #### 👉🏻 Documentación 📜
 
-- Puedes leer la documentación: <a href="https://virginiadanitz-1715966829669.atlassian.net/jira/software/projects/EC/boards/2" target="_blank">Aqui</a>.
+- Puedes leer la documentación: <a href="https://drive.google.com/drive/folders/1zZocsdeiY-9NyyOelT8XBIRHJ_ixEz2t?usp=drive_link" target="_blank">Aqui</a>.
 
 #### 👉🏻 Lista de Tareas ✅
 
@@ -178,6 +178,11 @@ Características Principales para el Dueño del restaurante:
 - Avanzar hacia prototipos de calidad media y desarrollo de componentes.
 - Redacción de textos y copywriting.
 - Creación del Readme.md
+
+#### 👉🏻 Prototipo 📽️
+
+- Puedes ver el prototipo: <a href="https://www.figma.com/proto/h15w4nTzOcqvHJFHFY7Wgv/s16-05-php-react?page-id=0%3A1&node-id=327-487&starting-point-node-id=307%3A432&t=nYHVlBGiTvAzuWxY-1" target="_blank">Aqui</a>.
+
 
 #### 👉🏻 Construido con 🛠️
 
