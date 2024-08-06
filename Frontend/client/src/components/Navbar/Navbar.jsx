@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    navigate("/admin");
     setIsOpen(false);
   };
 

@@ -12,6 +12,8 @@ function App() {
   const {token, expiresAt, logout, renovateToken } = useAuthStore();
   const [visualAlert, setVisualAlert]= useState(false);
   const [alerta, setAlerta] = useState(null);
+  const [location, setLocation] = useState(false);
+  const currentPath = window.location.pathname;
 
   useEffect(() => {
     let intervalId;
@@ -63,6 +65,14 @@ function App() {
     }
   },[visualAlert]);
 
+  useEffect(() => {
+    if(currentPath === "/admin"){
+      setLocation(true);
+    }else{
+      setLocation(false);
+    }
+  },[currentPath]);
+
   const cerrar = () => {
     setVisualAlert(false);
     logout();
@@ -76,11 +86,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="flex flex-col overflow-y-hidden min-h-screen bg-color-bg text-color-text">
-        {isDesktop && <Navbar />}
+        {isDesktop && !location && <Navbar />}
         <div className="flex-grow">
           <Router />
         </div>
-        {isDesktop && <Footer />}
+        {isDesktop && !location && <Footer />}
         {alerta}
       </div>
     </BrowserRouter>
