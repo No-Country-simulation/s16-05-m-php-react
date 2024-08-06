@@ -7,12 +7,28 @@ import { editStatusReserve } from "../../axios/fetch";
 const EditReserve = ({isOpen, onClose, data}) => {
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [date, setDate] = useState(data.date);
+    const [time, setTime] = useState("");
+    const [owner_first_name, setOwner_first_name] = useState(data.owner_first_name);
+    const [owner_last_name, setOwner_last_name] = useState(data.owner_last_name);
+    const [owner_phone_number, setOwner_phone_number] = useState(data.owner_phone_number);
+    const [owner_email, setOwner_email] = useState(data.owner_email);
+    const [table, setTable] = useState(null);
+    const [attendee_count, setAttendee_count] = useState(data.attendee_count);
 
     useEffect(() => {
         if (isOpen) {
             defaultModal();
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (data.table){
+            setTable(data.table["name"]);
+        }else if(data["table"]["name"]){
+            setTable(data["table"]["name"]);
+        }
+    }, [data]);
 
     useEffect(() => {
         if (loading) {
@@ -69,12 +85,74 @@ const EditReserve = ({isOpen, onClose, data}) => {
                     <Button1 text="Editar Estado" variant={"confirm"} onClick={EditReserveStatus}/>
                 </div>
                 <div className="my-3">
-                    <Button1 text="Editar Datos" variant={"confirm"} />
+                    <Button1 text="Editar Datos" variant={"confirm"} onClick={EditReserve}/>
                 </div>
-                
             </div>
         );
         
+    };
+
+    const EditReserve = () => {
+        setResponse(
+            <div className="w-full flex flex-col justify-around h-full items-center">
+                <h1 className="text-2xl text-center font-bold text-color-secondary">Nuevos datos de la reserva {data.code}</h1>
+                <div className="flex flex-wrap justify-around items-center w-2/3 h-3/4">
+                    <div className="flex justify-around flex-wrap w-full">
+                        <label htmlFor="date" className="flex flex-col w-1/3 justify-center items-center">
+                            <span className="text-color-secondary font-bold text-xl w-full text-center">Fecha</span>
+                            <input type="date" className="w-full px-3 py-2 rounded-md text-black font-medium" value={date} onChange={(e)=>setDate(e.target.value)} />
+                        </label>
+                        <label htmlFor="time" className="flex flex-col w-1/3 justify-center items-center">
+                            <span className="text-color-secondary font-bold text-xl w-full text-center">Hora</span>
+                            <select className="w-full px-3 py-2 rounded-md text-black font-medium" value={time} onChange={(e)=>setTime(e.target.value)} >
+                                <option value="">Seleccione una hora</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div className="flex justify-around flex-wrap w-full">
+                    <label htmlFor="owner_first_name" className="flex flex-col w-1/3 justify-center items-center">
+                        <span className="text-color-secondary font-bold text-xl w-full text-center">Nombre</span>
+                        <input type="text" className="w-full px-3 py-2 rounded-md text-black font-medium" value={owner_first_name} onChange={(e)=>setOwner_first_name(e.target.value)} />
+                    </label>
+                    <label htmlFor="owner_last_name" className="flex flex-col w-1/3 justify-center items-center">
+                        <span className="text-color-secondary font-bold text-xl w-full text-center">Apellido</span>
+                        <input type="text" className="w-full px-3 py-2 rounded-md text-black font-medium" value={owner_last_name} onChange={(e)=>setOwner_last_name(e.target.value)} />
+                    </label>
+                    </div>
+                    <div className="flex justify-around flex-wrap w-full">
+                    <label htmlFor="owner_phone_number" className="flex flex-col w-1/3 justify-center items-center">
+                        <span className="text-color-secondary font-bold text-xl w-full text-center">Número de teléfono</span>
+                        <input type="text" className="w-full px-3 py-2 rounded-md text-black font-medium" value={owner_phone_number} onChange={(e)=>setOwner_phone_number(e.target.value)} />
+                    </label>
+                    <label htmlFor="owner_email" className="flex flex-col w-1/3 justify-center items-center">
+                        <span className="text-color-secondary font-bold text-xl w-full text-center">Email</span>
+                        <input type="email" className="w-full px-3 py-2 rounded-md text-black font-medium" value={owner_email} onChange={(e)=>setOwner_email(e.target.value)} />
+                    </label>
+                    </div>
+                    <div className="flex justify-around flex-wrap w-full">
+                    <label htmlFor="table" className="flex flex-col w-1/3 justify-center items-center">
+                        <span className="text-color-secondary font-bold text-xl w-full text-center">Mesa</span>
+                        <input type="text" className="w-full px-3 py-2 rounded-md text-black font-medium" value={table["name"]} onChange={(e)=>setTable(e.target.value)} />
+                    </label>
+                    <label htmlFor="attendee_count" className="flex flex-col w-1/3 justify-center items-center">
+                        <span className="text-color-secondary font-bold text-xl w-full text-center">Comensales</span>
+                        <input type="number" min={1} className="w-full px-3 py-2 rounded-md text-black font-medium" value={attendee_count} onChange={(e)=>setAttendee_count(e.target.value)} />
+                    </label>
+                    </div>
+                </div>
+                <div className="flex flex-wrap justify-around items-center w-full max-w-md">
+                    <div className="my-3">
+                        <Button1 text="Cancelar" onClick={onClose} />
+                    </div>
+                    <div className="my-3">
+                        <Button1 text="Regresar" variant={"confirm"} onClick={()=>defaultModal()}/>
+                    </div>
+                    <div className="my-3">
+                        <Button1 text="Confirmar" variant={"confirm"} onClick={onClose}/>
+                    </div>
+                </div>
+            </div>
+        );
     };
 
     const EditReserveStatus = () => {
@@ -83,12 +161,12 @@ const EditReserve = ({isOpen, onClose, data}) => {
                 <h1 className="text-2xl text-center font-bold text-color-secondary my-5">Escoge el nuevo estado de la reserva {data.code}</h1>
                 <div className="flex flex-wrap justify-around items-center w-full max-w-md h-80 ">
                     <div className="flex justify-around flex-wrap">
-                        <div className="m-5"><CardStatus status={"in-progress"} onClick={()=>changeStatus("in-progress")}/></div>
-                        <div className="m-5"><CardStatus status={"canceled"} onClick={()=>changeStatus("canceled")}/></div>
-                        <div className="m-5"><CardStatus status={"completed"} onClick={()=>changeStatus("completed")}/></div>
-                        <div className="m-5"><CardStatus status={"pending"} onClick={()=>changeStatus("pending")}/></div>
-                        <div className="m-5"><CardStatus status={"no-show"} onClick={()=>changeStatus("no-show")}/></div>
-                        <div className="m-5"><CardStatus status={"scheduled"} onClick={()=>changeStatus("scheduled")}/></div>
+                        {data.status !== "in-progress" ? <div className="m-5"><CardStatus status={"in-progress"} onClick={()=>changeStatus("in-progress")}/></div> : null}
+                        {data.status !== "canceled" ? <div className="m-5"><CardStatus status={"canceled"} onClick={()=>changeStatus("canceled")}/></div> : null}
+                        {data.status !== "completed" ? <div className="m-5"><CardStatus status={"completed"} onClick={()=>changeStatus("completed")}/></div> : null}
+                        {data.status !== "pending" ? <div className="m-5"><CardStatus status={"pending"} onClick={()=>changeStatus("pending")}/></div> : null}
+                        {data.status !== "no-show" ? <div className="m-5"><CardStatus status={"no-show"} onClick={()=>changeStatus("no-show")}/></div> : null}
+                        {data.status !== "scheduled" ? <div className="m-5"><CardStatus status={"scheduled"} onClick={()=>changeStatus("scheduled")}/></div> : null}
                     </div>
                 </div>
                 <div className="flex flex-wrap justify-around items-center w-full max-w-md">
@@ -96,10 +174,7 @@ const EditReserve = ({isOpen, onClose, data}) => {
                         <Button1 text="Cancelar" onClick={onClose} />
                     </div>
                     <div className="my-3">
-                        <Button1 text="Volver" variant={"confirm"} onClick={()=>defaultModal()}/>
-                    </div>
-                    <div className="my-3">
-                        <Button1 text="Confirmar" variant={"confirm"} onClick={onClose}/>
+                        <Button1 text="Regresar" variant={"confirm"} onClick={()=>defaultModal()}/>
                     </div>
                 </div>
             </div>
