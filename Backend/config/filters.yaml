@@ -1,0 +1,5 @@
+services:
+    reservation.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { date: 'exact' } ]
+        tags:  [ 'api_platform.filter' ]

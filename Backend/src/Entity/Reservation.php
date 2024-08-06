@@ -36,6 +36,7 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 )]
 #[GetCollection(
     normalizationContext: ['groups' => ['reservation:read']],
+    filters: ['reservation.search_filter']
 )]
 #[Post(
     denormalizationContext: ['groups' => ['reservation:write']],
