@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { getReservationByCode, getReservations } from "@/axios/fetch";
 import Button1 from "@/components/ui/button1";
 import Table from "@/components/ui/table";
-import { Bold } from "lucide-react";
 
 const ReservationsAdmin = () => {
     const [code, setCode] = useState("");

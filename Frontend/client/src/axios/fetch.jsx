@@ -1,7 +1,6 @@
 import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 import useAuthStore from "@/stores/useAuthStore";
-import instance from "./axiosInstance";
 
 /** CREACIÓN DE USUARIOS */
 export const createUser = async (email, password) => {

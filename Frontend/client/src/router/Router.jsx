@@ -6,7 +6,7 @@ import Menu from "@/pages/Menu";
 import Products from "@/pages/Products";
 import PrivateRoute from "./PrivateRoom";
 import useAuthStore from "@/stores/useAuthStore";
-import TablesUser from "@/pages/TablesUser copy";
+import TablesUser from "@/pages/TablesUser";
 import Intro from "@/pages/Intro";
 import Reservations from "@/pages/Reservations";
 import ConfirmReservation from "@/pages/ConfirmReservation";
@@ -47,7 +47,10 @@ const Router = () => {
       <Route path="/category" element={<CategoryClient />} />
       <Route path="/productsClient/:categoryId" element={<ProductClient />} />
       <Route path="/search" element={<SearchReservation />} />
-      <Route path="/codeConfirmReservation/:id/:request" element={<CodeReservationConfirm />} />
+      <Route
+        path="/codeConfirmReservation/:id/:request"
+        element={<CodeReservationConfirm />}
+      />
       <Route
         path="/menu"
         element={

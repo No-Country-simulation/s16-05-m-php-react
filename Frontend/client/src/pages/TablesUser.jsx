@@ -1,78 +1,149 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import useTablesStateStore from "@/stores/useTableStateStore";
+import Button1 from "@/components/ui/button1";
 import useReserveStore from "@/stores/useReserveStore";
-import useTablesStore from "@/stores/useTableStore";
-import TableFourChairs from "@/components/table/4Chairs";
 import TableTwoChairs from "@/components/table/2Chairs";
+import TableFourChairs from "@/components/table/4Chairs";
 import TableSixChairs from "@/components/table/6Chairs";
-import { Button } from "@/components/ui/button";
-import { getTablesReserved } from "@/axios/fetch";
 
 const TablesUser = () => {
-  const { tables, error, loading, fetchTables } = useTablesStore();
-  const { attendee_count, date, time, setTable } = useReserveStore();
-  const [isMobile, setIsMobile] = useState(false);
-  const [selectedTableId, setSelectedTableId] = useState(null);
-  const [tableStates, setTableStates] = useState([]);
+  const { date, time } = useReserveStore();
+  const [tablesResponse, setTablesResponse] = useState(null);
+  const { tables, error, loading, fetchTablesStates } = useTablesStateStore();
+  const { attendee_count, setTable } = useReserveStore();
+  const [dataTable, setDataTable] = useState(null);
+  const [bool, setBool] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 640);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    fetchTables();
-  }, [fetchTables]);
-
-  useEffect(() => {
-    const fetchTableStates = async () => {
-      try {
-        const response = await getTablesReserved(date, time);
-        console.log("Table states response:", response);
-
-        // Asegúrate de que `response` tenga la forma esperada
-        if (
-          response &&
-          response["hydra:member"] &&
-          Array.isArray(response["hydra:member"])
-        ) {
-          setTableStates(response["hydra:member"]);
-        } else {
-          console.error("Expected array but got:", response);
-        }
-      } catch (error) {
-        console.error("Error fetching table states:", error);
-      }
-    };
-
-    if (date && time) {
-      fetchTableStates();
-    }
+    fetchTablesStates(date, time);
   }, [date, time]);
 
-  const handleSelectTable = (table) => {
-    setSelectedTableId(table.id);
-    setTable({ name: table.name, id: table.id, "@id": table["@id"] });
+  useEffect(() => {
+    if (tables !== null) {
+      filtroTables();
+    }
+  }, [tables]);
+
+  const filtroTables = () => {
+    if (!tables || !tables["hydra:member"]) return; // Verifica si 'tables' y 'tables["hydra:member"]' son válidos
+    var mesas = [];
+    tables["hydra:member"].filter((table) => {
+      if (attendee_count <= 2) {
+        if (table["capacity"] === 2) {
+          mesas.push(table);
+        }
+      } else if (attendee_count <= 4) {
+        if (table["capacity"] === 4) {
+          mesas.push(table);
+        }
+      } else if (attendee_count <= 6) {
+        if (table["capacity"] === 6) {
+          mesas.push(table);
+        }
+      }
+    });
+    filteredTables(mesas, null);
+  };
+  const filteredTables = (data, id) => {
+    if (!data) return; // Verifica si 'data' es null o undefined
+    setBool(false);
+    setDataTable(data);
+    var mesas = [];
+    data.map((table) => {
+      var reservedChairs = 0;
+      var click = () => filteredTables(dataTable, table.id);
+      if (table.status === "reserved") {
+        reservedChairs = table.capacity;
+        click = () => {};
+      }
+      if (table.capacity === 2) {
+        if (id === table.id) {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableTwoChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+                selected={true}
+              />
+            </div>
+          );
+          setTable({ name: table.name, id: table.id, "@id": table["@id"] });
+          setBool(true);
+        } else {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableTwoChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+              />
+            </div>
+          );
+        }
+      } else if (table.capacity === 4) {
+        if (id === table.id) {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableFourChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+                selected={true}
+              />
+            </div>
+          );
+          setTable({ name: table.name, id: table.id, "@id": table["@id"] });
+          setBool(true);
+        } else {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableFourChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+              />
+            </div>
+          );
+        }
+      } else if (table.capacity === 6) {
+        if (id === table.id) {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableSixChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+                selected={true}
+              />
+            </div>
+          );
+          setTable({ name: table.name, id: table.id, "@id": table["@id"] });
+          setBool(true);
+        } else {
+          mesas.push(
+            <div className="scale-50 m-[-80px]" key={table.id}>
+              <TableSixChairs
+                name={table.name}
+                reservedChairs={reservedChairs}
+                onClick={click}
+              />
+            </div>
+          );
+        }
+      }
+    });
+    setTablesResponse(mesas);
   };
 
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/confirm");
+  const confirmClick = () => {
+    if (bool === false) {
+      alert("Por favor, seleccione una mesa");
+      return;
+    } else if (bool === true) {
+      window.location.href = "/confirm";
+    }
   };
-
-  const handleReturn = (e) => {
-    e.preventDefault();
-    navigate("/reserve");
-  };
-
   if (loading) {
     return (
       <div className="w-[100%] h-[100%] bg-color-bg ">
@@ -110,89 +181,36 @@ const TablesUser = () => {
     );
   }
 
-  const filteredTables = tables["hydra:member"].filter((table) => {
-    if (attendee_count <= 2) {
-      return table["capacity"] === 2;
-    } else if (attendee_count <= 4) {
-      return table["capacity"] === 4;
-    } else {
-      return table["capacity"] === 6;
-    }
-  });
-
-  const tablesResponse = filteredTables.map((table) => {
-    const reservedTable = Array.isArray(tableStates)
-      ? tableStates.find(
-          (state) => state.id === table.id && state.status === "reserved"
-        )
-      : null;
-
-    if (table["capacity"] === 2) {
-      return (
-        <TableTwoChairs
-          key={table.id}
-          name={table.name}
-          id={table.id}
-          hover
-          onSelect={() => handleSelectTable(table)}
-          selected={selectedTableId === table.id}
-          isMobile={isMobile}
-          reservedChairs={reservedTable ? 2 : null}
-        />
-      );
-    }
-    if (table["capacity"] === 4) {
-      return (
-        <TableFourChairs
-          key={table.id}
-          name={table.name}
-          id={table.id}
-          hover
-          onSelect={() => handleSelectTable(table)}
-          selected={selectedTableId === table.id}
-          isMobile={isMobile}
-          reservedChairs={reservedTable ? 4 : null}
-        />
-      );
-    }
-    if (table["capacity"] === 6) {
-      return (
-        <TableSixChairs
-          key={table.id}
-          name={table.name}
-          id={table.id}
-          hover
-          onSelect={() => handleSelectTable(table)}
-          selected={selectedTableId === table.id}
-          isMobile={isMobile}
-          reservedChairs={reservedTable ? 6 : null}
-        />
-      );
-    }
-  });
+  if (error) {
+    return (
+      <div className="flex justify-center w-full h-[10vh] bg-color-bg">
+        {error}
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-screen font-title mt-5 flex-row  flex-wrap items-center justify-center max-w-[600px] mx-[auto] my-[0px] bg-[#272727]">
-      <p className="font-bold text-2xl text-color-text mt-9">
+    <div className="w-full h-screen flex flex-col items-center justify-between py-20 text-center">
+      <p className="font-bold text-2xl text-color-text text-center">
         Seleccione una mesa
       </p>
-      <div className="flex flex-row flex-wrap items-center text-3xl justify-center">
+      <div
+        className="flex flex-wrap items-center justify-center max-w-sm 
+      "
+      >
         {tablesResponse}
       </div>
-      <div className="flex justify-end gap-[20px] w-[100%]">
-        <Button
-          className="bg-color-secondary w-[40%] font-bold font-title hover:bg-color-secondary px-[20px] py-[10px] text-[#000] border border-[#900B09]"
-          onClick={handleReturn}
-        >
-          CANCELAR
-        </Button>
-
-        <Button
-          className="bg-color-primary w-[40%] font-bold font-title hover:bg-color-primary px-[20px] py-[10px] border border-[#900B09]"
-          onClick={handleSubmit}
-        >
-          SELECCIONAR
-        </Button>
+      <div className="flex justify-around items-center flex-wrap w-full max-w-sm ">
+        <div className="my-3">
+          <Button1
+            text={"Regresar"}
+            variant={"confirm"}
+            onClick={() => (window.location.href = "/reserve")}
+          />
+        </div>
+        <div className="my-3">
+          <Button1 text={"Confirmar"} onClick={confirmClick} />
+        </div>
       </div>
     </div>
   );

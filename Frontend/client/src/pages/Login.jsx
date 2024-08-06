@@ -8,7 +8,7 @@ import backgroundImage from "../assets/backgroundImage.png";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { email, password, setEmail, setPassword, setToken, setRole } =
+  const { email, password, setEmail, setPassword, setToken, setRole, setUsername, setCreatedAt, setExpiresAt } =
     useAuthStore();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,12 @@ const Login = () => {
 
     try {
       const response = await loginUser(email, password);
-        const { token, role } = response.data;
+        const { token, roles, username, createdAt, expiresAt } = response.data;
         setToken(token);
-        setRole(role);
+        setRole(roles);
+        setUsername(username);
+        setCreatedAt(createdAt);
+        setExpiresAt(expiresAt);
         navigate("/tables");
     } catch (error) {
       setError("Error al iniciar sesión, verifica tus credenciales");
@@ -33,19 +36,19 @@ const Login = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center h-[80vh]"
+      className="flex flex-col items-center justify-center h-[100vh] w-[100vw]"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <img src={logo} alt="logo" className="w-80 h-72" />
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-5">
-          <label className="relative w-[350px]">
+      <img src={logo} alt="logo" className="h-[30vh]" />
+      <form className="flex flex-col w-3/4 justify-center items-center" onSubmit={handleSubmit}>
+        <div className="flex flex-col w-full justify-center items-center">
+          <label className="relative w-1/3 min-w-44 max-w-96 my-3">
             <Input
-              className="w-[350px] border-[1px] h-[60px] border-[solid] text-color-text bg-color-bg border-color-text items-end outline-[none] focus:border-color-text transition duration-200"
+              className="w-full border h-14 border-solid text-color-text bg-color-bg border-color-text items-end outline-none focus:border-color-text transition duration-200"
               type="email"
               id="email"
               value={email}
@@ -58,9 +61,9 @@ const Login = () => {
             </span>
           </label>
 
-          <div className="relative w-[350px]">
+          <label className="relative w-1/3 min-w-44 max-w-96 my-3">
             <Input
-              className="w-[350px] border-[1px] h-[60px] border-[solid] text-color-text bg-color-bg border-color-text items-end outline-[none] focus:border-color-text transition duration-200"
+              className="w-full border h-14 border-solid text-color-text bg-color-bg border-color-text items-end outline-none focus:border-color-text transition duration-200"
               type="password"
               id="password"
               value={password}
@@ -71,9 +74,9 @@ const Login = () => {
             <span className="absolute text-color-text text-opacity-80 left-1 top-4 px-4 transition duration-200 input-text">
               Contraseña
             </span>
-          </div>
+          </label>
 
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-center text-center w-full">
             <a href="#">
               <u className="text-color-text"> Olvidé mi contraseña</u>
             </a>
@@ -81,7 +84,7 @@ const Login = () => {
         </div>
 
         <div className="flex items-center justify-center mt-2">
-          <Button className="bg-color-primary w-[230px] h-[45px] font-title hover:bg-color-primary">
+          <Button className="bg-color-primary max-w-60 w-[25vw] min-w-44 h-12 font-title hover:bg-color-primary">
             {loading ? (
               <div role="status">
                 <svg
