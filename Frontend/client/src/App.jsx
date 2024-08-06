@@ -22,7 +22,6 @@ function App() {
         const expireTime = (expiresAt/1000)
         const actualTime = Math.floor(Date.now()/1000);
         if (actualTime < expireTime) {
-          console.log("actual: ", actualTime, "expires: ", expireTime);
           if((actualTime + 300) >= expireTime){
             setVisualAlert(true);
           }
