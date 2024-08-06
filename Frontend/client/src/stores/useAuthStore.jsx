@@ -25,7 +25,8 @@ const useAuthStore = create(
           return { token: "", role: "", email: "", password: "", username: "", createdAt: "", expiresAt: "" };
         }),
       renovateToken: async () => {
-        const response = await loginUser(email, password);
+        var auth = localStorage.getItem("auth").split('"');
+        const response = await loginUser(auth[5], auth[9]);
         const { token } = response.data;
         setToken(token);
       },
