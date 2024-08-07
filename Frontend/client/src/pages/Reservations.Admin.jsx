@@ -69,7 +69,7 @@ const ReservationsAdmin = () => {
 
     const getReservationDate = async () => {
         try {
-            const reservationData = await getReservations();
+            const reservationData = await getReservations(date);
             if (reservationData) {
                 setData(reservationData);
                 setBool(false);
@@ -102,18 +102,9 @@ const ReservationsAdmin = () => {
     }
 
     const reservasFilter = (items) => {
-        console.log(items["data"]["hydra:member"]);
-        console.log(date);
-        var filteredItems = [];
-        for (var i = 0; i < items["data"]["hydra:member"].length; i++) {
-            if (items["data"]["hydra:member"][i]["date"] === date) {
-                filteredItems.push(items["data"]["hydra:member"][i]);
-            }
-        }
-        console.log(filteredItems);
         setCode("");
         setDate("");
-        setReservation(<Table data={filteredItems} />);
+        setReservation(<Table data={items["data"]["hydra:member"]} />);
         setBool(null);
     }
 
