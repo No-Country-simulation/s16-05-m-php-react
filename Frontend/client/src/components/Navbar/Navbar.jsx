@@ -49,7 +49,7 @@ const Navbar = () => {
               <a href="/menu">Menú</a>
               <a href="/reservationsAdmin">Reservas</a>
               <button
-                className="text-color-secondary text-base capitalize cursor-pointer"
+                className="text-color-primary text-base capitalize cursor-pointer"
                 onClick={() => setIsOpenUser(!isOpenUser)}>
                   {username}
                 </button>
