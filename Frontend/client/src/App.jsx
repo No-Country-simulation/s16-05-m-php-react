@@ -6,10 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 import useMediaQuery from "./hooks/useMediaQuery";
 import useAuthStore from "@/stores/useAuthStore";
 import Button1 from "./components/ui/button1";
+import { loginUser } from "@/axios/fetch";
 
 function App() {
   const isDesktop = useMediaQuery("(min-width: 768px)"); // Tailwind's `md` breakpoint
-  const {token, expiresAt, logout, renovateToken } = useAuthStore();
+  const {token, expiresAt, logout, email, password, setToken, setExpiresAt, setCreatedAt } = useAuthStore();
   const [visualAlert, setVisualAlert]= useState(false);
   const [alerta, setAlerta] = useState(null);
   const [location, setLocation] = useState(false);
@@ -28,6 +29,7 @@ function App() {
         }else {
           setVisualAlert(false);
           logout();
+          window.location.href = "/admin";
           return;
         }
       }
@@ -80,6 +82,20 @@ function App() {
   const extend = () => {
     setVisualAlert(false);
     renovateToken();
+  }
+
+  const renovateToken = async () => {
+    try{
+      const response = await loginUser(email, password);
+      const tokenRenovated = response.data.token;
+      const expireRenovated = response.data.expiresAt;
+      const createdAtRenovated = response.data.createdAt;
+      setCreatedAt(createdAtRenovated);
+      setExpiresAt(expireRenovated);
+      setToken(tokenRenovated);
+    }catch(error){
+      console.log(error);
+    }
   }
 
   return (
