@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      textShadow: {
+        'custom': '2px 2px 2px #000',
+      },
       colors: {
         color: {
           primary: "#7F2A44",
@@ -83,5 +86,12 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), function({ addUtilities }) {
+    const newUtilities = {
+      '.text-shadow-custom': {
+        textShadow: '2px 2px 2px #000',
+      },
+    }
+    addUtilities(newUtilities, ['responsive', 'hover'])
+  }],
 };
