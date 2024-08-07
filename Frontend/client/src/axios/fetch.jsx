@@ -347,9 +347,13 @@ export const getReservationByCode = async (code) => {
 
 /**CRUD Reservas */
 
-export const getReservations = async () => {
+export const getReservations = async (date) => {
+  var fecha = "";
+  if (date) {
+    fecha = "?date="+date;
+  }
   try {
-    const response = await axios.get(`${BASE_URL}/reservations`);
+    const response = await axios.get(`${BASE_URL}/reservations${fecha}`);
     return response;
   } catch (error) {
     throw error;
