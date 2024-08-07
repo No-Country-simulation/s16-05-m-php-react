@@ -24,18 +24,18 @@ const Table = ({data, searchCode}) => {
         setResponse(
             <tbody>
                 <tr>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} onClick={()=>editar(data)}/></td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={data.status} /></td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.code}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.table.name}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.date}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.time}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_first_name + " " + data.owner_last_name}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_phone_number}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.owner_email}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.attendee_count}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.created_at}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{data.update_at}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3"><Button1 text="Editar" variant={"confirm"} onClick={()=>editar(data)}/></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3"><CardStatus status={data.status} /></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.code}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data["table"]["name"]}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data["date"]}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.time}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.owner_first_name + " " + data.owner_last_name}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.owner_phone_number}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.owner_email}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.attendee_count}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.created_at}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{data.update_at}</td>
                 </tr>
             </tbody>
         )
@@ -44,18 +44,18 @@ const Table = ({data, searchCode}) => {
         const reserveList = data.map((item) => {
             return (<tbody key={item.id}>
                 <tr className="h-20">
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><Button1 text="Editar" variant={"confirm"} onClick={()=>editar(item)}/></td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5"><CardStatus status={item.status} /></td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.code}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item['table']['name']}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.date}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.time}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_first_name + " " + item.owner_last_name}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_phone_number}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.owner_email}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.attendee_count}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.created_at}</td>
-                    <td className="border-2 border-solid font-medium border-color-secondary px-5">{item.update_at}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3"><Button1 text="Editar" variant={"confirm"} onClick={()=>editar(item)}/></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3"><CardStatus status={item.status} /></td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.code}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item['table']['name']}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.date}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.time}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.owner_first_name + " " + item.owner_last_name}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.owner_phone_number}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.owner_email}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.attendee_count}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.created_at}</td>
+                    <td className="border-2 border-solid font-medium border-color-secondary px-5 py-3">{item.update_at}</td>
                 </tr>
             </tbody>);
         });
