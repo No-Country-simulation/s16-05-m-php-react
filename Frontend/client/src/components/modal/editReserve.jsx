@@ -3,20 +3,11 @@ import backgroundImage from "../../assets/backgroundImage.png";
 import Button1 from "../ui/button1";
 import CardStatus from "../Cards/Status.Reservation";
 import { editStatusReserve } from "../../axios/fetch";
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import EditReservationForm from "../Cards/form.EditReservation";
 
 const EditReserve = ({isOpen, onClose, data}) => {
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [date, setDate] = useState("");
-    const [time, setTime] = useState("");
-    const [owner_first_name, setOwner_first_name] = useState("");
-    const [owner_last_name, setOwner_last_name] = useState("");
-    const [owner_phone_number, setOwner_phone_number] = useState("");
-    const [owner_email, setOwner_email] = useState("");
-    const [attendee_count, setAttendee_count] = useState("");
-    const [table, setTable] = useState("");
 
     useEffect(() => {
         if (isOpen) {
@@ -68,38 +59,6 @@ const EditReserve = ({isOpen, onClose, data}) => {
         }
     }
 
-    const handleDateChange = (event) =>{
-        const valueInput = event.target.value;
-        setDate(valueInput);
-    }
-    const handleTimeChange = (event) =>{
-        const valueInput = event.target.value;
-        setTime(valueInput);
-    }
-    const handleFirstNameChange = (event) =>{
-        const valueInput = event.target.value;
-        setOwner_first_name(valueInput);
-    }
-    const handleLastNameChange = (event) =>{
-        const valueInput = event.target.value;
-        setOwner_last_name(valueInput);
-    }
-    const handlePhoneChange = (event) =>{
-        setOwner_phone_number(event);
-    }
-    const handleEmailChange = (event) =>{
-        const valueInput = event.target.value;
-        setOwner_email(valueInput);
-    }
-    const handleTableChange = (event) =>{
-        const valueInput = event.target.value;
-        setTable(valueInput);
-    }
-    const handleAttendeeChange = (event) =>{
-        const valueInput = event.target.value;
-        setAttendee_count(valueInput);
-    }
-
     const defaultModal = () => {
         setResponse(
             <div className="flex flex-wrap justify-around items-center w-full max-w-md">
@@ -114,89 +73,11 @@ const EditReserve = ({isOpen, onClose, data}) => {
                 </div>
             </div>
         );
-        
     };
 
 
     const EditReserve = () => {
-        setDate(data.date);
-        setTime(data.time);
-        setOwner_first_name(data.owner_first_name);
-        setOwner_last_name(data.owner_last_name);
-        setOwner_phone_number(data.owner_phone_number);
-        setOwner_email(data.owner_email);
-        setAttendee_count(data.attendee_count);
-        setTable(data["table"]["name"]);
-        setResponse(
-            <div className="w-full flex flex-col justify-around h-full items-center">
-                <h1 className="text-2xl text-center font-bold text-color-secondary">Nuevos datos de la reserva {data.code}</h1>
-                <form className="flex flex-wrap justify-around items-center w-2/3 h-3/4">
-                    <div className="flex justify-around flex-wrap w-full">
-                        <label htmlFor="table" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Mesa</span>
-                            <input type="text" className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={table} onChange={handleTableChange} required />
-                        </label>
-                        <label htmlFor="attendee_count" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Comensales</span>
-                            <input type="number" min={1} className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={attendee_count} onChange={handleAttendeeChange} required />
-                        </label>
-                    </div>
-                    <div className="flex justify-around flex-wrap w-full">
-                        <label htmlFor="date" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Fecha</span>
-                            <input type="date" className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={date} onChange={handleDateChange} required />
-                        </label>
-                        <label htmlFor="time" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Hora</span>
-                            <select className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={time} onChange={handleTimeChange} required >
-                                <option value="">Seleccione una hora</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div className="flex justify-around flex-wrap w-full">
-                        <label htmlFor="owner_first_name" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Nombre</span>
-                            <input type="text" className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={owner_first_name} onChange={handleFirstNameChange} required />
-                        </label>
-                        <label htmlFor="owner_last_name" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Apellido</span>
-                            <input type="text" className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={owner_last_name} onChange={handleLastNameChange} required />
-                        </label>
-                    </div>
-                    <div className="flex justify-around flex-wrap w-full">
-                        <label htmlFor="owner_phone_number" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Teléfono</span>
-                            <PhoneInput
-                                country={'co'}
-                                value={owner_phone_number}
-                                onChange={handlePhoneChange}
-                                enableSearch={true}
-                                inputProps={{
-                                    name: 'phone',
-                                    required: true,
-                                    autoFocus: true
-                                }}
-                            />
-                        </label>
-                        <label htmlFor="owner_email" className="flex flex-col w-1/3 justify-center items-center">
-                            <span className="text-color-secondary font-bold text-xl w-full text-center">Email</span>
-                            <input type="email" className="w-full px-3 py-2 rounded-md text-white text-shadow-custom bg-white/30 border border-white focus:outline-none font-medium" value={owner_email} onChange={handleEmailChange} required />
-                        </label>
-                    </div>
-                </form>
-                <div className="flex flex-wrap justify-around items-center w-full max-w-md">
-                    <div className="my-3">
-                        <Button1 text="Cancelar" onClick={onClose} />
-                    </div>
-                    <div className="my-3">
-                        <Button1 text="Regresar" variant={"confirm"} onClick={()=>defaultModal()}/>
-                    </div>
-                    <div className="my-3">
-                        <Button1 text="Confirmar" variant={"confirm"} onClick={onClose}/>
-                    </div>
-                </div>
-            </div>
-        );
+        setResponse(<EditReservationForm data={data} onClose={onClose} defaultModal={()=>defaultModal()}/>);
     };
 
     const EditReserveStatus = () => {
