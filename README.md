@@ -4,7 +4,7 @@
 <br>
 <img align="center" src="./Frontend/client/src/assets/Desktop-mobile.png">
 <br>
-<h2>¿Qué esperás para reservar? </h2>
+<h2>¿Qué esperas para reservar? </h2>
   
 ### ReservApp está pensado como una aplicación que le permita a los usuarios poder reservar mesa, de un restaurante de una manera ágil y cómoda, desde su casa o trabajo.
 
@@ -20,7 +20,7 @@ Este proyecto está dirigido a:
 <br><br>
 Características Principales de la App:
 
-<li>Reservar una mesa: El usuario-cliente de ReservApp, podra acceder a la vista de las mesas disponibles del restaurante, seleccionar la mesa deseada, luego completar un formulario de datos (Fecha y horario de reserva, cantidad de comensales y algunos datos personales). Luego será llevado a una vista de confirmación y al presionar el botón Reservar, se le mostrará una vista con el resumen de su reserva.</li>
+<li>Reservar una mesa: El usuario-cliente de ReservApp, podrá acceder a la vista de las mesas disponibles del restaurante, seleccionar la mesa deseada, luego completar un formulario de datos (Fecha y horario de reserva, cantidad de comensales y algunos datos personales). Luego será llevado a una vista de confirmación y al presionar el botón Reservar, se le mostrará una vista con el resumen de su reserva.</li>
 <li>Ver menú de comidas: En esta vista - que es solo a modo informativa - se le presentará el menú del restaurante, en forma de categorías y también podrá seleccionar cada una de ellas, para ver los platos disponibles.</li>
 <li>Consultar mi reserva: Esta funcionalidad le permitirá acceder, al usuario-cliente, a su reserva, mediante el código de reserva.</li>
 <li>Interfaz Amigable: Diseño intuitivo y responsivo para una experiencia de usuario óptima en todos los dispositivos.</li>
@@ -32,10 +32,20 @@ Características Principales para el Dueño del restaurante:
 <li>Home: El usuario-admin tendrá acceso a la vista Home, en donde podrá ver las mesas de su restaurante y el estado de cada una. También en el navbar tiene 2 botones, uno para ver las reservas y otro para ver el menu</li>
 <li>ABM Mesa: El usuario-admin, podrá agregar, modificar, y eliminar una mesa.</li>
 <li>ABM Menú: El usuario-admin, podrá agregar, modificar, y eliminar el menu, ya sea una categoría o un plato.</li>
-<li>Gestión de Rerservas: Podrá visualizar un listado de cada mesa, con su estado, fecha y horario de reserva, código, nombre del cliente que realizó la reserva y sus datos de contacto, por cualquier eventualidad.</li>
+<li>Gestión de Reservas: Podrá visualizar un listado de cada mesa, con su estado, fecha y horario de reserva, código, nombre del cliente que realizó la reserva y sus datos de contacto, por cualquier eventualidad.</li>
 </p>
 <br>
 </div>
+
+<br>
+<div align="center">
+  
+  <br>
+  
+  <h3 align="center"><b>Puedes acceder a la vista de administrador con las siguientes credenciales</b></h3>
+  <p  align="center"><b>Email: </b>admin@reservapp.com</p>
+  <p  align="center"><b>Password: </b>12345678</p>
+ </div>
 
 <!-- <div align="center">
   
@@ -55,7 +65,7 @@ Características Principales para el Dueño del restaurante:
 - Seguimiento del progreso y gestión de tareas, utilizando Jira.
 - Gestión de recursos y asignación de trabajo a cada integrante del equipo.
 - Gestión de cada Sprint y backlog.
-- Comunicación mediante dailys y colaboración con cada área.
+- Comunicación mediante daily's y colaboración con cada área.
 
 
 #### 👉🏻 Herramientas utilizadas 🛠️
@@ -146,7 +156,7 @@ Características Principales para el Dueño del restaurante:
 
 #### 👉🏻 Documentación 📜
 
-- Puedes leer la documentación: <a href="https://drive.google.com/drive/folders/1zZocsdeiY-9NyyOelT8XBIRHJ_ixEz2t?usp=drive_link" target="_blank">Aqui</a>.
+- Puedes leer la documentación: <a href="https://drive.google.com/drive/folders/1zZocsdeiY-9NyyOelT8XBIRHJ_ixEz2t?usp=drive_link" target="_blank">Aquí</a>.
 
 #### 👉🏻 Lista de Tareas ✅
 
@@ -181,7 +191,7 @@ Características Principales para el Dueño del restaurante:
 
 #### 👉🏻 Prototipo 📽️
 
-- Puedes ver el prototipo: <a href="https://www.figma.com/proto/h15w4nTzOcqvHJFHFY7Wgv/s16-05-php-react?page-id=0%3A1&node-id=327-487&starting-point-node-id=307%3A432&t=nYHVlBGiTvAzuWxY-1" target="_blank">Aqui</a>.
+- Puedes ver el prototipo: <a href="https://www.figma.com/proto/h15w4nTzOcqvHJFHFY7Wgv/s16-05-php-react?page-id=0%3A1&node-id=327-487&starting-point-node-id=307%3A432&t=nYHVlBGiTvAzuWxY-1" target="_blank">Aquí</a>.
 
 
 #### 👉🏻 Construido con 🛠️
