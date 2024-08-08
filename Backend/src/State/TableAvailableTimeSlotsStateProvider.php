@@ -33,9 +33,9 @@ class TableAvailableTimeSlotsStateProvider implements ProviderInterface
         }
 
         $inUseTimes = $this->getUsedTimes($table);
-        $freeTimes = array_diff(self::TIMES, $inUseTimes); 
+        $formattedTimes = $this->formatTimes(self::TIMES);
 
-        return $this->formatTimes($freeTimes); 
+        return $this->resolveTimeStatus($formattedTimes, $inUseTimes); 
     }
 
     public function formatTimes(array $times): array 
@@ -46,6 +46,14 @@ class TableAvailableTimeSlotsStateProvider implements ProviderInterface
                 'time' => $time,
                 'formatted' => $onlyHour . " a " . $onlyHour + 1 . " hrs"
             ];
+        }, $times);
+    }
+
+    public function resolveTimeStatus(array $times, array $inUseTimes): array
+    {
+        return array_map(static function ($time) use ($inUseTimes) {
+            $time['status'] = in_array($time['time'], $inUseTimes) ? 'reserved' : 'free';
+            return $time;
         }, $times);
     }
 
