@@ -19,6 +19,7 @@ module.exports = {
     extend: {
       textShadow: {
         'custom': '2px 2px 2px #000',
+        'none': 'none',
       },
       colors: {
         color: {
@@ -90,6 +91,9 @@ module.exports = {
     const newUtilities = {
       '.text-shadow-custom': {
         textShadow: '2px 2px 2px #000',
+      },
+      '.text-shadow-none': {
+        textShadow: 'none',
       },
     }
     addUtilities(newUtilities, ['responsive', 'hover'])
