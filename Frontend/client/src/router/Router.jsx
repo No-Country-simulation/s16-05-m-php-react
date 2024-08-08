@@ -27,7 +27,7 @@ const Router = () => {
     <Routes>
       <Route
         path="/admin"
-        element={token ? <Navigate to="/tables" /> : <Login />}
+        element={(token) ? <Navigate to="/tables" /> : <Login />}
       />
       <Route
         path="/tables"
@@ -75,7 +75,7 @@ const Router = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/" element={token ? <Navigate to="/tables" /> : <Intro />} />
+      <Route path="/" element={(token) ? <Navigate to="/tables" /> : <Intro />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
