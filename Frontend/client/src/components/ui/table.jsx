@@ -6,7 +6,7 @@ import EditReserve from "../modal/editReserve";
 const Table = ({data, searchCode}) => {
     const [response, setResponse] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [idReserve, setIdReserve] = useState("");
+    const [dataTableSelected, setDataTableSelected] = useState("");
 
     useEffect(() => {
         if(searchCode === true){
@@ -63,7 +63,7 @@ const Table = ({data, searchCode}) => {
     }
     
     const editar = (item) => {
-        setIdReserve(item);
+        setDataTableSelected(item);
         openModal();
     }
 
@@ -86,7 +86,7 @@ const Table = ({data, searchCode}) => {
         </thead>
         {response}
     </table>
-    <EditReserve isOpen={isModalOpen} onClose={closeModal} data={idReserve}/>
+    <EditReserve isOpen={isModalOpen} onClose={closeModal} data={dataTableSelected}/>
     </div>);
 }
 
