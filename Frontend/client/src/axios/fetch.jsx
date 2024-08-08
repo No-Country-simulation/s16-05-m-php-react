@@ -459,3 +459,47 @@ export const editStatusReserve = async (id, status) => {
     throw error;
   }
 }
+
+export const getTimeAvailable = async (date, id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/tables/${id}/available-time-slots?date=${date}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const editReservation = async (
+  id, 
+  date,
+  time,
+  owner_first_name,
+  owner_last_name,
+  owner_phone_number,
+  owner_email,
+  tableId,
+  attendee_count
+  ) => {
+  const { token } = useAuthStore.getState();
+  const table = `/api/tables/${tableId}`;
+  try {
+    const response = await axios.put(`${BASE_URL}/reservations/${id}`, {
+      date,
+      time,
+      owner_first_name,
+      owner_last_name,
+      owner_phone_number,
+      owner_email,
+      table,
+      attendee_count
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
