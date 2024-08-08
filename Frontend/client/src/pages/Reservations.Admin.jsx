@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getReservationByCode, getReservations } from "@/axios/fetch";
 import Button1 from "@/components/ui/button1";
 import Table from "@/components/ui/table";
+import { TablesProvider } from "@/components/context/allTables";
 
 const ReservationsAdmin = () => {
     const [code, setCode] = useState("");
@@ -110,19 +111,21 @@ const ReservationsAdmin = () => {
 
     return (
     <div>
-        <h1 className="text-3xl text-color-secondary font-bold text-center my-5">Gestión De Reservas</h1>
-        <h3 className="text-xl text-color-secondary font-bold text-center border-t-4 pt-5 border-solid border-color-secondary">Buscar una reserva</h3>
-        <div className="flex flex-wrap justify-center items-center w-full">
-            <input type="text" placeholder="Código" maxLength={6} onChange={handleCodeChange} value={code} className="px-6 py-3 rounded-lg m-5 w-40 bg-color-bg border-2 placeholder-color-secondary text-color-secondary font-bold border-solid border-color-primary"/>
-            <input type="date" onChange={handleDateChange} value={date} className="p-2 rounded-lg m-5 w-40 bg-color-bg border-2 text-color-secondary font-bold border-solid border-color-primary"/>
-        </div>
-        <div className="flex flex-col justify-center items-center w-full  border-b-4 pb-5 border-solid border-color-secondary">
-            <p className="text-sm italic text-white font-medium mb-2">Puede buscar por el Código o la fecha</p>
-            <Button1 type="button" text="Buscar" onClick={handleClick} />
-        </div>
-        <div className="flex justify-center w-full min-h-40">
-            {reservation}
-        </div>
+        <TablesProvider>
+            <h1 className="text-3xl text-color-secondary font-bold text-center my-5">Gestión De Reservas</h1>
+            <h3 className="text-xl text-color-secondary font-bold text-center border-t-4 pt-5 border-solid border-color-secondary">Buscar una reserva</h3>
+            <div className="flex flex-wrap justify-center items-center w-full">
+                <input type="text" placeholder="Código" maxLength={6} onChange={handleCodeChange} value={code} className="px-6 py-3 rounded-lg m-5 w-40 bg-color-bg border-2 placeholder-color-secondary text-color-secondary font-bold border-solid border-color-primary"/>
+                <input type="date" onChange={handleDateChange} value={date} className="p-2 rounded-lg m-5 w-40 bg-color-bg border-2 text-color-secondary font-bold border-solid border-color-primary"/>
+            </div>
+            <div className="flex flex-col justify-center items-center w-full  border-b-4 pb-5 border-solid border-color-secondary">
+                <p className="text-sm italic text-white font-medium mb-2">Puede buscar por el Código o la fecha</p>
+                <Button1 type="button" text="Buscar" onClick={handleClick} />
+            </div>
+            <div className="flex justify-center w-full min-h-40">
+                {reservation}
+            </div>
+        </TablesProvider>
     </div>);
 };
 
