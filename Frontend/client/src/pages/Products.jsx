@@ -113,7 +113,7 @@ const Products = () => {
     return (
         <div className="flex flex-col text-center items-center bg-color-bg text-color-text w-full min-h-[80vh]">
             <h1 className="text-4xl font-bold my-10 text-color-secondary ">Productos de la Categoría {nameCategory}</h1>
-            <div className="flex justify-between w-1/4">
+            <div className="flex flex-wrap items-center justify-around 3xl:w-1/4 md:w-1/2 w-full h-28">
                 <Button1 
                     type="button"
                     text="Volver a Categorías"
