@@ -42,17 +42,17 @@ const TablesUser = () => {
         }
       }
     });
-    filteredTables(mesas, null);
+    filteredTables(mesas, null, null);
   };
-  const filteredTables = (data, id) => {
+  const filteredTables = (data, id, mesa) => {
     if (!data) return; // Verifica si 'data' es null o undefined
     setBool(false);
-    setDataTable(data);
+    setDataTable(mesa);
     var mesas = [];
     console.log("se hizo click");
     data.map((table) => {
       var reservedChairs = 0;
-      var click = () => filteredTables(dataTable, table.id);
+      var click = () => filteredTables(data, table.id, table);
       if (table.status === "reserved") {
         reservedChairs = table.capacity;
         click = () => {};
