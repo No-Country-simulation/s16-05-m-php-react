@@ -47,14 +47,15 @@ Características Principales para el Dueño del restaurante:
   <p  align="center"><b>Password: </b>12345678</p>
  </div>
 
-<!-- <div align="center">
+<div align="center">
   
   <br>
   
   <h3 align="center"><b>Puedes visitar nuestra página web aquí:</b></h3>
-  <h3 align="center"><a href=""></a></h3>
+  <h3 align="center"><a href="https://develop--reserv-app.netlify.app/">ReservApp vista cliente</a></h3>
+  <h3 align="center"><a href="https://develop--reserv-app.netlify.app/admin">ReservApp vista administrador</a></h3>
   <p  align="center"></p>
- </div> -->
+ </div>
 <br><br>
 
 ## ✔ Project Manager
