@@ -49,6 +49,7 @@ const TablesUser = () => {
     setBool(false);
     setDataTable(data);
     var mesas = [];
+    console.log("se hizo click");
     data.map((table) => {
       var reservedChairs = 0;
       var click = () => filteredTables(dataTable, table.id);
