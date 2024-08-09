@@ -13,7 +13,7 @@ const CarouselComponent = ({data, solicitud}) => {
                     <div className='scale-80 w-full flex justify-center items-center' key={item.id}>
                         <CardCategory
                             name={item.name}
-                            description={item.description}
+                            description={item.phrase}
                             image={item.image}
                             id={item.id}
                             destino={"productsClient"}
