@@ -55,16 +55,19 @@ const SelectOption = () => {
             />
             <p className="text-[white]">Ver menú de comidas</p>
           </button>
-          <div className="w-[100%] flex justify-start items-center bg-[#7C7676] rounded-[20px] p-[5px] gap-[25px]">
+          <button 
+            className="w-[100%] flex justify-start items-center bg-[#7C7676] rounded-[20px] p-[5px] gap-[25px]"
+            onClick={() => navigate("/reserve")}
+          >
             <img
               src={Table}
               className="w-[60px] h-[70px]"
               alt="Imagen ilustrativa de una mesa"
             />
-            <a className="text-[white]" href="/reserve">
+            <p className="text-[white]">
               Reservar una mesa
-            </a>
-          </div>
+            </p>
+          </button>
           <button
             className="w-[100%] flex justify-start items-center bg-[#7C7676] rounded-[20px] p-[5px] gap-[25px]"
             onClick={() => navigate("/search")}

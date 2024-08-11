@@ -48,7 +48,7 @@ const Reserve = () => {
 
   const handleReturn = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/select");
   };
 
   return (
