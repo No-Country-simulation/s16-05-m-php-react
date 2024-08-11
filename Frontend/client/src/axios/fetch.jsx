@@ -17,7 +17,7 @@ export const createUser = async (email, password) => {
 };
 
 export const loginUser = async (email, password) => {
-  const intentos = 0;
+  let intentos = 0;
   const maxIntentos = 3;
   while (intentos < maxIntentos) {
     try {
@@ -85,7 +85,7 @@ export const getTables = async () => {
 
 export const createTable = async (name, capacity, min_required_capacity) => {
   const { token } = useAuthStore.getState();
-  const intentos = 0;
+  let intentos = 0;
   const maxIntentos = 3;
   
   while (intentos < maxIntentos) {
@@ -411,7 +411,7 @@ export const createReservation = async (
   table,
   attendee_count
 ) => {
-  const intentos = 0;
+  let intentos = 0;
   const maxIntentos = 3;
   
   while (intentos < maxIntentos) {
