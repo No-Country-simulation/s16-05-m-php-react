@@ -77,7 +77,7 @@ const Login = () => {
           </label>
 
           <div className="flex items-center justify-center text-center w-full">
-            <a href="#">
+            <a href="/requestResetPass">
               <u className="text-color-text"> Olvidé mi contraseña</u>
             </a>
           </div>

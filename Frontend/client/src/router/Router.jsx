@@ -18,6 +18,8 @@ import ProductClient from "@/pages/ProductClient";
 import ReservationsAdmin from "@/pages/Reservations.Admin";
 import SearchReservation from "@/pages/SearchReservation";
 import CodeReservationConfirm from "@/pages/CodeReservationConfirm";
+import RequestResetPass from "@/pages/RequestResetPass";
+import ResetPass from "@/pages/ResetPass";
 import Success from "@/components/modal/Success";
 
 const Router = () => {
@@ -29,6 +31,8 @@ const Router = () => {
         path="/admin"
         element={(token) ? <Navigate to="/tables" /> : <Login />}
       />
+      <Route path="/requestResetPass" element={<RequestResetPass />} />
+      <Route path="/resetPass" element={<ResetPass />} />
       <Route
         path="/tables"
         element={

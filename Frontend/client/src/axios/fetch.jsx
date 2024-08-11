@@ -35,11 +35,29 @@ export const recoverPassword = async (code, newPassword) => {
     const response = await axios.post(`${BASE_URL}/user/reset-password`, {
       code,
       newPassword,
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
     });
-    return response.data;
+    return response;
   } catch (error) {
-    alert(error.response.data.msg);
-    return;
+    return(error);
+  }
+};
+
+export const requestResetPassword = async (email) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/user/reset-password-request`, {
+      email,
+    },{
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
+    });
+    return response;
+  } catch (error) {
+    return(error);
   }
 };
 
