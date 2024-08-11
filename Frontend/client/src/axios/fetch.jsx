@@ -17,16 +17,27 @@ export const createUser = async (email, password) => {
 };
 
 export const loginUser = async (email, password) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/login`, {
-      email,
-      password,
-    });
-    return response;
-  } catch (error) {
-    console.log({ loginUserError: error });
-    alert("Usuario y/o contraseña incorrecta");
-    throw error;
+  const intentos = 0;
+  const maxIntentos = 3;
+  while (intentos < maxIntentos) {
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, {
+        email,
+        password,
+      });
+      return response;
+    } catch (error) {
+      if (error.code === "ERR_NETWORK") {
+        intentos++;
+        if (intentos >= maxIntentos) {
+          throw new Error("Numero Máximo de Intentos alcanzado");
+        }
+      } else {
+        console.log({ loginUserError: error });
+        alert("Usuario y/o contraseña incorrecta");
+        throw error;
+      }
+    }
   }
 };
 
@@ -74,24 +85,36 @@ export const getTables = async () => {
 
 export const createTable = async (name, capacity, min_required_capacity) => {
   const { token } = useAuthStore.getState();
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/tables`,
-      {
-        name,
-        capacity,
-        min_required_capacity,
-      },
-      {
-        headers: {
-          "Content-Type": "application/ld+json",
-          Authorization: `Bearer ${token}`,
+  const intentos = 0;
+  const maxIntentos = 3;
+  
+  while (intentos < maxIntentos) {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/tables`,
+        {
+          name,
+          capacity,
+          min_required_capacity,
         },
+        {
+          headers: {
+            "Content-Type": "application/ld+json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      if (error.code === "ERR_NETWORK") {
+        intentos++;
+        if (intentos >= maxIntentos) {
+          throw new Error("Numero Máximo de Intentos alcanzado");
+        }
+      } else {
+        throw error;
       }
-    );
-    return response;
-  } catch (error) {
-    throw error;
+    }
   }
 };
 export const updateTable = async (
@@ -388,32 +411,44 @@ export const createReservation = async (
   table,
   attendee_count
 ) => {
-  try {
-    // Asegurarse de que el campo table esté en el formato correcto
-    const formattedTable = typeof table === "string" ? table : table["@id"];
+  const intentos = 0;
+  const maxIntentos = 3;
+  
+  while (intentos < maxIntentos) {
+    try {
+      // Asegurarse de que el campo table esté en el formato correcto
+      const formattedTable = typeof table === "string" ? table : table["@id"];
 
-    const response = await axios.post(
-      `${BASE_URL}/reservations`,
-      {
-        date,
-        time,
-        owner_first_name,
-        owner_last_name,
-        owner_phone_number,
-        owner_email,
-        table: formattedTable,
-        attendee_count,
-      },
-      {
-        headers: {
-          "Content-Type": "application/ld+json",
+      const response = await axios.post(
+        `${BASE_URL}/reservations`,
+        {
+          date,
+          time,
+          owner_first_name,
+          owner_last_name,
+          owner_phone_number,
+          owner_email,
+          table: formattedTable,
+          attendee_count,
         },
+        {
+          headers: {
+            "Content-Type": "application/ld+json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (error.code === "ERR_NETWORK") {
+        intentos++;
+        if (intentos >= maxIntentos) {
+          throw new Error("Numero Máximo de Intentos alcanzado");
+        }
+      } else {
+        console.error({ createReservationError: error });
+        throw error;
       }
-    );
-    return response.data;
-  } catch (error) {
-    console.error({ createReservationError: error });
-    throw error;
+    }
   }
 };
 
@@ -435,7 +470,10 @@ export const getTablesReserved = async (date, time) => {
 };
 
 export const cancelReserva = async (id) => {
-  try {
+  let intentos = 0;
+  const maxIntentos = 3;
+  while (intentos < maxIntentos) {
+    try {
     const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
       status: "canceled",
     },{
@@ -444,12 +482,23 @@ export const cancelReserva = async (id) => {
       },
     });
     return response.data;
-  } catch (error) {
-    throw error;
+    } catch (error) {
+      if (error.code === "ERR_NETWORK") {
+        intentos++;
+        if (intentos >= maxIntentos) {
+          throw new Error("Numero Máximo de Intentos alcanzado");
+        }
+      } else {
+        throw error;
+      }
+    }
   }
 }
 export const confirmarReserva = async (id) => {
-  try {
+  let intentos = 0;
+  const maxIntentos = 3;
+  while (intentos < maxIntentos) {
+    try {
     const response = await axios.put(`${BASE_URL}/reservations/${id}/status`,{
       status: "scheduled",
     },{
@@ -458,8 +507,16 @@ export const confirmarReserva = async (id) => {
       },
     });
     return response.data;
-  } catch (error) {
-    throw error;
+    } catch (error) {
+      if (error.code === "ERR_NETWORK") {
+        intentos++;
+        if (intentos >= maxIntentos) {
+          throw new Error("Numero Máximo de Intentos alcanzado");
+        }
+      } else {
+        throw error;
+      }
+    }
   }
 }
 
