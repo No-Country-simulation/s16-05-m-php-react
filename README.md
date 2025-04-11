@@ -204,7 +204,7 @@ Características Principales para el Dueño del restaurante:
 
 #### 👉🏻 Diseñadora 👨🏻‍💻
 
-| <img src="./Frontend/client/src/assets/Foto-Marianela.png" width=100>|
+| <img src="./Frontend/client/src/assets/fotoPerfil1.jpg" width=100>|
 |:-:|
 | **Marianela Cortina**|
 | <a href="https://www.linkedin.com/in/marianelaCortina"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
